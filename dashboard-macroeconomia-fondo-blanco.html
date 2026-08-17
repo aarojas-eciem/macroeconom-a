@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Chile bajo presión · Resultados en vivo</title>
+  <meta name="theme-color" content="#ffffff">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{--ink:#081126;--panel:#101b37;--panel2:#152342;--blue:#6172ff;--violet:#9765ff;--cyan:#44dec2;--gold:#ffc857;--red:#ff6874;--white:#f8faff;--muted:#9ca8c4;--line:rgba(255,255,255,.1);--shadow:0 28px 80px rgba(0,0,0,.32)}
+    *{box-sizing:border-box}html,body{width:100%;height:100%;margin:0;overflow:hidden}body{background:var(--ink);color:var(--white);font-family:"DM Sans",sans-serif;-webkit-font-smoothing:antialiased}button{font:inherit;cursor:pointer}.deck{position:relative;width:100%;height:100%;display:grid;grid-template-rows:76px 1fr 66px;background:radial-gradient(circle at 8% 10%,rgba(97,114,255,.2),transparent 27%),radial-gradient(circle at 92% 85%,rgba(68,222,194,.1),transparent 28%),linear-gradient(150deg,#081126,#0d1832 58%,#112044)}.deck:before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.15;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:42px 42px}.topbar,.bottombar{position:relative;z-index:5;display:flex;align-items:center;padding:0 34px}.topbar{justify-content:space-between;border-bottom:1px solid var(--line);background:rgba(8,17,38,.55);backdrop-filter:blur(18px)}.brand{display:flex;align-items:center;gap:13px}.mark{width:42px;height:42px;display:grid;place-items:center;border-radius:13px;background:linear-gradient(135deg,var(--blue),var(--violet));box-shadow:0 9px 24px rgba(97,114,255,.3);font-weight:800}.brand p{margin:0 0 2px;color:#91a1ff;font-size:.62rem;font-weight:800;letter-spacing:.17em;text-transform:uppercase}.brand strong{font-size:1rem;letter-spacing:-.02em}.live-area{display:flex;align-items:center;gap:14px}.live{display:flex;align-items:center;gap:8px;padding:8px 12px;border:1px solid var(--line);border-radius:999px;color:var(--muted);font-size:.7rem;font-weight:700}.live i{width:8px;height:8px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 5px rgba(255,200,87,.1)}.live.ok{color:#c6fff4}.live.ok i{background:var(--cyan);box-shadow:0 0 0 5px rgba(68,222,194,.1)}.metric-top{display:flex;align-items:baseline;gap:6px}.metric-top strong{font-size:1.35rem}.metric-top span{color:var(--muted);font-size:.7rem}.main{position:relative;z-index:2;min-height:0;padding:24px 34px}.slide{width:100%;height:100%;animation:slideIn .35s cubic-bezier(.2,.75,.2,1)}@keyframes slideIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+    .cover{height:100%;display:grid;grid-template-columns:1.35fr .65fr;gap:22px}.hero{position:relative;overflow:hidden;padding:clamp(38px,5vw,78px);display:flex;flex-direction:column;justify-content:center;border:1px solid var(--line);border-radius:30px;background:linear-gradient(145deg,rgba(21,35,66,.95),rgba(12,25,53,.95));box-shadow:var(--shadow)}.hero:after{content:"";position:absolute;width:440px;height:440px;right:-210px;bottom:-260px;border:1px solid rgba(255,255,255,.12);border-radius:50%;box-shadow:0 0 0 48px rgba(255,255,255,.02),0 0 0 98px rgba(255,255,255,.015)}.tag{align-self:flex-start;padding:8px 12px;border:1px solid rgba(145,161,255,.3);border-radius:999px;background:rgba(97,114,255,.11);color:#aeb9ff;font-size:.67rem;font-weight:800;letter-spacing:.13em;text-transform:uppercase}.hero h1{position:relative;z-index:1;max-width:900px;margin:24px 0 20px;font-size:clamp(3.7rem,7vw,7.4rem);line-height:.88;letter-spacing:-.075em;text-wrap:balance}.hero p{position:relative;z-index:1;max-width:720px;margin:0;color:var(--muted);font-size:clamp(1rem,1.5vw,1.35rem);line-height:1.6}.start-btn{position:relative;z-index:1;align-self:flex-start;margin-top:32px;min-height:52px;padding:0 22px;border:0;border-radius:15px;background:linear-gradient(135deg,var(--blue),var(--violet));color:#fff;font-weight:800;box-shadow:0 12px 28px rgba(97,114,255,.27)}.overview{display:grid;grid-template-rows:repeat(3,1fr);gap:14px}.stat{padding:26px;display:flex;flex-direction:column;justify-content:center;border:1px solid var(--line);border-radius:24px;background:rgba(21,35,66,.78);box-shadow:0 15px 45px rgba(0,0,0,.12)}.stat span{color:var(--muted);font-size:.7rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase}.stat strong{margin-top:7px;font-size:clamp(2.4rem,4vw,4.7rem);line-height:1;letter-spacing:-.06em}.stat small{margin-top:7px;color:#b8c2da}.stat.accent{background:linear-gradient(145deg,rgba(97,114,255,.92),rgba(117,80,220,.88))}.stat.accent span,.stat.accent small{color:rgba(255,255,255,.72)}
+    .question-slide{height:100%;display:grid;grid-template-columns:minmax(300px,.78fr) minmax(520px,1.22fr);grid-template-rows:minmax(0,1fr) auto;gap:16px}.question-card,.results-card,.debate-card{border:1px solid var(--line);border-radius:25px;background:rgba(16,27,55,.86);box-shadow:0 18px 55px rgba(0,0,0,.16)}.question-card{position:relative;overflow:hidden;padding:34px;display:flex;flex-direction:column}.question-card:after{content:attr(data-num);position:absolute;right:22px;bottom:-30px;color:rgba(255,255,255,.035);font-size:12rem;font-weight:800;line-height:1}.q-kicker{position:relative;z-index:1;margin:0;color:#91a1ff;font-size:.67rem;font-weight:800;letter-spacing:.15em;text-transform:uppercase}.question-card h2{position:relative;z-index:1;margin:22px 0 25px;font-size:clamp(2rem,3.3vw,4.4rem);line-height:1.03;letter-spacing:-.06em;text-wrap:balance}.concept{position:relative;z-index:1;margin-top:auto;padding-top:20px;border-top:1px solid var(--line)}.concept span{display:block;color:var(--muted);font-size:.63rem;font-weight:800;letter-spacing:.13em;text-transform:uppercase}.concept strong{display:block;margin-top:6px;font-size:1rem}.reference{position:relative;z-index:1;margin-top:14px;padding:12px 14px;border-radius:13px;background:rgba(97,114,255,.1);color:#cbd2ff;font-size:.78rem;line-height:1.45}.results-card{min-height:0;padding:26px 30px;display:flex;flex-direction:column}.result-head{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;padding-bottom:17px;border-bottom:1px solid var(--line)}.result-head p{margin:0 0 4px;color:var(--cyan);font-size:.64rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase}.result-head h3{margin:0;font-size:1.45rem;letter-spacing:-.035em}.answer-total{padding:7px 10px;border:1px solid var(--line);border-radius:999px;color:var(--muted);font-size:.68rem;font-weight:700}.result-content{min-height:0;flex:1;display:grid;grid-template-columns:minmax(0,1fr) 240px;gap:24px;padding-top:20px}.bars{min-height:0;display:flex;flex-direction:column;justify-content:center;gap:12px}.bar-row{display:grid;grid-template-columns:minmax(120px,1fr) 42px;gap:6px 12px}.bar-label{grid-column:1/-1;display:flex;justify-content:space-between;gap:12px;font-size:.73rem}.bar-label span{font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.bar-label strong{color:#dce2f4}.rail{height:11px;overflow:hidden;border-radius:999px;background:rgba(255,255,255,.07)}.rail b{display:block;height:100%;min-width:0;border-radius:999px;background:linear-gradient(90deg,var(--blue),var(--violet));transition:width .5s ease}.bar-row.majority .rail b{background:linear-gradient(90deg,var(--cyan),#60f0d6);box-shadow:0 0 18px rgba(68,222,194,.2)}.bar-row small{color:var(--muted);font-size:.7rem;font-weight:700}.assessment{padding:20px;display:flex;flex-direction:column;justify-content:center;border-radius:20px;background:rgba(255,255,255,.04);border:1px solid var(--line)}.assessment-icon{width:46px;height:46px;display:grid;place-items:center;border-radius:14px;font-size:1.25rem;font-weight:800}.assessment.aligned .assessment-icon{background:rgba(68,222,194,.15);color:var(--cyan)}.assessment.review .assessment-icon{background:rgba(255,104,116,.15);color:var(--red)}.assessment.neutral .assessment-icon,.assessment.waiting .assessment-icon{background:rgba(255,200,87,.14);color:var(--gold)}.assessment small{margin-top:16px;color:var(--muted);font-size:.62rem;font-weight:800;letter-spacing:.11em;text-transform:uppercase}.assessment h4{margin:6px 0 8px;font-size:1.25rem;line-height:1.1;letter-spacing:-.035em}.assessment .majority-value{font-size:1.8rem;font-weight:800;letter-spacing:-.05em}.assessment p{margin:7px 0 0;color:var(--muted);font-size:.72rem;line-height:1.45}.debate-card{grid-column:1/-1;padding:17px 22px;display:grid;grid-template-columns:46px auto 1fr;align-items:center;gap:14px;background:linear-gradient(110deg,rgba(97,114,255,.15),rgba(21,35,66,.85))}.debate-icon{width:42px;height:42px;display:grid;place-items:center;border-radius:13px;background:linear-gradient(135deg,var(--blue),var(--violet));font-size:1.1rem}.debate-card span{color:#aeb9ff;font-size:.62rem;font-weight:800;letter-spacing:.13em;text-transform:uppercase}.debate-card p{margin:0;font-size:clamp(1rem,1.6vw,1.45rem);font-weight:700;letter-spacing:-.025em}.cloud{height:100%;display:flex;align-items:center;justify-content:center;align-content:center;flex-wrap:wrap;gap:13px 20px;padding:20px}.cloud span{font-weight:800;letter-spacing:-.035em}.empty{height:100%;display:grid;place-items:center;color:var(--muted);text-align:center}
+    .summary{height:100%;display:grid;grid-template-columns:.72fr 1.28fr;gap:18px}.summary-score,.summary-list{border:1px solid var(--line);border-radius:28px;background:rgba(16,27,55,.86);box-shadow:var(--shadow)}.summary-score{padding:38px;display:flex;flex-direction:column;justify-content:center}.summary-score .big{font-size:clamp(5rem,10vw,10rem);font-weight:800;line-height:.8;letter-spacing:-.09em;background:linear-gradient(135deg,var(--cyan),#8cffe8);-webkit-background-clip:text;color:transparent}.summary-score h2{margin:28px 0 10px;font-size:2rem;letter-spacing:-.05em}.summary-score p{margin:0;color:var(--muted);line-height:1.55}.summary-list{padding:32px;display:flex;flex-direction:column}.summary-list>p{margin:0;color:#91a1ff;font-size:.66rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase}.summary-list h3{margin:9px 0 23px;font-size:2.2rem;letter-spacing:-.055em}.summary-items{display:grid;gap:10px}.summary-item{display:grid;grid-template-columns:42px 1fr auto;align-items:center;gap:12px;padding:13px 15px;border:1px solid var(--line);border-radius:15px;background:rgba(255,255,255,.025)}.summary-item>span{width:36px;height:36px;display:grid;place-items:center;border-radius:11px;font-weight:800}.summary-item.aligned>span{background:rgba(68,222,194,.14);color:var(--cyan)}.summary-item.review>span{background:rgba(255,104,116,.14);color:var(--red)}.summary-item.waiting>span{background:rgba(255,200,87,.14);color:var(--gold)}.summary-item strong{font-size:.84rem}.summary-item small{color:var(--muted);font-size:.7rem}.summary-item b{font-size:.7rem}
+    .bottombar{justify-content:space-between;border-top:1px solid var(--line);background:rgba(8,17,38,.62);backdrop-filter:blur(18px)}.slide-label{min-width:140px;color:var(--muted);font-size:.68rem;font-weight:700}.dots{display:flex;align-items:center;gap:7px}.dot{width:7px;height:7px;padding:0;border:0;border-radius:999px;background:rgba(255,255,255,.16);transition:width .2s,background .2s}.dot.active{width:24px;background:linear-gradient(90deg,var(--blue),var(--cyan))}.controls{display:flex;gap:8px}.control{width:42px;height:42px;border:1px solid var(--line);border-radius:12px;background:rgba(255,255,255,.04);color:#fff;font-size:1rem}.control:disabled{opacity:.25}.control:hover{background:rgba(255,255,255,.09)}.refreshing{animation:spin .7s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
+    @media(max-width:1000px){.topbar,.bottombar{padding-inline:18px}.main{padding:18px}.question-slide{grid-template-columns:1fr;grid-template-rows:auto minmax(0,1fr) auto}.question-card{padding:22px}.question-card h2{font-size:2rem;margin:13px 0}.concept{display:none}.result-content{grid-template-columns:1fr 190px}.cover{grid-template-columns:1fr}.overview{grid-template-columns:repeat(3,1fr);grid-template-rows:auto}.summary{grid-template-columns:1fr}.summary-score{display:none}.metric-top{display:none}}@media(max-height:720px){.main{padding-block:14px}.question-card h2{font-size:2.2rem}.bar-row{gap:4px 10px}.bars{gap:8px}.debate-card{padding-block:10px}.result-content{padding-top:12px}.hero h1{font-size:4rem}.stat strong{font-size:2.6rem}}@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+    /* ===== TEMA CLARO · optimizado para proyección en data ===== */
+    :root{
+      --ink:#12213d;
+      --panel:#ffffff;
+      --panel2:#f4f7fb;
+      --blue:#485cff;
+      --violet:#7652e8;
+      --cyan:#078f7b;
+      --gold:#b97700;
+      --red:#d43e4e;
+      --white:#12213d;
+      --muted:#64748b;
+      --line:#dbe3ee;
+      --shadow:0 16px 44px rgba(29,48,79,.10);
+    }
+
+    body{background:#fff;color:var(--ink)}
+    .deck{
+      background:
+        radial-gradient(circle at 7% 8%,rgba(72,92,255,.075),transparent 26%),
+        radial-gradient(circle at 94% 88%,rgba(7,143,123,.055),transparent 25%),
+        linear-gradient(145deg,#ffffff,#f7f9fd 58%,#eef3f9);
+    }
+    .deck:before{
+      opacity:.55;
+      background-image:
+        linear-gradient(rgba(18,33,61,.025) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(18,33,61,.025) 1px,transparent 1px);
+    }
+
+    .topbar,.bottombar{
+      background:rgba(255,255,255,.88);
+      border-color:var(--line);
+      backdrop-filter:blur(18px);
+    }
+    .brand p{color:#5264d9}
+    .brand strong{color:var(--ink)}
+    .mark{
+      color:#fff;
+      box-shadow:0 8px 20px rgba(72,92,255,.18);
+    }
+    .live{background:#fff;border-color:var(--line);color:var(--muted)}
+    .live.ok{color:#087b6c}
+    .metric-top strong{color:var(--ink)}
+
+    .hero{
+      background:linear-gradient(145deg,#ffffff,#f4f7fc);
+      border-color:var(--line);
+      box-shadow:var(--shadow);
+    }
+    .hero:after{
+      border-color:rgba(18,33,61,.10);
+      box-shadow:0 0 0 48px rgba(72,92,255,.025),0 0 0 98px rgba(72,92,255,.015);
+    }
+    .tag{
+      background:#eef1ff;
+      color:#4354c7;
+      border-color:#ccd4ff;
+    }
+    .hero h1{color:var(--ink)}
+    .hero p{color:#5e6f88}
+    .start-btn{color:#fff;box-shadow:0 10px 24px rgba(72,92,255,.18)}
+
+    .stat{
+      background:#fff;
+      border-color:var(--line);
+      box-shadow:0 12px 34px rgba(29,48,79,.07);
+    }
+    .stat span,.stat small{color:var(--muted)}
+    .stat strong{color:var(--ink)}
+    .stat.accent{
+      background:linear-gradient(145deg,#5265ff,#7257db);
+      border-color:transparent;
+    }
+    .stat.accent strong{color:#fff}
+    .stat.accent span,.stat.accent small{color:rgba(255,255,255,.82)}
+
+    .question-card,.results-card,.debate-card,
+    .summary-score,.summary-list{
+      background:rgba(255,255,255,.96);
+      border-color:var(--line);
+      box-shadow:0 14px 38px rgba(29,48,79,.08);
+    }
+    .question-card:after{color:rgba(18,33,61,.035)}
+    .q-kicker,.summary-list>p{color:#5264d9}
+    .question-card h2,.result-head h3,
+    .summary-score h2,.summary-list h3{color:var(--ink)}
+    .concept{border-color:var(--line)}
+    .concept span,.assessment small,.summary-item small{color:var(--muted)}
+    .concept strong{color:var(--ink)}
+    .reference{
+      background:#eef2ff;
+      color:#3446a8;
+      border:1px solid #dce2ff;
+    }
+
+    .result-head{border-color:var(--line)}
+    .result-head p{color:#087b6c}
+    .answer-total{
+      background:#f8fafc;
+      color:#64748b;
+      border-color:var(--line);
+    }
+    .bar-label span,.bar-label strong{color:var(--ink)}
+    .bar-row small{color:#64748b}
+    .rail{background:#e8edf4}
+    .bar-row.majority .rail b{box-shadow:none}
+
+    .assessment{
+      background:#f7f9fc;
+      border-color:var(--line);
+    }
+    .assessment h4,.assessment .majority-value,.assessment p strong{color:var(--ink)}
+    .assessment p{color:#64748b}
+    .assessment.aligned .assessment-icon{background:#dff6f0;color:#087b6c}
+    .assessment.review .assessment-icon{background:#fde9ec;color:#c93647}
+    .assessment.neutral .assessment-icon,
+    .assessment.waiting .assessment-icon{background:#fff1cf;color:#a96500}
+
+    .debate-card{
+      background:linear-gradient(110deg,#f1f3ff,#ffffff);
+    }
+    .debate-card span{color:#5264d9}
+    .debate-card p{color:var(--ink)}
+    .debate-icon{color:#fff}
+
+    .cloud .empty,.empty{color:var(--muted)}
+
+    .summary-score .big{
+      background:linear-gradient(135deg,#087b6c,#12a78e);
+      -webkit-background-clip:text;
+      color:transparent;
+    }
+    .summary-score p{color:var(--muted)}
+    .summary-item{
+      background:#fafbfd;
+      border-color:var(--line);
+    }
+    .summary-item strong,.summary-item b{color:var(--ink)}
+    .summary-item.aligned>span{background:#dff6f0;color:#087b6c}
+    .summary-item.review>span{background:#fde9ec;color:#c93647}
+    .summary-item.waiting>span{background:#fff1cf;color:#a96500}
+
+    .slide-label{color:#64748b}
+    .dot{background:#c7d0dc}
+    .dot.active{background:linear-gradient(90deg,var(--blue),#078f7b)}
+    .control{
+      background:#fff;
+      color:var(--ink);
+      border-color:#d5deea;
+      box-shadow:0 2px 7px rgba(29,48,79,.04);
+    }
+    .control:hover{background:#f2f5f9}
+
+    @media (prefers-color-scheme:dark){
+      body{background:#fff;color:var(--ink)}
+    }
+
+  </style>
+</head>
+<body>
+  <main class="deck">
+    <header class="topbar">
+      <div class="brand"><div class="mark">Δ</div><div><p>Macroeconomía I</p><strong>Chile bajo presión</strong></div></div>
+      <div class="live-area"><div class="metric-top"><strong id="topParticipants">0</strong><span>participantes</span></div><div class="live" id="live"><i></i><span>Conectando</span></div></div>
+    </header>
+    <section class="main"><div class="slide" id="slide"></div></section>
+    <footer class="bottombar">
+      <span class="slide-label" id="slideLabel">Portada</span>
+      <nav class="dots" id="dots" aria-label="Diapositivas"></nav>
+      <div class="controls"><button class="control" id="refreshBtn" title="Actualizar datos">↻</button><button class="control" id="fullscreenBtn" title="Pantalla completa">⛶</button><button class="control" id="prevBtn" title="Anterior">←</button><button class="control" id="nextBtn" title="Siguiente">→</button></div>
+    </footer>
+  </main>
+  <script>
+    const API='https://script.google.com/macros/s/AKfycbyfXFJsMrV6-cVP2_fs3P9-uG5BVSTyYiUyqBZ3-L5FP4jdcwywU6zVut5i7wWeZ54jMQ/exec';
+    const SESSION=new URLSearchParams(location.search).get('session')||'MACRO-I';
+    const QUESTIONS=[
+      {id:'q1',kicker:'Punto de partida',prompt:'Sin buscar datos: ¿cómo describirías hoy la economía chilena?',options:['Muy bien','Bien','Regular','Mal','Muy mal'],concept:'Percepción y evidencia',aligned:null,reference:'No existe una respuesta correcta: es una fotografía de la percepción inicial.',debate:'¿Qué información necesitaríamos para sostener esta opinión con evidencia?',insight:'La percepción económica puede diferir de lo que muestran los indicadores.'},
+      {id:'q2',kicker:'El tablero del país',prompt:'¿Cuál es el mejor indicador para saber si una economía está bien?',options:['Crecimiento del PIB','Inflación','Empleo','Salarios','Distribución del ingreso','Calidad de vida'],concept:'Objetivos macroeconómicos',aligned:null,reference:'Ningún indicador, por sí solo, entrega una imagen completa.',debate:'¿Puede una economía crecer y, al mismo tiempo, empeorar para una parte de la población?',insight:'La economía debe evaluarse con un conjunto de indicadores.'},
+      {id:'q3',kicker:'Bolsillo real',prompt:'Tu sueldo aumenta 5%, pero los precios suben 8%. ¿Estás mejor o peor?',options:['Mejor: mi sueldo aumentó','Igual que antes','Peor: perdí poder de compra','Depende de lo que consumo'],concept:'Salario nominal y salario real',aligned:['Peor: perdí poder de compra'],reference:'Referencia: el salario real cae aproximadamente 3%.',debate:'¿La misma inflación reduce por igual el poder de compra de todas las personas?',insight:'Una cifra nominal puede subir mientras la capacidad real de compra disminuye.'},
+      {id:'q4',kicker:'Decisión bajo presión',prompt:'La inflación llega a 10%. ¿Qué medida tomarías primero?',options:['Subir la tasa de interés','Congelar los precios','Entregar bonos','Reducir impuestos','Esperar sin intervenir'],concept:'Inflación y política económica',aligned:['Subir la tasa de interés'],reference:'Referencia: subir la tasa es la respuesta monetaria habitual frente a inflación persistente.',debate:'¿Qué costo puede tener controlar la inflación mediante una tasa de interés más alta?',insight:'Una medida puede contener la inflación y, al mismo tiempo, enfriar la actividad.'},
+      {id:'q5',kicker:'El costo del dinero',prompt:'El Banco Central sube la tasa de interés. ¿Qué decisión tomarías tú?',options:['Ahorraría más','Pediría un crédito','Postergaría una compra','Reduciría mis gastos','No cambiaría nada'],concept:'Transmisión monetaria',aligned:['Ahorraría más','Postergaría una compra','Reduciría mis gastos'],reference:'Son coherentes ahorrar más, postergar compras o reducir gastos.',debate:'¿Cómo una decisión del Banco Central termina afectando el consumo de una familia?',insight:'La tasa actúa mediante el crédito, el ahorro, el consumo y la inversión.'},
+      {id:'q6',kicker:'Ganadores y perdedores',prompt:'El dólar aumenta fuertemente. Para Chile, ¿es una buena o una mala noticia?',options:['Buena','Mala','Depende de quién se analice','Falta información'],concept:'Tipo de cambio',aligned:['Depende de quién se analice'],reference:'Referencia: depende del actor, su actividad y su exposición al exterior.',debate:'¿Quién gana y quién pierde si el peso chileno se deprecia?',insight:'Un mismo movimiento puede beneficiar exportadores y encarecer importaciones.'},
+      {id:'q7',kicker:'El dilema',prompt:'La inflación baja, pero el desempleo sube a 11%. ¿Qué priorizarías?',options:['Seguir bajando la inflación','Crear empleos de emergencia','Bajar la tasa de interés','Reducir impuestos a empresas','No decidiría sin más datos'],concept:'Inflación, empleo y actividad',aligned:null,reference:'No existe una única respuesta: hay objetivos y costos en tensión.',debate:'¿Qué costo aceptarías, para quiénes y durante cuánto tiempo?',insight:'La política económica obliga a priorizar objetivos que pueden entrar en conflicto.'},
+      {id:'q8',kicker:'Más allá del promedio',prompt:'El PIB crece 4%, pero los salarios se estancan y la contaminación aumenta. ¿El país está mejor?',options:['Sí','No','Depende','No hay información suficiente'],concept:'Crecimiento y bienestar',aligned:['Depende','No hay información suficiente'],reference:'Referencia: el crecimiento del PIB no basta para concluir que aumentó el bienestar.',debate:'¿Qué dimensiones importantes para vivir mejor quedan fuera del PIB?',insight:'El PIB mide producción, no resume distribución, sostenibilidad ni bienestar.'},
+      {id:'q9',kicker:'Tu definición',prompt:'En una palabra: ¿qué debería priorizar una economía que funciona bien?',type:'word',concept:'Síntesis del curso',aligned:null,reference:'Pregunta abierta: la nube muestra las prioridades espontáneas del curso.',debate:'¿Es posible alcanzar simultáneamente todas las prioridades que aparecen?',insight:'Definir una economía que funciona implica elegir objetivos sociales.'}
+    ];
+    const COLORS=['#6172ff','#9765ff','#44dec2','#ffc857','#ff6874','#53a7ff'];
+    let rows=[],participants=0,connected=false,current=0,lastUpdated=null;
+    const slide=document.getElementById('slide');
+    function escapeHtml(v){return String(v).replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}
+    function jsonp(){return new Promise((resolve,reject)=>{const cb='macroDash_'+Date.now()+'_'+Math.random().toString(36).slice(2),s=document.createElement('script'),timer=setTimeout(()=>done(new Error('Tiempo agotado')),10000);function done(err){clearTimeout(timer);s.remove();delete window[cb];if(err)reject(err)}window[cb]=data=>{done();resolve(data)};s.src=API+'?'+new URLSearchParams({mode:'results',session:SESSION,callback:cb,_:Date.now()});s.onerror=()=>done(new Error('Sin conexión'));document.body.appendChild(s)})}
+    async function refresh(){const btn=document.getElementById('refreshBtn');btn.classList.add('refreshing');try{const data=await jsonp();if(!data.ok)throw new Error(data.error||'Error');rows=data.rows||data.responses||[];participants=Number(data.totalVotes)||countParticipants(rows);connected=true;lastUpdated=new Date();render()}catch(_){connected=false;renderChrome()}finally{btn.classList.remove('refreshing')}}
+    function countParticipants(list){return new Set(list.map(r=>r.fingerprint).filter(Boolean)).size}
+    function questionRows(q){return rows.filter(r=>r.questionId===q.id&&r.session===SESSION)}
+    function countsFor(q){const counts={};questionRows(q).forEach(r=>counts[r.answer]=(counts[r.answer]||0)+1);return counts}
+    function majorityFor(q){const counts=countsFor(q),entries=Object.entries(counts).sort((a,b)=>b[1]-a[1]);return entries[0]||['Sin respuestas',0]}
+    function assess(q){const [label,value]=majorityFor(q),total=questionRows(q).length,pct=total?Math.round(value/total*100):0;if(!total)return{kind:'waiting',icon:'…',title:'Esperando respuestas',label:'Aún sin datos',pct:0};if(!q.aligned)return{kind:'neutral',icon:'≈',title:'Sin respuesta única',label,pct};if(q.aligned.includes(label))return{kind:'aligned',icon:'✓',title:'Mayoría alineada',label,pct};return{kind:'review',icon:'!',title:'Intuición por revisar',label,pct}}
+    function render(){slide.className='slide';if(current===0)renderCover();else if(current<=QUESTIONS.length)renderQuestion(QUESTIONS[current-1],current-1);else renderSummary();renderChrome()}
+    function renderCover(){const completed=rows.length,answered=QUESTIONS.filter(q=>questionRows(q).length>0).length;slide.innerHTML='<div class="cover"><section class="hero"><span class="tag">Resultados en vivo · '+escapeHtml(SESSION)+'</span><h1>¿Cómo piensa este curso?</h1><p>Nueve decisiones para comenzar a leer la economía real: percepciones, intuiciones y dilemas que abrirán nuestra conversación.</p><button class="start-btn" id="startBtn">Explorar resultados →</button></section><aside class="overview"><article class="stat accent"><span>Participantes</span><strong>'+participants+'</strong><small>votaciones completas</small></article><article class="stat"><span>Respuestas registradas</span><strong>'+completed+'</strong><small>filas consolidadas</small></article><article class="stat"><span>Preguntas con datos</span><strong>'+answered+' / 9</strong><small>actualización automática</small></article></aside></div>';document.getElementById('startBtn').onclick=()=>go(1)}
+    function renderQuestion(q,index){const qrows=questionRows(q),total=qrows.length,assessment=assess(q),counts=countsFor(q);let content;if(q.type==='word'){const words=Object.entries(counts).sort((a,b)=>b[1]-a[1]);content=words.length?'<div class="cloud">'+words.slice(0,28).map((x,i)=>'<span style="font-size:'+Math.min(2.4,.8+x[1]*.22)+'rem;color:'+COLORS[i%COLORS.length]+'">'+escapeHtml(x[0])+'</span>').join('')+'</div>':'<div class="empty">Aún no hay palabras para mostrar.</div>'}else{const max=Math.max(1,...q.options.map(o=>counts[o]||0));content='<div class="bars">'+q.options.map((o,i)=>{const n=counts[o]||0,p=total?Math.round(n/total*100):0,major=n===max&&n>0;return'<div class="bar-row '+(major?'majority':'')+'"><div class="bar-label"><span>'+escapeHtml(o)+'</span><strong>'+p+'%</strong></div><div class="rail"><b style="width:'+(total?n/max*100:0)+'%;background:'+(major?'':COLORS[i%COLORS.length])+'"></b></div><small>'+n+'</small></div>'}).join('')+'</div>'}slide.innerHTML='<div class="question-slide"><section class="question-card" data-num="'+String(index+1).padStart(2,'0')+'"><p class="q-kicker">'+escapeHtml(q.kicker)+'</p><h2>'+escapeHtml(q.prompt)+'</h2><div class="concept"><span>Concepto que abre</span><strong>'+escapeHtml(q.concept)+'</strong></div><div class="reference">'+escapeHtml(q.reference)+'</div></section><section class="results-card"><header class="result-head"><div><p>Distribución del curso</p><h3>Resultados de la votación</h3></div><span class="answer-total">'+total+' respuestas</span></header><div class="result-content">'+content+'<aside class="assessment '+assessment.kind+'"><div class="assessment-icon">'+assessment.icon+'</div><small>Lectura del grupo</small><h4>'+assessment.title+'</h4><div class="majority-value">'+assessment.pct+'%</div><p><strong>'+escapeHtml(assessment.label)+'</strong></p><p>'+escapeHtml(q.insight)+'</p></aside></div></section><aside class="debate-card"><div class="debate-icon">?</div><span>Pregunta para debatir</span><p>'+escapeHtml(q.debate)+'</p></aside></div>'}
+    function renderSummary(){const evaluated=QUESTIONS.filter(q=>q.aligned),items=evaluated.map(q=>({q,a:assess(q)})),aligned=items.filter(x=>x.a.kind==='aligned').length;slide.innerHTML='<div class="summary"><section class="summary-score"><div class="big">'+aligned+'/'+evaluated.length+'</div><h2>Mayorías alineadas</h2><p>Este resultado es diagnóstico, no una calificación. Muestra dónde el curso ya posee intuiciones económicas útiles y dónde conviene detenerse a conversar.</p></section><section class="summary-list"><p>Lectura final</p><h3>Las intuiciones del curso</h3><div class="summary-items">'+items.map((x,i)=>'<div class="summary-item '+x.a.kind+'"><span>'+x.a.icon+'</span><div><strong>'+escapeHtml(x.q.kicker)+'</strong><br><small>'+escapeHtml(x.a.label)+'</small></div><b>'+x.a.pct+'%</b></div>').join('')+'</div></section></div>'}
+    function renderChrome(){document.getElementById('topParticipants').textContent=participants;const live=document.getElementById('live');live.className='live'+(connected?' ok':'');live.querySelector('span').textContent=connected?'En vivo · '+(lastUpdated?lastUpdated.toLocaleTimeString('es-CL',{hour:'2-digit',minute:'2-digit'}):''):'Sin conexión';document.getElementById('slideLabel').textContent=current===0?'Portada':current<=9?'Pregunta '+current+' de 9':'Síntesis';document.getElementById('prevBtn').disabled=current===0;document.getElementById('nextBtn').disabled=current===10;document.getElementById('dots').innerHTML=Array.from({length:11},(_,i)=>'<button class="dot '+(i===current?'active':'')+'" data-slide="'+i+'" aria-label="Diapositiva '+(i+1)+'"></button>').join('');document.querySelectorAll('[data-slide]').forEach(b=>b.onclick=()=>go(Number(b.dataset.slide)))}
+    function go(n){current=Math.max(0,Math.min(10,n));render()}
+    document.getElementById('prevBtn').onclick=()=>go(current-1);document.getElementById('nextBtn').onclick=()=>go(current+1);document.getElementById('refreshBtn').onclick=refresh;document.getElementById('fullscreenBtn').onclick=()=>{if(!document.fullscreenElement)document.documentElement.requestFullscreen?.();else document.exitFullscreen?.()};document.addEventListener('keydown',e=>{if(['ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();go(current+1)}if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();go(current-1)}if(e.key==='Home')go(0);if(e.key==='End')go(10);if(e.key.toLowerCase()==='r')refresh();if(e.key.toLowerCase()==='f')document.getElementById('fullscreenBtn').click()});
+    render();refresh();setInterval(refresh,5000);
+  </script>
+</body>
+</html>
