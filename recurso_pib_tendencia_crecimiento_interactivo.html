@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PIB, tendencia y crecimiento | Recurso interactivo</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;800&display=swap');
+
+:root{
+  --bg:#ffffff;
+  --text:#0a0a0a;
+  --muted:#5f6368;
+  --border:#e5e7eb;
+  --soft:#f7f8fa;
+  --blue:#1769ff;
+  --green:#179b62;
+  --amber:#d98a00;
+  --red:#d64545;
+  --purple:#6b4eff;
+  --black:#111111;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--text);font-family:"Barlow",Arial,sans-serif}
+body{padding:18px}
+.shell{max-width:1460px;margin:0 auto}
+.hero{
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:18px;
+  align-items:end;
+  margin-bottom:14px
+}
+.kicker{
+  color:var(--blue);
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  margin-bottom:5px
+}
+h1{
+  margin:0;
+  font-size:clamp(30px,3.4vw,50px);
+  line-height:.96;
+  letter-spacing:-.04em
+}
+.hero p{
+  max-width:980px;
+  margin:8px 0 0;
+  color:var(--muted);
+  font-size:15px;
+  line-height:1.4
+}
+.pill{
+  border:1px solid #d9e4ff;
+  background:#f4f7ff;
+  color:#234d9d;
+  font-size:12px;
+  font-weight:700;
+  padding:8px 12px;
+  border-radius:999px;
+  white-space:nowrap
+}
+
+.main{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 340px;
+  gap:14px
+}
+.panel,.side{
+  border:1px solid var(--border);
+  border-radius:18px;
+  background:#fff
+}
+.panel{padding:14px}
+.side{padding:14px;display:flex;flex-direction:column;gap:10px}
+
+.controls{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:8px
+}
+.seg{display:flex;gap:6px;flex-wrap:wrap}
+button{
+  font-family:inherit;
+  border:1px solid #d7dbe0;
+  background:#fff;
+  color:#111;
+  border-radius:10px;
+  padding:8px 10px;
+  font-size:12px;
+  font-weight:700;
+  cursor:pointer
+}
+button:hover{border-color:#aab1bb}
+button.active{background:#111;color:#fff;border-color:#111}
+button.scenario.active{background:var(--blue);border-color:var(--blue)}
+.help{
+  color:var(--muted);
+  font-size:12px;
+  font-weight:600
+}
+
+.chart-wrap{
+  border:1px solid #eceef1;
+  border-radius:14px;
+  overflow:hidden;
+  background:#fff
+}
+.chart-title{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  padding:11px 14px 4px
+}
+.chart-title strong{font-size:15px}
+.chart-title span{font-size:11px;color:#6b7280}
+svg{display:block;width:100%}
+#levelChart{height:330px}
+#growthChart{height:220px;border-top:1px solid #eef0f2}
+
+.explain-strip{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:9px;
+  margin-top:10px
+}
+.strip-card{
+  background:var(--soft);
+  border-radius:12px;
+  padding:11px 12px
+}
+.strip-card b{display:block;font-size:12px;margin-bottom:3px}
+.strip-card span{font-size:11px;color:#60656c;line-height:1.35}
+
+.readout{
+  border-left:4px solid var(--blue);
+  background:#f8faff;
+  border-radius:12px;
+  padding:13px 14px;
+  min-height:142px
+}
+.readout .ey{
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  font-weight:800;
+  color:var(--blue)
+}
+.readout .phase{
+  font-size:25px;
+  line-height:1;
+  margin:5px 0 7px;
+  font-weight:800
+}
+.readout p{
+  margin:0;
+  color:#3f444a;
+  font-size:13px;
+  line-height:1.38
+}
+
+.metrics{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px
+}
+.metric{
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:10px 11px
+}
+.metric .label{
+  color:#777;
+  font-size:10px;
+  font-weight:700;
+  text-transform:uppercase
+}
+.metric .value{
+  margin-top:2px;
+  font-size:20px;
+  font-weight:800
+}
+.metric .sub{font-size:10px;color:#80858b;margin-top:1px}
+
+.lesson{
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:12px
+}
+.lesson h3{margin:0 0 7px;font-size:14px}
+.lesson p{margin:0;color:#444;font-size:12px;line-height:1.4}
+.lesson code{
+  display:block;
+  margin-top:8px;
+  background:#f5f5f5;
+  padding:8px;
+  border-radius:9px;
+  font-family:inherit;
+  font-weight:700;
+  font-size:12px
+}
+.stepper{
+  display:flex;gap:6px;margin-top:9px;flex-wrap:wrap
+}
+.stepper button{padding:6px 8px;font-size:11px}
+
+.legend{
+  display:flex;
+  gap:14px;
+  flex-wrap:wrap;
+  font-size:11px;
+  color:#444;
+  font-weight:600
+}
+.legend i{
+  display:inline-block;
+  width:20px;
+  height:3px;
+  border-radius:3px;
+  margin-right:6px;
+  vertical-align:middle
+}
+.note{
+  font-size:10px;
+  color:#777;
+  line-height:1.35;
+  border-top:1px solid #ececec;
+  padding-top:8px
+}
+.axis{font-size:10px;fill:#757b82;font-weight:600}
+.labeltxt{font-size:11px;font-weight:800}
+.smalltxt{font-size:10px;font-weight:600;fill:#454a50}
+.tooltip{
+  position:fixed;
+  z-index:99;
+  pointer-events:none;
+  opacity:0;
+  background:#111;
+  color:#fff;
+  padding:8px 10px;
+  border-radius:9px;
+  font-size:11px;
+  line-height:1.35;
+  transform:translate(-50%,-118%);
+  box-shadow:0 8px 24px rgba(0,0,0,.22)
+}
+
+@media(max-width:1060px){
+  .main{grid-template-columns:1fr}
+  .side{display:grid;grid-template-columns:1fr 1fr}
+  .note{grid-column:1/-1}
+}
+@media(max-width:720px){
+  body{padding:10px}
+  .hero{grid-template-columns:1fr}
+  .pill{display:none}
+  .side{display:flex}
+  .explain-strip{grid-template-columns:1fr}
+  #levelChart{height:300px}
+  #growthChart{height:220px}
+}
+</style>
+</head>
+<body>
+<div class="shell">
+  <div class="hero">
+    <div>
+      <div class="kicker">Macroeconomía I · Recurso interactivo</div>
+      <h1>PIB, tendencia y crecimiento: dos miradas del mismo ciclo</h1>
+      <p>El gráfico superior muestra el <b>nivel del PIB real</b> normalizado en índice base 100 y su trayectoria tendencial. El inferior muestra la <b>variación porcentual del mismo PIB</b>. Muévete por el tiempo y observa cómo ambas lecturas cuentan cosas distintas.</p>
+    </div>
+    <div class="pill">Datos simulados · Uso pedagógico</div>
+  </div>
+
+  <div class="main">
+    <div class="panel">
+      <div class="controls">
+        <div class="seg">
+          <button class="scenario active" data-s="normal">Ciclo suave</button>
+          <button class="scenario" data-s="recession">Recesión</button>
+          <button class="scenario" data-s="shock">Shock profundo</button>
+        </div>
+        <div class="seg">
+          <button id="toggleGap" class="active">Brecha del producto</button>
+          <button id="toggleLabels" class="active">Fases</button>
+          <button id="toggleGuide">Modo guiado</button>
+        </div>
+      </div>
+
+      <div class="chart-wrap">
+        <div class="chart-title">
+          <strong>1 · Nivel del PIB real vs. PIB tendencial</strong>
+          <span>Índice base 100 · período inicial = 100</span>
+        </div>
+        <div class="legend" style="padding:0 14px 4px">
+          <span><i style="background:#1769ff"></i>PIB real efectivo</span>
+          <span><i style="background:#111"></i>PIB tendencial</span>
+        </div>
+        <svg id="levelChart" viewBox="0 0 1000 330" preserveAspectRatio="none"></svg>
+
+        <div class="chart-title" style="padding-top:8px">
+          <strong>2 · Tasa de crecimiento del PIB real</strong>
+          <span>Variación % respecto del trimestre anterior</span>
+        </div>
+        <svg id="growthChart" viewBox="0 0 1000 220" preserveAspectRatio="none"></svg>
+      </div>
+
+      <div class="explain-strip">
+        <div class="strip-card">
+          <b>¿Por qué base 100?</b>
+          <span>Solo normaliza la escala. Si el índice pasa de 100 a 105, el nivel del PIB es 5% mayor que en el período base.</span>
+        </div>
+        <div class="strip-card">
+          <b>¿Qué aporta la tasa de crecimiento?</b>
+          <span>Muestra la velocidad: crecer más rápido, desacelerarse, caer y luego recuperarse.</span>
+        </div>
+        <div class="strip-card">
+          <b>¿Por qué mirar ambas?</b>
+          <span>Una economía puede estar creciendo y, al mismo tiempo, seguir por debajo de su tendencia.</span>
+        </div>
+      </div>
+    </div>
+
+    <aside class="side">
+      <div class="readout" id="readout">
+        <div class="ey">Explora el gráfico</div>
+        <div class="phase">Dos miradas</div>
+        <p>Mueve el cursor por cualquiera de los gráficos. La línea vertical conecta el mismo trimestre en ambas visualizaciones.</p>
+      </div>
+
+      <div class="metrics">
+        <div class="metric">
+          <div class="label">PIB efectivo</div>
+          <div class="value" id="vActual">—</div>
+          <div class="sub">índice base 100</div>
+        </div>
+        <div class="metric">
+          <div class="label">PIB tendencial</div>
+          <div class="value" id="vTrend">—</div>
+          <div class="sub">índice base 100</div>
+        </div>
+        <div class="metric">
+          <div class="label">Brecha del producto</div>
+          <div class="value" id="vGap">—</div>
+          <div class="sub">respecto de tendencia</div>
+        </div>
+        <div class="metric">
+          <div class="label">Crecimiento PIB</div>
+          <div class="value" id="vGrowth">—</div>
+          <div class="sub">t/t anterior</div>
+        </div>
+      </div>
+
+      <div class="lesson">
+        <h3>Lectura 1 · Nivel</h3>
+        <p>El índice base 100 permite comparar el PIB real con su trayectoria de largo plazo sin depender de unidades monetarias.</p>
+        <code>Índice PIB = (PIBₜ / PIB base) × 100</code>
+      </div>
+
+      <div class="lesson">
+        <h3>Lectura 2 · Crecimiento</h3>
+        <p>La variación porcentual muestra cuánto cambia el PIB respecto del período inmediatamente anterior.</p>
+        <code>gₜ = [(PIBₜ / PIBₜ₋₁) − 1] × 100</code>
+      </div>
+
+      <div class="lesson" id="guideBox">
+        <h3>Idea clave</h3>
+        <p id="guideText">Nivel y crecimiento no son lo mismo. El primero indica dónde está la economía; el segundo, a qué velocidad se está moviendo.</p>
+        <div class="stepper">
+          <button data-step="0">1</button>
+          <button data-step="1">2</button>
+          <button data-step="2">3</button>
+          <button data-step="3">4</button>
+        </div>
+      </div>
+
+      <div class="note">La clasificación “recesión = dos trimestres consecutivos de crecimiento negativo” se usa aquí como regla pedagógica simple. En la práctica, la identificación de una recesión puede considerar más indicadores y criterios.</div>
+    </aside>
+  </div>
+</div>
+
+<div class="tooltip" id="tooltip"></div>
+
+<script>
+const NS="http://www.w3.org/2000/svg";
+const levelSVG=document.getElementById("levelChart");
+const growthSVG=document.getElementById("growthChart");
+const tooltip=document.getElementById("tooltip");
+const btnGap=document.getElementById("toggleGap");
+const btnLabels=document.getElementById("toggleLabels");
+const btnGuide=document.getElementById("toggleGuide");
+
+let showGap=true, showLabels=true, guideMode=false, scenario="normal";
+const N=48;
+let data=[];
+
+const scenarios={
+  normal:{amp:.040, shock:-.018, center:27, width:3, trend:.006},
+  recession:{amp:.047, shock:-.050, center:28, width:4, trend:.006},
+  shock:{amp:.050, shock:-.095, center:28, width:4.8, trend:.006}
+};
+
+function buildData(){
+  const s=scenarios[scenario];
+  data=[];
+  let prev=null, neg=0;
+  for(let i=0;i<N;i++){
+    const trend=100*Math.pow(1+s.trend,i);
+    const cyc=s.amp*Math.sin((i-3)*Math.PI/10)+.012*Math.sin((i+1)*Math.PI/4.6);
+    const dist=Math.abs(i-s.center);
+    const shock=dist<=s.width ? s.shock*(1-dist/s.width) : 0;
+    const actual=trend*(1+cyc+shock);
+    const growth=prev===null?null:(actual/prev-1)*100;
+    if(growth!==null && growth<0) neg++; else neg=0;
+    data.push({i,trend,actual,growth,gap:(actual/trend-1)*100,neg});
+    prev=actual;
+  }
+}
+
+function E(svg,tag,attrs={}){
+  const e=document.createElementNS(NS,tag);
+  Object.entries(attrs).forEach(([k,v])=>e.setAttribute(k,v));
+  svg.appendChild(e);return e;
+}
+function T(svg,txt,attrs={}){
+  const e=E(svg,"text",attrs);e.textContent=txt;return e;
+}
+function phaseAt(i){
+  const d=data[i], prev=i>0?data[i-1]:null;
+  if(d.growth!==null && d.growth<0){
+    if(d.neg>=2) return {name:"Recesión",color:"#d64545",text:"El PIB cae por segundo trimestre consecutivo en esta regla pedagógica. El nivel se reduce y la brecha suele hacerse más negativa."};
+    return {name:"Contracción",color:"#d64545",text:"El nivel del PIB cae respecto del trimestre anterior: el crecimiento es negativo."};
+  }
+  if(prev && d.growth!==null && prev.growth!==null && d.growth>0 && d.growth<prev.growth){
+    return {name:"Desaceleración",color:"#d98a00",text:"El PIB todavía aumenta, pero crece a una tasa menor que en el trimestre anterior."};
+  }
+  if(d.growth!==null && d.growth>0 && d.gap<0){
+    return {name:"Recuperación",color:"#1769ff",text:"El PIB vuelve a crecer, aunque su nivel todavía se encuentra por debajo de la trayectoria tendencial."};
+  }
+  return {name:"Expansión",color:"#179b62",text:"La actividad aumenta. Si el PIB efectivo supera su tendencia, la brecha del producto es positiva."};
+}
+
+let hoverIndex=null;
+function drawAll(){
+  drawLevel();
+  drawGrowth();
+  if(hoverIndex!==null) updateHover(hoverIndex,null,false);
+}
+
+function drawLevel(){
+  levelSVG.innerHTML="";
+  const W=1000,H=330,m={l:58,r:22,t:25,b:36},iw=W-m.l-m.r,ih=H-m.t-m.b;
+  const min=Math.min(...data.map(d=>Math.min(d.actual,d.trend)))*.975;
+  const max=Math.max(...data.map(d=>Math.max(d.actual,d.trend)))*1.025;
+  const x=i=>m.l+i/(N-1)*iw;
+  const y=v=>m.t+(max-v)/(max-min)*ih;
+
+  for(let j=0;j<=5;j++){
+    const yy=m.t+j*ih/5;
+    E(levelSVG,"line",{x1:m.l,x2:W-m.r,y1:yy,y2:yy,stroke:"#eceff2"});
+    T(levelSVG,(max-j*(max-min)/5).toFixed(0),{x:m.l-9,y:yy+4,"text-anchor":"end",class:"axis"});
+  }
+  for(let j=0;j<=7;j++){
+    const xx=m.l+j*iw/7;
+    T(levelSVG,"T"+(1+Math.round(j*(N-1)/7)),{x:xx,y:H-11,"text-anchor":"middle",class:"axis"});
+  }
+
+  if(showGap){
+    let p="M"+x(0)+","+y(data[0].trend);
+    data.forEach((d,i)=>p+=" L"+x(i)+","+y(d.trend));
+    for(let i=N-1;i>=0;i--)p+=" L"+x(i)+","+y(data[i].actual);
+    p+=" Z";
+    E(levelSVG,"path",{d:p,fill:"#1769ff","fill-opacity":".075"});
+  }
+
+  const pTrend=data.map((d,i)=>(i?"L":"M")+x(i)+","+y(d.trend)).join(" ");
+  const pAct=data.map((d,i)=>(i?"L":"M")+x(i)+","+y(d.actual)).join(" ");
+  E(levelSVG,"path",{d:pTrend,fill:"none",stroke:"#111","stroke-width":"2","stroke-dasharray":"8 6"});
+  E(levelSVG,"path",{d:pAct,fill:"none",stroke:"#1769ff","stroke-width":"4","stroke-linejoin":"round","stroke-linecap":"round"});
+
+  if(showLabels){
+    const marks=[9,18,31,41];
+    marks.forEach((i,k)=>{
+      const d=data[i];
+      E(levelSVG,"circle",{cx:x(i),cy:y(d.actual),r:4.5,fill:"#fff",stroke:"#111","stroke-width":"2"});
+      T(levelSVG,k%2===0?"Cima":"Fondo",{x:x(i),y:y(d.actual)-11,"text-anchor":"middle",class:"labeltxt",fill:"#222"});
+    });
+  }
+
+  if(guideMode){
+    const gi=[7,14,29,36][guideStep];
+    E(levelSVG,"rect",{x:x(gi)-14,y:m.t,width:28,height:ih,fill:"#6b4eff","fill-opacity":".07"});
+  }
+
+  const cursor=E(levelSVG,"line",{id:"cursorL",x1:0,x2:0,y1:m.t,y2:H-m.b,stroke:"#111","stroke-width":"1","stroke-dasharray":"3 4",opacity:0});
+  const dotA=E(levelSVG,"circle",{id:"dotLA",cx:0,cy:0,r:6,fill:"#1769ff",stroke:"#fff","stroke-width":"2",opacity:0});
+  const dotT=E(levelSVG,"circle",{id:"dotLT",cx:0,cy:0,r:5,fill:"#111",stroke:"#fff","stroke-width":"2",opacity:0});
+  const overlay=E(levelSVG,"rect",{x:m.l,y:m.t,width:iw,height:ih,fill:"transparent"});
+  overlay.style.pointerEvents="all";
+  overlay.addEventListener("mousemove",evt=>{
+    const r=levelSVG.getBoundingClientRect();
+    const mx=(evt.clientX-r.left)*(W/r.width);
+    let idx=Math.round((mx-m.l)/iw*(N-1));
+    idx=Math.max(0,Math.min(N-1,idx));
+    updateHover(idx,evt,true);
+  });
+  overlay.addEventListener("mouseleave",leaveHover);
+  levelSVG._coords={x,y,m,W,H};
+}
+
+function drawGrowth(){
+  growthSVG.innerHTML="";
+  const W=1000,H=220,m={l:58,r:22,t:20,b:35},iw=W-m.l-m.r,ih=H-m.t-m.b;
+  const vals=data.slice(1).map(d=>d.growth);
+  const lim=Math.max(2.5,Math.ceil(Math.max(...vals.map(v=>Math.abs(v)))*1.18));
+  const x=i=>m.l+i/(N-1)*iw;
+  const y=v=>m.t+(lim-v)/(2*lim)*ih;
+  const y0=y(0);
+
+  for(let j=0;j<=4;j++){
+    const val=lim-j*(2*lim/4);
+    const yy=y(val);
+    E(growthSVG,"line",{x1:m.l,x2:W-m.r,y1:yy,y2:yy,stroke:Math.abs(val)<.0001?"#aeb4ba":"#eef0f2","stroke-width":Math.abs(val)<.0001?1.5:1});
+    T(growthSVG,(val>0?"+":"")+val.toFixed(0)+"%",{x:m.l-9,y:yy+4,"text-anchor":"end",class:"axis"});
+  }
+  for(let j=0;j<=7;j++){
+    const xx=m.l+j*iw/7;
+    T(growthSVG,"T"+(1+Math.round(j*(N-1)/7)),{x:xx,y:H-10,"text-anchor":"middle",class:"axis"});
+  }
+
+  const bw=Math.max(5,iw/N*.58);
+  data.forEach((d,i)=>{
+    if(d.growth===null)return;
+    const yy=y(d.growth);
+    E(growthSVG,"rect",{
+      x:x(i)-bw/2,
+      y:Math.min(y0,yy),
+      width:bw,
+      height:Math.max(1,Math.abs(y0-yy)),
+      rx:2,
+      fill:d.growth>=0?"#179b62":"#d64545",
+      "fill-opacity":".78"
+    });
+  });
+
+  if(guideMode){
+    const gi=[7,14,29,36][guideStep];
+    E(growthSVG,"rect",{x:x(gi)-14,y:m.t,width:28,height:ih,fill:"#6b4eff","fill-opacity":".07"});
+  }
+
+  E(growthSVG,"line",{id:"cursorG",x1:0,x2:0,y1:m.t,y2:H-m.b,stroke:"#111","stroke-width":"1","stroke-dasharray":"3 4",opacity:0});
+  E(growthSVG,"circle",{id:"dotG",cx:0,cy:0,r:5.5,fill:"#111",stroke:"#fff","stroke-width":"2",opacity:0});
+  const overlay=E(growthSVG,"rect",{x:m.l,y:m.t,width:iw,height:ih,fill:"transparent"});
+  overlay.style.pointerEvents="all";
+  overlay.addEventListener("mousemove",evt=>{
+    const r=growthSVG.getBoundingClientRect();
+    const mx=(evt.clientX-r.left)*(W/r.width);
+    let idx=Math.round((mx-m.l)/iw*(N-1));
+    idx=Math.max(1,Math.min(N-1,idx));
+    updateHover(idx,evt,true);
+  });
+  overlay.addEventListener("mouseleave",leaveHover);
+  growthSVG._coords={x,y,m,W,H};
+}
+
+function updateHover(idx,evt,showTip){
+  hoverIndex=idx;
+  const d=data[idx], p=phaseAt(idx);
+  const lc=levelSVG._coords, gc=growthSVG._coords;
+  if(!lc||!gc)return;
+
+  const cL=document.getElementById("cursorL"), cG=document.getElementById("cursorG");
+  cL.setAttribute("x1",lc.x(idx));cL.setAttribute("x2",lc.x(idx));cL.setAttribute("opacity",1);
+  cG.setAttribute("x1",gc.x(idx));cG.setAttribute("x2",gc.x(idx));cG.setAttribute("opacity",1);
+
+  const a=document.getElementById("dotLA"), t=document.getElementById("dotLT"), g=document.getElementById("dotG");
+  a.setAttribute("cx",lc.x(idx));a.setAttribute("cy",lc.y(d.actual));a.setAttribute("opacity",1);
+  t.setAttribute("cx",lc.x(idx));t.setAttribute("cy",lc.y(d.trend));t.setAttribute("opacity",1);
+  if(d.growth!==null){
+    g.setAttribute("cx",gc.x(idx));g.setAttribute("cy",gc.y(d.growth));g.setAttribute("opacity",1);
+  }
+
+  document.getElementById("vActual").textContent=d.actual.toFixed(1);
+  document.getElementById("vTrend").textContent=d.trend.toFixed(1);
+  document.getElementById("vGap").textContent=(d.gap>=0?"+":"")+d.gap.toFixed(1)+"%";
+  document.getElementById("vGrowth").textContent=d.growth===null?"—":(d.growth>=0?"+":"")+d.growth.toFixed(2)+"%";
+
+  const box=document.getElementById("readout");
+  box.style.borderLeftColor=p.color;
+  box.innerHTML=`<div class="ey" style="color:${p.color}">Trimestre ${idx+1}</div>
+  <div class="phase">${p.name}</div><p>${p.text}</p>`;
+
+  if(showTip && evt){
+    tooltip.innerHTML=`<b>${p.name}</b><br>PIB: ${d.actual.toFixed(1)} · Tendencia: ${d.trend.toFixed(1)}<br>Brecha: ${(d.gap>=0?"+":"")+d.gap.toFixed(1)}% · Crecimiento: ${d.growth===null?"—":(d.growth>=0?"+":"")+d.growth.toFixed(2)+"%"}`;
+    tooltip.style.left=evt.clientX+"px";
+    tooltip.style.top=evt.clientY+"px";
+    tooltip.style.opacity=1;
+  }
+}
+
+function leaveHover(){
+  tooltip.style.opacity=0;
+  ["cursorL","cursorG","dotLA","dotLT","dotG"].forEach(id=>{
+    const e=document.getElementById(id);if(e)e.setAttribute("opacity",0);
+  });
+  hoverIndex=null;
+}
+
+document.querySelectorAll(".scenario").forEach(b=>{
+  b.addEventListener("click",()=>{
+    document.querySelectorAll(".scenario").forEach(x=>x.classList.remove("active"));
+    b.classList.add("active");
+    scenario=b.dataset.s;
+    buildData(); hoverIndex=null; drawAll();
+  });
+});
+btnGap.addEventListener("click",()=>{showGap=!showGap;btnGap.classList.toggle("active");drawAll()});
+btnLabels.addEventListener("click",()=>{showLabels=!showLabels;btnLabels.classList.toggle("active");drawAll()});
+
+let guideStep=0;
+const guideTexts=[
+  "1 · En expansión, el PIB efectivo aumenta. La tasa de crecimiento es positiva y el nivel puede situarse por encima de su tendencia.",
+  "2 · En desaceleración, el PIB todavía crece, pero cada vez menos. El nivel puede seguir subiendo aunque la tasa de crecimiento disminuya.",
+  "3 · En contracción o recesión, el crecimiento se vuelve negativo: ahora sí cae el nivel del PIB respecto del trimestre anterior.",
+  "4 · En recuperación, el crecimiento vuelve a ser positivo, pero el PIB puede seguir por debajo de su trayectoria tendencial."
+];
+function setGuideStep(n){
+  guideStep=n;
+  document.getElementById("guideText").textContent=guideTexts[n];
+  drawAll();
+}
+btnGuide.addEventListener("click",()=>{
+  guideMode=!guideMode;
+  btnGuide.classList.toggle("active");
+  if(guideMode)setGuideStep(0); else drawAll();
+});
+document.querySelectorAll("[data-step]").forEach(b=>b.addEventListener("click",()=>{
+  guideMode=true;btnGuide.classList.add("active");setGuideStep(+b.dataset.step)
+}));
+
+buildData();
+drawAll();
+</script>
+</body>
+</html>
