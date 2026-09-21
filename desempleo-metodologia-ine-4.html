@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="es-CL">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Desempleo y Mercado Laboral — Metodología ENE-INE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#1B3A5C;
+    --navy-deep:#122840;
+    --coral:#D65A3A;
+    --mint:#3FAE9E;
+    --gold:#C68A2E;
+    --paper:#FAF9F5;
+    --ink:#1B2430;
+    --ink-soft:#5A6472;
+    --line:#DAD3C2;
+    --card:#FFFFFF;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background-color:#FFFFFF;
+    color:var(--ink);
+    font-family:'DM Sans', sans-serif;
+    font-size:1.06rem;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,h4{
+    font-family:'Fraunces', serif;
+    color:var(--navy-deep);
+    margin:0 0 0.4em 0;
+    font-weight:600;
+    line-height:1.15;
+  }
+  .mono{font-family:'DM Mono', monospace;}
+  a{color:var(--navy);}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 28px;}
+  .wrap-wide{max-width:1400px;}
+
+  /* ---------- Nav ---------- */
+  .topnav{
+    position:sticky;top:0;z-index:50;
+    background:rgba(255,255,255,0.88);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .topnav .wrap{
+    display:flex;align-items:center;justify-content:space-between;
+    padding-top:14px;padding-bottom:14px;
+    max-width:1080px;
+  }
+  .brand{display:flex;align-items:center;gap:9px;}
+  .brand-dot{width:9px;height:9px;border-radius:50%;background:var(--coral);}
+  .brand-mark{
+    font-family:'Fraunces',serif;font-weight:700;font-size:1.18rem;
+    color:var(--navy-deep);
+  }
+  .navlinks{display:flex;gap:4px;flex-wrap:wrap;}
+  .navlinks a{
+    position:relative;
+    font-size:0.94rem;color:var(--ink-soft);text-decoration:none;
+    padding:6px 10px;border-radius:20px;
+    transition:color .15s, background .15s;
+  }
+  .navlinks a:hover{color:var(--navy-deep);background:rgba(27,58,92,0.06);}
+  .navlinks a.active{color:var(--navy-deep);background:rgba(214,90,58,0.12);font-weight:600;}
+
+  /* ---------- Hero ---------- */
+  .hero{
+    padding:64px 0 48px;
+    border-bottom:1px solid var(--line);
+  }
+  .hero-eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:0.88rem;color:var(--coral);font-weight:700;
+    letter-spacing:0.02em;margin-bottom:18px;
+  }
+  .hero-eyebrow .mono{background:var(--navy-deep);color:#fff;padding:2px 7px;border-radius:3px;font-size:0.72rem;}
+  .hero h1{
+    font-size:clamp(2.7rem, 5.6vw, 4.6rem);
+    max-width:15ch;
+    letter-spacing:-0.01em;
+  }
+  .hero p.lede{
+    font-size:1.3rem;color:var(--ink-soft);max-width:52ch;margin-top:20px;
+  }
+
+  /* Live population bar */
+  .pop-bar-shell{margin-top:36px;max-width:640px;}
+  .pop-bar-label{
+    display:flex;justify-content:space-between;font-size:0.88rem;color:var(--ink-soft);margin-bottom:10px;
+  }
+  .pop-bar{
+    display:flex;width:100%;height:56px;border-radius:10px;overflow:hidden;
+    border:1px solid var(--line);
+  }
+  .pop-seg{
+    display:flex;align-items:center;justify-content:center;
+    color:#fff;font-size:0.92rem;font-weight:600;white-space:nowrap;overflow:hidden;
+    transition:flex-basis 0.45s cubic-bezier(.4,0,.2,1);
+  }
+  .pop-seg.ocup{background:var(--mint);}
+  .pop-seg.desoc{background:var(--coral);}
+  .pop-seg.fft{background:var(--gold);}
+  .pop-legend{display:flex;gap:22px;margin-top:12px;flex-wrap:wrap;}
+  .pop-legend span{font-size:0.92rem;color:var(--ink-soft);display:flex;align-items:center;gap:7px;}
+  .pop-legend i{width:10px;height:10px;border-radius:2px;display:inline-block;}
+  .pop-hint{font-size:0.86rem;color:var(--ink-soft);margin-top:12px;}
+
+  section{padding:60px 0;border-bottom:1px solid var(--line);}
+  section:last-of-type{border-bottom:none;}
+  .sec-label{
+    font-size:0.9rem;color:var(--mint);font-weight:700;margin-bottom:10px;
+    font-family:'DM Mono',monospace;
+  }
+  .sec-head{max-width:62ch;margin-bottom:36px;}
+  .sec-head h2{font-size:clamp(2rem,3.4vw,2.7rem);}
+  .sec-head p{color:var(--ink-soft);font-size:1.18rem;}
+
+  /* ---------- Diagram ---------- */
+  .diagram-shell{
+    display:grid;grid-template-columns: 1.3fr 1fr; gap:28px;
+    align-items:start;
+  }
+  .diagram-shell-lg{grid-template-columns: 1.5fr 1fr; gap:32px;}
+  @media (max-width: 860px){
+    .diagram-shell, .diagram-shell-lg{grid-template-columns:1fr;}
+  }
+  .diagram-card{
+    background:var(--navy-deep);
+    border-radius:16px;
+    padding:24px;
+  }
+  .diagram-shell-lg .diagram-card{padding:36px;}
+  .diagram-card svg{width:100%;height:auto;display:block;}
+  .node{cursor:pointer;transition:transform .15s, opacity .15s;transform-origin:center;}
+  .node:hover{opacity:0.88;}
+  .node:hover rect{stroke:#fff;stroke-width:1.6;}
+  .node.selected rect{stroke:#fff;stroke-width:2;}
+  .node-box{stroke:rgba(255,255,255,0.18);stroke-width:1;transition:stroke .15s;}
+  .node-text{
+    font-family:'DM Sans', sans-serif;fill:#fff;font-weight:600;
+    pointer-events:none;
+  }
+  .node-sub{fill:rgba(255,255,255,0.78);font-size:11.5px;pointer-events:none;}
+  .diagram-hint{
+    color:rgba(255,255,255,0.55);font-size:0.86rem;margin-top:14px;text-align:center;
+  }
+  .info-panel{
+    background:var(--card);border:1px solid var(--line);border-radius:16px;
+    padding:36px;min-height:420px;
+    box-shadow:0 4px 24px rgba(27,58,92,0.06);
+    display:flex;flex-direction:column;justify-content:center;
+  }
+  .info-panel .tag{
+    display:inline-block;font-size:0.9rem;font-weight:700;
+    padding:5px 14px;border-radius:20px;margin-bottom:16px;
+    color:#fff;font-family:'DM Mono',monospace;
+  }
+  .info-panel h3{font-size:1.9rem;}
+  .info-panel p{color:var(--ink-soft);font-size:1.2rem;}
+  .info-panel .criteria{margin:18px 0 0;padding:0;list-style:none;}
+  .info-panel .criteria li{
+    font-size:1.1rem;padding:12px 0 12px 26px;position:relative;
+    border-top:1px solid var(--line);color:var(--ink);
+  }
+  .info-panel .criteria li:before{
+    content:"→";position:absolute;left:0;color:var(--coral);font-weight:700;
+  }
+  .info-panel .example{
+    margin-top:20px;background:var(--paper);border-left:3px solid var(--gold);
+    padding:16px 18px;font-size:1.08rem;color:var(--ink-soft);border-radius:0 8px 8px 0;
+  }
+  .info-panel .example strong{color:var(--ink);}
+  .info-panel .placeholder{color:var(--ink-soft);font-size:1.15rem;font-style:italic;}
+
+  /* ---------- Glossary cards ---------- */
+  .glos-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+  @media (max-width:860px){.glos-grid{grid-template-columns:1fr;}}
+  .glos-card{
+    background:var(--card);border:1px solid var(--line);border-radius:16px;
+    padding:28px;position:relative;overflow:hidden;
+    box-shadow:0 4px 24px rgba(27,58,92,0.05);
+  }
+  .glos-card .watermark{
+    position:absolute;top:-14px;right:-6px;font-family:'Fraunces',serif;font-weight:700;
+    font-size:6.4rem;line-height:1;color:var(--wm-color);opacity:0.1;pointer-events:none;
+  }
+  .glos-card.c-ocupado{--wm-color:var(--mint);}
+  .glos-card.c-desocupado{--wm-color:var(--coral);}
+  .glos-card.c-fft{--wm-color:var(--gold);}
+  .glos-card h4{font-size:1.3rem;margin-bottom:8px;position:relative;}
+  .glos-card .def{font-size:1.03rem;color:var(--ink-soft);margin-bottom:16px;position:relative;}
+  .glos-card ul{margin:0;padding-left:0;list-style:none;position:relative;}
+  .glos-card ul li{
+    font-size:0.96rem;padding:8px 0;border-top:1px dashed var(--line);
+  }
+  .glos-card ul li:first-child{border-top:none;}
+  .glos-card .ex{
+    margin-top:16px;font-size:0.94rem;color:var(--ink-soft);
+    background:var(--paper);padding:12px 14px;border-radius:8px;position:relative;
+  }
+  .glos-card .ex b{color:var(--ink);}
+
+  /* ---------- FFT breakdown ---------- */
+  .fft-strip{display:flex;flex-direction:column;gap:0;margin-top:8px;border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(27,58,92,0.05);}
+  .fft-item{
+    display:grid;grid-template-columns:56px 1fr;gap:16px;
+    padding:20px 22px;background:var(--card);border-top:1px solid var(--line);
+    align-items:start;
+  }
+  .fft-item:first-child{border-top:none;}
+  .fft-item .num{
+    font-family:'Fraunces',serif;font-size:1.9rem;color:var(--gold);font-weight:700;
+  }
+  .fft-item h4{font-size:1.2rem;margin-bottom:8px;}
+  .fft-item p{font-size:1.02rem;color:var(--ink-soft);margin:0;}
+  .callout{
+    margin-top:22px;padding:18px 22px;background:#FBF3E4;border:1px solid #EFD9A8;
+    border-radius:14px;font-size:1.02rem;color:#6B5010;
+  }
+  .callout b{color:#4A3600;}
+
+  /* toggle switch */
+  .toggle-row{display:flex;align-items:center;gap:12px;margin:20px 0 4px;}
+  .toggle-row span{font-size:1rem;color:var(--ink-soft);}
+  .toggle{
+    position:relative;width:44px;height:24px;background:var(--line);border-radius:20px;
+    cursor:pointer;border:none;flex-shrink:0;
+  }
+  .toggle .knob{
+    position:absolute;top:2px;left:2px;width:20px;height:20px;border-radius:50%;
+    background:#fff;transition:left 0.2s;box-shadow:0 1px 2px rgba(0,0,0,0.25);
+  }
+  .toggle.on{background:var(--mint);}
+  .toggle.on .knob{left:22px;}
+  .detail-extra{display:none;}
+  .detail-extra.show{display:block;}
+
+  /* ---------- Formulas & calculator ---------- */
+  .formula-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:32px;}
+  @media (max-width:860px){.formula-grid{grid-template-columns:1fr;}}
+  .formula-card{
+    background:var(--navy-deep);color:#fff;border-radius:16px;padding:26px;
+  }
+  .formula-card h4{color:#fff;font-size:1.12rem;margin-bottom:14px;}
+  .formula-card .frac{
+    font-family:'Fraunces',serif;text-align:center;padding:12px 0;
+    font-size:1.25rem;
+  }
+  .formula-card .frac .num{display:block;padding-bottom:6px;border-bottom:1.5px solid rgba(255,255,255,0.5);}
+  .formula-card .frac .den{display:block;padding-top:6px;}
+  .formula-card p{font-size:0.94rem;color:rgba(255,255,255,0.68);margin:14px 0 0;}
+
+  .calc{
+    background:var(--card);border:1px solid var(--line);border-radius:16px;padding:30px;
+    box-shadow:0 4px 24px rgba(27,58,92,0.05);
+  }
+  .calc-top{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;flex-wrap:wrap;margin-bottom:20px;}
+  .calc h3{font-size:1.4rem;margin-bottom:6px;}
+  .calc-top p{color:var(--ink-soft);font-size:1rem;margin:0;max-width:44ch;}
+  .presets{display:flex;gap:8px;flex-wrap:wrap;}
+  .preset-btn{
+    font-family:'DM Sans',sans-serif;font-size:0.9rem;padding:9px 16px;border-radius:20px;
+    border:1px solid var(--line);background:var(--paper);color:var(--ink);cursor:pointer;
+    transition:background .15s, border-color .15s;
+  }
+  .preset-btn:hover{border-color:var(--navy);background:#fff;}
+  .invented-flag{
+    font-size:0.76rem;color:var(--coral);font-weight:700;margin-left:6px;font-family:'DM Mono',monospace;
+  }
+  .calc-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px;margin-bottom:22px;}
+  @media (max-width:700px){.calc-grid{grid-template-columns:1fr;}}
+  .calc-field label{
+    display:block;font-size:0.9rem;color:var(--ink-soft);margin-bottom:8px;font-weight:600;
+  }
+  .calc-field input[type=number]{
+    width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:4px;
+    font-family:'DM Sans',sans-serif;font-size:1.08rem;background:var(--paper);color:var(--ink);
+  }
+  .calc-field input[type=range]{width:100%;accent-color:var(--navy);}
+  .calc-field input:focus{outline:2px solid var(--mint);outline-offset:1px;}
+  .calc-results{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:16px;
+  }
+  @media (max-width:700px){.calc-results{grid-template-columns:1fr;}}
+  .result-box{
+    text-align:center;padding:22px 14px;border-radius:14px;background:var(--paper);
+    border:1px solid var(--line);
+  }
+  .result-box .val{
+    font-family:'Fraunces',serif;font-size:2.3rem;font-weight:700;color:var(--navy-deep);
+    display:block;transition:color .2s;
+  }
+  .result-box .lab{font-size:0.88rem;color:var(--ink-soft);margin-top:6px;display:block;}
+  .result-box.rc .val{color:var(--coral);}
+  .result-box.rm .val{color:var(--mint);}
+  .result-box.rg .val{color:var(--gold);}
+
+  /* ---------- Cases ---------- */
+  .cases{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;}
+  @media (max-width:860px){.cases{grid-template-columns:1fr;}}
+  .case-card{
+    background:var(--card);border:1px dashed var(--line);border-radius:16px;padding:26px;
+  }
+  .case-card .kicker{
+    font-size:0.82rem;font-weight:700;color:var(--coral);margin-bottom:10px;font-family:'DM Mono',monospace;
+  }
+  .case-card h4{font-size:1.24rem;}
+  .case-card p{font-size:1.02rem;color:var(--ink-soft);}
+  .case-card .ex{
+    margin-top:14px;font-size:0.96rem;background:var(--paper);padding:12px 14px;border-radius:8px;
+  }
+
+  /* ---------- Quiz ---------- */
+  .quiz-score{
+    display:flex;align-items:center;gap:14px;margin-bottom:26px;
+    font-size:1.02rem;color:var(--ink-soft);
+  }
+  .quiz-score .badge{
+    font-family:'Fraunces',serif;font-weight:700;font-size:1.3rem;color:var(--navy-deep);
+    background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:6px 18px;
+  }
+  .quiz-reset{
+    margin-left:auto;font-size:0.92rem;color:var(--navy);background:none;border:1px solid var(--line);
+    padding:8px 16px;border-radius:20px;cursor:pointer;
+  }
+  .quiz-reset:hover{border-color:var(--navy);}
+  .quiz-card{
+    background:var(--card);border:1px solid var(--line);border-radius:16px;
+    padding:28px;margin-bottom:18px;
+    box-shadow:0 4px 24px rgba(27,58,92,0.05);
+  }
+  .quiz-vignette{font-size:1.14rem;color:var(--ink);margin-bottom:18px;}
+  .quiz-options{display:flex;flex-wrap:wrap;gap:8px;}
+  .quiz-opt{
+    font-family:'DM Sans',sans-serif;font-size:0.96rem;padding:10px 16px;border-radius:20px;
+    border:1px solid var(--line);background:var(--paper);color:var(--ink);cursor:pointer;
+    transition:all .15s;
+  }
+  .quiz-opt:hover{border-color:var(--navy);}
+  .quiz-opt.correct{background:var(--mint);border-color:var(--mint);color:#fff;}
+  .quiz-opt.incorrect{background:var(--coral);border-color:var(--coral);color:#fff;}
+  .quiz-opt.disabled{pointer-events:none;opacity:0.55;}
+  .quiz-opt.disabled.correct, .quiz-opt.disabled.incorrect{opacity:1;}
+  .quiz-feedback{
+    margin-top:16px;font-size:1rem;padding:14px 16px;border-radius:10px;
+    background:var(--paper);color:var(--ink-soft);display:none;
+  }
+  .quiz-feedback.show{display:block;}
+  .quiz-feedback b{color:var(--ink);}
+
+  /* ---------- Types of unemployment ---------- */
+  .types{display:flex;flex-direction:column;gap:0;}
+  .type-row{
+    display:grid;grid-template-columns: 190px 1fr 1fr;gap:22px;
+    padding:22px 0;border-top:1px solid var(--line);align-items:start;
+    cursor:default;
+  }
+  .type-row:first-child{border-top:none;}
+  @media (max-width:800px){.type-row{grid-template-columns:1fr;gap:10px;}}
+  .type-name{font-family:'Fraunces',serif;font-weight:600;font-size:1.3rem;color:var(--navy-deep);}
+  .type-name .dot{
+    display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:8px;
+  }
+  .type-desc p{font-size:1.04rem;color:var(--ink-soft);margin:0;}
+  .type-example{
+    font-size:0.98rem;background:var(--paper);padding:14px 16px;border-radius:8px;
+    border-left:3px solid var(--mint);
+  }
+  .type-example b{display:block;font-size:0.82rem;color:var(--ink-soft);margin-bottom:6px;font-weight:700;font-family:'DM Mono',monospace;}
+
+  footer{padding:36px 0 56px;}
+  footer p{font-size:0.94rem;color:var(--ink-soft);}
+  footer .src{
+    margin-top:10px;padding-top:16px;border-top:1px solid var(--line);
+  }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="wrap">
+    <div class="brand">
+      <span class="brand-dot"></span>
+      <span class="brand-mark">Cómo se mide el desempleo</span>
+    </div>
+    <div class="navlinks" id="navlinks">
+      <a href="#arbol" data-sec="arbol">El árbol</a>
+      <a href="#glosario" data-sec="glosario">Glosario</a>
+      <a href="#fft" data-sec="fft">Fuera de la fuerza</a>
+      <a href="#practica" data-sec="practica">Práctica</a>
+      <a href="#tasas" data-sec="tasas">Tasas</a>
+      <a href="#casos" data-sec="casos">Casos especiales</a>
+      <a href="#tipos" data-sec="tipos">Tipos</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="hero-eyebrow"><span class="mono">ENE · INE</span> Metodología vigente</div>
+    <h1>Cómo se mide quién trabaja en Chile</h1>
+    <p class="lede">Cada mes el INE clasifica a millones de personas en tres categorías mutuamente excluyentes —ocupadas, desocupadas y fuera de la fuerza de trabajo— siguiendo un orden de prioridad definido por la OIT.</p>
+
+    <div class="pop-bar-shell">
+      <div class="pop-bar-label"><span>Composición de la PET (ajusta los controles más abajo)</span><span class="mono" id="heroPetTotal">--</span></div>
+      <div class="pop-bar">
+        <div class="pop-seg ocup" id="barOcup" style="flex-basis:0%">0%</div>
+        <div class="pop-seg desoc" id="barDesoc" style="flex-basis:0%">0%</div>
+        <div class="pop-seg fft" id="barFft" style="flex-basis:0%">0%</div>
+      </div>
+      <div class="pop-legend">
+        <span><i style="background:var(--mint)"></i>Ocupados</span>
+        <span><i style="background:var(--coral)"></i>Desocupados</span>
+        <span><i style="background:var(--gold)"></i>Fuera de la fuerza de trabajo</span>
+      </div>
+      <div class="pop-hint">Esta barra se actualiza en vivo junto con la calculadora de tasas más abajo.</div>
+    </div>
+  </div>
+</header>
+
+<section id="arbol">
+  <div class="wrap wrap-wide">
+    <div class="sec-head">
+      <div class="sec-label">01 / clasificación</div>
+      <h2>El árbol de decisión de la ENE</h2>
+      <p>La encuesta aplica un orden de prioridad: primero evalúa si trabajaste (ocupación), luego si buscaste y estabas disponible (desocupación). Todo lo demás queda fuera de la fuerza de trabajo. Toca cada nodo para ver su definición.</p>
+    </div>
+
+    <div class="diagram-shell diagram-shell-lg">
+      <div class="diagram-card">
+        <svg viewBox="0 0 640 390" xmlns="http://www.w3.org/2000/svg">
+          <g stroke="rgba(255,255,255,0.28)" stroke-width="1.4" fill="none">
+            <line x1="320" y1="70" x2="320" y2="95"/>
+            <line x1="120" y1="95" x2="520" y2="95"/>
+            <line x1="120" y1="95" x2="120" y2="120"/>
+            <line x1="520" y1="95" x2="520" y2="120"/>
+
+            <line x1="120" y1="166" x2="120" y2="188"/>
+            <line x1="90" y1="188" x2="250" y2="188"/>
+            <line x1="90" y1="188" x2="90" y2="210"/>
+            <line x1="250" y1="188" x2="250" y2="210"/>
+
+            <line x1="250" y1="256" x2="250" y2="264"/>
+            <line x1="125" y1="264" x2="285" y2="264"/>
+            <line x1="125" y1="264" x2="125" y2="272"/>
+            <line x1="285" y1="264" x2="285" y2="272"/>
+
+            <line x1="520" y1="166" x2="520" y2="210"/>
+            <line x1="520" y1="252" x2="520" y2="266"/>
+            <line x1="520" y1="308" x2="520" y2="322"/>
+          </g>
+
+          <g class="node" data-key="pet" transform="translate(240,20)">
+            <rect class="node-box" width="160" height="50" rx="6" style="fill:#25507A"/>
+            <text class="node-text" x="80" y="22" text-anchor="middle" font-size="13.5">Población en edad</text>
+            <text class="node-text" x="80" y="38" text-anchor="middle" font-size="13.5">de trabajar (PET)</text>
+          </g>
+
+          <g class="node" data-key="ft" transform="translate(40,120)">
+            <rect class="node-box" width="160" height="46" rx="6" style="fill:#2E6B5E"/>
+            <text class="node-text" x="80" y="20" text-anchor="middle" font-size="13">Fuerza de Trabajo</text>
+            <text class="node-sub" x="80" y="35" text-anchor="middle">(= PEA)</text>
+          </g>
+          <g class="node" data-key="fft" transform="translate(440,120)">
+            <rect class="node-box" width="160" height="46" rx="6" style="fill:#8C6A22"/>
+            <text class="node-text" x="80" y="20" text-anchor="middle" font-size="13">Fuera de la Fuerza</text>
+            <text class="node-sub" x="80" y="35" text-anchor="middle">de Trabajo (FFT)</text>
+          </g>
+
+          <g class="node" data-key="ocupado" transform="translate(20,210)">
+            <rect class="node-box" width="140" height="46" rx="6" style="fill:#3FAE9E"/>
+            <text class="node-text" x="70" y="20" text-anchor="middle" font-size="13">Ocupados/as</text>
+            <text class="node-sub" x="70" y="35" text-anchor="middle">≥1 hora + remuneración</text>
+          </g>
+          <g class="node" data-key="desocupado" transform="translate(180,210)">
+            <rect class="node-box" width="140" height="46" rx="6" style="fill:#E8654F"/>
+            <text class="node-text" x="70" y="20" text-anchor="middle" font-size="13">Desocupados/as</text>
+            <text class="node-sub" x="70" y="35" text-anchor="middle">buscó + disponible</text>
+          </g>
+
+          <g class="node" data-key="cesante" transform="translate(60,272)">
+            <rect class="node-box" width="130" height="42" rx="6" style="fill:#C94A36"/>
+            <text class="node-text" x="65" y="18" text-anchor="middle" font-size="12">Cesante</text>
+            <text class="node-sub" x="65" y="32" text-anchor="middle">trabajó antes ≥1 mes</text>
+          </g>
+          <g class="node" data-key="primeravez" transform="translate(210,272)">
+            <rect class="node-box" width="150" height="42" rx="6" style="fill:#C94A36"/>
+            <text class="node-text" x="75" y="18" text-anchor="middle" font-size="12">Busca 1ª vez</text>
+            <text class="node-sub" x="75" y="32" text-anchor="middle">nunca trabajó ≥1 mes</text>
+          </g>
+
+          <g class="node" data-key="iniciador" transform="translate(430,210)">
+            <rect class="node-box" width="170" height="42" rx="6" style="fill:#B98A2E"/>
+            <text class="node-text" x="85" y="18" text-anchor="middle" font-size="12.5">Iniciadores/as</text>
+            <text class="node-sub" x="85" y="32" text-anchor="middle">empiezan pronto un trabajo</text>
+          </g>
+          <g class="node" data-key="potencial" transform="translate(430,266)">
+            <rect class="node-box" width="170" height="42" rx="6" style="fill:#B98A2E"/>
+            <text class="node-text" x="85" y="18" text-anchor="middle" font-size="12.5">Activos/as potenciales</text>
+            <text class="node-sub" x="85" y="32" text-anchor="middle">buscó O disponible (no ambos)</text>
+          </g>
+          <g class="node" data-key="habitual" transform="translate(430,322)">
+            <rect class="node-box" width="170" height="42" rx="6" style="fill:#B98A2E"/>
+            <text class="node-text" x="85" y="18" text-anchor="middle" font-size="12.5">Inactivos/as habituales</text>
+            <text class="node-sub" x="85" y="32" text-anchor="middle">no buscó, no disponible</text>
+          </g>
+        </svg>
+        <p class="diagram-hint">9 categorías · toca cualquier casilla</p>
+      </div>
+
+      <div class="info-panel" id="infoPanel">
+        <p class="placeholder">Selecciona un nodo del diagrama para ver su definición oficial, sus criterios y un ejemplo.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="glosario">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-label">02 / glosario</div>
+      <h2>Las tres categorías de la condición de actividad</h2>
+      <p>Son mutuamente excluyentes: cada persona en la PET queda clasificada en una y solo una.</p>
+    </div>
+
+    <div class="glos-grid">
+      <div class="glos-card c-ocupado">
+        <span class="watermark">O</span>
+        <h4>Ocupados/as</h4>
+        <div class="def">Cumplió, durante la semana de referencia, con producir un bien o servicio, al menos una hora, a cambio de remuneración o beneficio (puede pagarse a futuro).</div>
+        <ul>
+          <li>Trabajadores/as dependientes e independientes</li>
+          <li>Trabajo familiar no remunerado (si el familiar es dueño del negocio)</li>
+          <li>"Ocupados ausentes": con licencia, vacaciones o capacitación, manteniendo vínculo con el empleo</li>
+        </ul>
+        <div class="ex"><b>Ejemplo:</b> una feriante que vendió durante 3 horas el sábado y espera el pago la próxima semana se clasifica como ocupada, aunque aún no reciba el dinero.</div>
+      </div>
+
+      <div class="glos-card c-desocupado">
+        <span class="watermark">D</span>
+        <h4>Desocupados/as</h4>
+        <div class="def">No trabajó en la semana de referencia, buscó activamente empleo en las últimas 4 semanas y está disponible para trabajar dentro de los 15 días siguientes.</div>
+        <ul>
+          <li><b>Cesante:</b> tuvo un empleo previo de al menos 1 mes de duración</li>
+          <li><b>Busca trabajo por primera vez:</b> nunca ha tenido un empleo de esa duración</li>
+        </ul>
+        <div class="ex"><b>Ejemplo:</b> un/a recién titulado/a que envía CVs y se inscribe en OMIL, sin haber trabajado antes de forma continua, es "busca trabajo por primera vez", no cesante.</div>
+      </div>
+
+      <div class="glos-card c-fft">
+        <span class="watermark">F</span>
+        <h4>Fuera de la fuerza de trabajo</h4>
+        <div class="def">No está ocupada ni desocupada: no trabajó y tampoco cumple ambos requisitos de búsqueda + disponibilidad. El nombre técnico reemplaza al popular "inactivos".</div>
+        <ul>
+          <li>Se desagrega en 3 subgrupos según su cercanía a la fuerza de trabajo</li>
+          <li>Ver sección siguiente para el detalle</li>
+        </ul>
+        <div class="ex"><b>Ejemplo:</b> una persona jubilada que no busca ni desea trabajar es "fuera de la fuerza de trabajo — inactivo habitual".</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="fft">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-label">03 / detalle</div>
+      <h2>Los tres tipos de "fuera de la fuerza de trabajo"</h2>
+      <p>El INE distingue según cuánto se acercan estas personas a integrar la fuerza de trabajo en el corto plazo.</p>
+    </div>
+
+    <div class="fft-strip">
+      <div class="fft-item">
+        <span class="num">1</span>
+        <div>
+          <h4>Iniciadores/as</h4>
+          <p>No buscaron trabajo en las últimas 4 semanas porque ya tienen uno formalizado que comenzará pronto (con contrato o acuerdo). Es el subgrupo con mayor cercanía a integrar la fuerza de trabajo.</p>
+        </div>
+      </div>
+      <div class="fft-item">
+        <span class="num">2</span>
+        <div>
+          <h4>Activos/as potenciales</h4>
+          <p>Cumplen solo uno de los dos requisitos de desocupación: buscaron pero no están disponibles, o están disponibles pero no buscaron.</p>
+        </div>
+      </div>
+      <div class="fft-item">
+        <span class="num">3</span>
+        <div>
+          <h4>Inactivos/as habituales</h4>
+          <p>No buscaron trabajo ni están disponibles para comenzar uno. Ejemplos típicos: estudiantes de jornada completa, jubilados, personas dedicadas a labores de cuidado no remunerado.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="toggle-row">
+      <button class="toggle" id="fftToggle" aria-pressed="false"><span class="knob"></span></button>
+      <span>Mostrar el matiz sobre iniciadores disponibles y el indicador SU1</span>
+    </div>
+    <div class="detail-extra" id="fftExtra">
+      <div class="callout">
+        <b>Un matiz que suele sorprender:</b> aunque un/a iniciador/a esté disponible para trabajar, Chile —a diferencia de lo que recomiendan la OIT y la OCDE— no lo cuenta como desocupado en la tasa oficial. Sí se incluye en el indicador complementario "tasa de desocupación con iniciadores disponibles (SU1)", parte del set de indicadores de subutilización de la fuerza de trabajo que el INE publica cada mes.
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="practica">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-label">04 / práctica</div>
+      <h2>Clasifica el caso</h2>
+      <p>Lee cada situación y elige la categoría correcta según los criterios de la ENE.</p>
+    </div>
+
+    <div class="quiz-score">
+      <span>Puntaje:</span>
+      <span class="badge"><span id="quizScore">0</span> / <span id="quizTotal">0</span></span>
+      <button class="quiz-reset" id="quizReset">Reiniciar</button>
+    </div>
+
+    <div id="quizContainer"></div>
+  </div>
+</section>
+
+<section id="tasas">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-label">05 / indicadores</div>
+      <h2>Las tres tasas oficiales</h2>
+      <p>Todas se calculan como razones (%) entre las categorías ya definidas. El denominador es la clave para no confundirlas.</p>
+    </div>
+
+    <div class="formula-grid">
+      <div class="formula-card">
+        <h4>Tasa de Desocupación</h4>
+        <div class="frac">
+          <span class="num">Desocupados</span>
+          <span class="den">Fuerza de Trabajo</span>
+        </div>
+        <p>% de la fuerza de trabajo que no tiene empleo pero lo busca activamente.</p>
+      </div>
+      <div class="formula-card">
+        <h4>Tasa de Ocupación</h4>
+        <div class="frac">
+          <span class="num">Ocupados</span>
+          <span class="den">PET</span>
+        </div>
+        <p>% de toda la población en edad de trabajar que efectivamente trabaja.</p>
+      </div>
+      <div class="formula-card">
+        <h4>Tasa de Participación</h4>
+        <div class="frac">
+          <span class="num">Fuerza de Trabajo</span>
+          <span class="den">PET</span>
+        </div>
+        <p>% de la PET que participa del mercado laboral (ocupados + desocupados).</p>
+      </div>
+    </div>
+
+    <div class="calc">
+      <div class="calc-top">
+        <div>
+          <h3>Calculadora en vivo</h3>
+          <p>Ajusta los valores y observa cómo cambian las tres tasas y la barra al inicio de la página.<span class="invented-flag">DATOS ILUSTRATIVOS</span></p>
+        </div>
+        <div class="presets">
+          <button class="preset-btn" data-oc="620000" data-de="55000" data-ff="325000">Escenario base</button>
+          <button class="preset-btn" data-oc="560000" data-de="95000" data-ff="345000">Escenario recesivo</button>
+          <button class="preset-btn" data-oc="680000" data-de="30000" data-ff="290000">Escenario expansivo</button>
+        </div>
+      </div>
+      <div class="calc-grid">
+        <div class="calc-field">
+          <label for="inpOcupados">Personas ocupadas</label>
+          <input type="number" id="inpOcupados" value="620000" min="0">
+        </div>
+        <div class="calc-field">
+          <label for="inpDesocupados">Personas desocupadas</label>
+          <input type="number" id="inpDesocupados" value="55000" min="0">
+        </div>
+        <div class="calc-field">
+          <label for="inpFFT">Fuera de la fuerza de trabajo</label>
+          <input type="number" id="inpFFT" value="325000" min="0">
+        </div>
+      </div>
+      <div class="calc-results">
+        <div class="result-box rc">
+          <span class="val" id="outDesoc">--</span>
+          <span class="lab">Tasa de Desocupación</span>
+        </div>
+        <div class="result-box rm">
+          <span class="val" id="outOcup">--</span>
+          <span class="lab">Tasa de Ocupación</span>
+        </div>
+        <div class="result-box rg">
+          <span class="val" id="outPart">--</span>
+          <span class="lab">Tasa de Participación</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="casos">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-label">06 / excepciones</div>
+      <h2>Casos especiales que el criterio general no resuelve solo</h2>
+      <p>La ENE define excepciones explícitas a los criterios de una hora y de remuneración.</p>
+    </div>
+
+    <div class="cases">
+      <div class="case-card">
+        <div class="kicker">EXCEPCIÓN AL CRITERIO DE REMUNERACIÓN</div>
+        <h4>Trabajador/a familiar no remunerado/a</h4>
+        <p>Trabajó al menos 1 hora para un familiar sin recibir pago, siempre que ese familiar sea dueño del negocio (no un trabajador dependiente). Se clasifica como ocupado/a.</p>
+        <div class="ex">Ejemplo: hijo/a que atiende el local de abarrotes de sus padres sin sueldo fijo.</div>
+      </div>
+      <div class="case-card">
+        <div class="kicker">EXCEPCIÓN AL CRITERIO DE UNA HORA</div>
+        <h4>Ocupado/a ausente</h4>
+        <p>Tiene un empleo pero no trabajó en la semana de referencia (vacaciones, licencia, capacitación), manteniendo vínculo contractual o de palabra con su empleador.</p>
+        <div class="ex">Ejemplo: trabajadora con licencia médica de 2 semanas sigue contando como ocupada.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="tipos">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-label">07 / macroeconomía</div>
+      <h2>Tipos de desempleo</h2>
+      <p>Clasificación económica según la causa que explica por qué una persona está desocupada. No es parte de la metodología ENE, sino del marco teórico que se usa para interpretar sus resultados.</p>
+    </div>
+
+    <div class="types">
+      <div class="type-row">
+        <div class="type-name"><span class="dot" style="background:var(--mint)"></span>Friccional</div>
+        <div class="type-desc"><p>Tiempo que toma calzar oferta y demanda de trabajo: personas que cambian de empleo, recién egresadas o que se mudan de ciudad. Existe incluso en pleno empleo.</p></div>
+        <div class="type-example"><b>Ejemplo</b>Un contador renuncia para buscar mejor renta y tarda 6 semanas en firmar en otra empresa.</div>
+      </div>
+      <div class="type-row">
+        <div class="type-name"><span class="dot" style="background:var(--gold)"></span>Estacional</div>
+        <div class="type-desc"><p>Ligado a ciclos predecibles del calendario: temporadas agrícolas, turismo o fiestas de fin de año.</p></div>
+        <div class="type-example"><b>Ejemplo</b>Temporeros de la fruta sin contrato entre las temporadas de cosecha.</div>
+      </div>
+      <div class="type-row">
+        <div class="type-name"><span class="dot" style="background:var(--coral)"></span>Estructural</div>
+        <div class="type-desc"><p>Desajuste entre las habilidades de la fuerza de trabajo y lo que exige la economía, por cambios tecnológicos o productivos de largo plazo.</p></div>
+        <div class="type-example"><b>Ejemplo</b>Operarios de una planta automatizada cuyas competencias quedan obsoletas.</div>
+      </div>
+      <div class="type-row">
+        <div class="type-name"><span class="dot" style="background:var(--navy)"></span>Cíclico</div>
+        <div class="type-desc"><p>Asociado a las fases del ciclo económico: sube en recesión, baja en expansión.</p></div>
+        <div class="type-example"><b>Ejemplo</b>Despidos en el sector construcción durante una contracción del PIB.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>Recurso educativo sobre la medición del empleo y desempleo en Chile.</p>
+    <div class="src">
+      <p><strong>Fuente:</strong> Instituto Nacional de Estadísticas (INE) Chile — Documento Metodológico Encuesta Nacional de Empleo (ENE), y Glosario ENE. Definiciones y fórmulas verificadas contra el documento metodológico vigente.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  /* ---------- Diagram info panel ---------- */
+  const info = {
+    pet: { tag:'Punto de partida', color:'var(--navy)', title:'Población en Edad de Trabajar (PET)',
+      def:'Todas las personas de <strong>15 años o más</strong> con residencia habitual en Chile. Es la base sobre la que se construyen todas las categorías siguientes.',
+      criteria:['No es "más de 15 años": incluye a quien tiene exactamente 15.', 'De la PET se desprenden Fuerza de Trabajo y Fuera de la Fuerza de Trabajo.'],
+      example:'Una persona de 15 años que aún cursa 4° medio ya integra la PET, aunque probablemente termine clasificada como "fuera de la fuerza de trabajo" si no busca empleo.' },
+    ft: { tag:'Dentro de la fuerza', color:'#2E6B5E', title:'Fuerza de Trabajo (= PEA)',
+      def:'Personas de la PET que, en la semana de referencia, cumplen los requisitos para ser ocupadas o desocupadas. "Fuerza de Trabajo" y "Población Económicamente Activa (PEA)" son sinónimos exactos.',
+      criteria:['No confundir PEA con PET: la PEA es un subconjunto de la PET.', 'Representa la oferta de mano de obra disponible en el país.'],
+      example:'Si la PET de una región es 500.000 personas y 300.000 trabajan o buscan trabajo activamente, esas 300.000 son la Fuerza de Trabajo (PEA).' },
+    fft: { tag:'Fuera de la fuerza', color:'#8C6A22', title:'Fuera de la Fuerza de Trabajo (FFT)',
+      def:'Personas de la PET que no estaban ocupadas ni desocupadas durante la semana de referencia. El nombre técnico oficial reemplaza al término popular "inactivos".',
+      criteria:['Se subdivide en iniciadores, activos potenciales e inactivos habituales.', 'Antes se agrupaban todas bajo "inactivos"; ese término hoy es solo coloquial.'],
+      example:'Estudiantes de jornada completa, personas jubiladas y quienes se dedican a labores de cuidado no remunerado suelen clasificar aquí.' },
+    ocupado: { tag:'Ocupados/as', color:'#3FAE9E', title:'Personas Ocupadas',
+      def:'Trabajaron al menos 1 hora durante la semana de referencia produciendo un bien o servicio, a cambio de remuneración o beneficio (el pago puede ser a futuro).',
+      criteria:['Criterio de una hora: incluye trabajo parcial, ocasional o esporádico.', 'Criterio de remuneración: en dinero o en especie.', 'Excepciones: trabajador familiar no remunerado y ocupado ausente.'],
+      example:'Una feriante que vendió durante 3 horas el sábado y espera el pago la próxima semana se clasifica como ocupada.' },
+    desocupado: { tag:'Desocupados/as', color:'#E8654F', title:'Personas Desocupadas',
+      def:'No trabajaron en la semana de referencia, buscaron activamente empleo en las últimas 4 semanas y están disponibles para trabajar en los 15 días siguientes.',
+      criteria:['Los tres criterios deben cumplirse simultáneamente.', 'Se subdividen en cesantes y quienes buscan trabajo por primera vez.'],
+      example:'Postular a ofertas en LinkedIn, inscribirse en una OMIL o dejar el CV en terreno cuentan como búsqueda activa.' },
+    cesante: { tag:'Subtipo — Desocupado', color:'#C94A36', title:'Cesante',
+      def:'Persona desocupada que tuvo anteriormente un trabajo en la ocupación que duró al menos 1 mes.',
+      criteria:['El requisito de duración (≥1 mes) es lo que la distingue de "busca trabajo por primera vez".'],
+      example:'Alguien que trabajó 8 meses en retail y fue desvinculado, y ahora busca activamente un nuevo empleo.' },
+    primeravez: { tag:'Subtipo — Desocupado', color:'#C94A36', title:'Busca trabajo por primera vez',
+      def:'Persona desocupada que cumple los tres criterios de desocupación, pero nunca ha tenido un trabajo que durara al menos 1 mes.',
+      criteria:['Típico entre quienes recién egresan de estudios.'],
+      example:'Un/a recién titulado/a que nunca ha tenido un trabajo formal de más de un mes y ahora postula activamente.' },
+    iniciador: { tag:'Subtipo — FFT', color:'#B98A2E', title:'Iniciadores/as',
+      def:'No buscaron trabajo en las últimas 4 semanas porque ya tienen uno formalizado que comenzará pronto (contrato o acuerdo).',
+      criteria:['Es el subgrupo con mayor cercanía a integrar la fuerza de trabajo.', 'Chile no los cuenta en la tasa de desocupación oficial, aunque estén disponibles (a diferencia de la recomendación OIT/OCDE).', 'Se incluyen en el indicador complementario SU1.'],
+      example:'Persona que firmó contrato la semana pasada y comienza a trabajar en 3 semanas más.' },
+    potencial: { tag:'Subtipo — FFT', color:'#B98A2E', title:'Activos/as potenciales',
+      def:'Cumplen solo uno de los dos requisitos de desocupación: buscaron empleo pero no están disponibles, o están disponibles pero no buscaron.',
+      criteria:['También llamados "fuerza de trabajo potencial".', 'Son el puente entre estar dentro y fuera de la fuerza de trabajo.'],
+      example:'Alguien que quiere trabajar y está disponible, pero no ha hecho gestiones activas de búsqueda en 4 semanas.' },
+    habitual: { tag:'Subtipo — FFT', color:'#B98A2E', title:'Inactivos/as habituales',
+      def:'No buscaron trabajo ni están disponibles para comenzar uno.',
+      criteria:['Es el subgrupo más alejado de la fuerza de trabajo.'],
+      example:'Persona jubilada que no desea ni busca reincorporarse al mercado laboral.' }
+  };
+
+  const panel = document.getElementById('infoPanel');
+  document.querySelectorAll('.node').forEach(function(node){
+    node.addEventListener('click', function(){
+      document.querySelectorAll('.node').forEach(function(n){ n.classList.remove('selected'); });
+      node.classList.add('selected');
+      const key = node.getAttribute('data-key');
+      const d = info[key];
+      if(!d) return;
+      panel.innerHTML =
+        '<span class="tag" style="background:'+d.color+'">'+d.tag+'</span>' +
+        '<h3>'+d.title+'</h3>' +
+        '<p>'+d.def+'</p>' +
+        '<ul class="criteria">' + d.criteria.map(function(c){return '<li>'+c+'</li>';}).join('') + '</ul>' +
+        '<div class="example"><strong>Ejemplo:</strong> '+d.example+'</div>';
+    });
+  });
+
+  /* ---------- FFT toggle ---------- */
+  const fftToggle = document.getElementById('fftToggle');
+  const fftExtra = document.getElementById('fftExtra');
+  fftToggle.addEventListener('click', function(){
+    const on = fftToggle.classList.toggle('on');
+    fftToggle.setAttribute('aria-pressed', on ? 'true' : 'false');
+    fftExtra.classList.toggle('show', on);
+  });
+
+  /* ---------- Calculator + hero population bar (shared state) ---------- */
+  function fmt(n){ return n.toLocaleString('es-CL', {maximumFractionDigits:2}) + '%'; }
+  function fmtInt(n){ return Math.round(n).toLocaleString('es-CL'); }
+
+  const inpOc = document.getElementById('inpOcupados');
+  const inpDe = document.getElementById('inpDesocupados');
+  const inpFf = document.getElementById('inpFFT');
+
+  function recalc(){
+    const oc = parseFloat(inpOc.value) || 0;
+    const de = parseFloat(inpDe.value) || 0;
+    const ff = parseFloat(inpFf.value) || 0;
+    const ft = oc + de;
+    const pet = ft + ff;
+
+    const tDesoc = ft > 0 ? (de/ft)*100 : 0;
+    const tOcup = pet > 0 ? (oc/pet)*100 : 0;
+    const tPart = pet > 0 ? (ft/pet)*100 : 0;
+
+    document.getElementById('outDesoc').textContent = pet > 0 ? fmt(tDesoc) : '--';
+    document.getElementById('outOcup').textContent = pet > 0 ? fmt(tOcup) : '--';
+    document.getElementById('outPart').textContent = pet > 0 ? fmt(tPart) : '--';
+
+    const pOc = pet > 0 ? (oc/pet)*100 : 0;
+    const pDe = pet > 0 ? (de/pet)*100 : 0;
+    const pFf = pet > 0 ? (ff/pet)*100 : 0;
+
+    const barOc = document.getElementById('barOcup');
+    const barDe = document.getElementById('barDesoc');
+    const barFf = document.getElementById('barFft');
+    barOc.style.flexBasis = pOc + '%';
+    barDe.style.flexBasis = pDe + '%';
+    barFf.style.flexBasis = pFf + '%';
+    barOc.textContent = pOc >= 8 ? pOc.toFixed(1)+'%' : '';
+    barDe.textContent = pDe >= 8 ? pDe.toFixed(1)+'%' : '';
+    barFf.textContent = pFf >= 8 ? pFf.toFixed(1)+'%' : '';
+
+    document.getElementById('heroPetTotal').textContent = 'PET total: ' + fmtInt(pet) + ' personas';
+  }
+
+  [inpOc, inpDe, inpFf].forEach(function(el){
+    el.addEventListener('input', recalc);
+  });
+
+  document.querySelectorAll('.preset-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      inpOc.value = btn.getAttribute('data-oc');
+      inpDe.value = btn.getAttribute('data-de');
+      inpFf.value = btn.getAttribute('data-ff');
+      recalc();
+    });
+  });
+
+  recalc();
+
+  /* ---------- Scrollspy ---------- */
+  const secIds = ['arbol','glosario','fft','practica','tasas','casos','tipos'];
+  const navLinks = {};
+  document.querySelectorAll('.navlinks a').forEach(function(a){
+    navLinks[a.getAttribute('data-sec')] = a;
+  });
+  const observer = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        const id = entry.target.getAttribute('id');
+        Object.keys(navLinks).forEach(function(k){ navLinks[k].classList.toggle('active', k === id); });
+      }
+    });
+  }, { rootMargin: '-40% 0px -50% 0px', threshold: 0 });
+  secIds.forEach(function(id){
+    const el = document.getElementById(id);
+    if(el) observer.observe(el);
+  });
+
+  /* ---------- Quiz ---------- */
+  const questions = [
+    { text:'Trabajó 2 horas ayudando en el negocio de su tío, sin sueldo fijo, y su tío es el dueño del local.',
+      options:['Ocupado/a','Desocupado/a','Fuera de la fuerza de trabajo'], correct:'Ocupado/a',
+      explain:'Es trabajador/a familiar no remunerado/a: cumple la excepción al criterio de remuneración porque el familiar es dueño del negocio.' },
+    { text:'No trabaja, no ha buscado empleo en 3 meses y no tiene intención de hacerlo; se dedica a labores de cuidado del hogar.',
+      options:['Cesante','Iniciador/a','Inactivo/a habitual'], correct:'Inactivo/a habitual',
+      explain:'No busca ni está disponible: es el subgrupo de FFT más alejado de la fuerza de trabajo.' },
+    { text:'Fue despedida hace 2 semanas de un trabajo que tuvo por 5 meses; está enviando CVs esta semana.',
+      options:['Cesante','Busca trabajo por primera vez','Activo/a potencial'], correct:'Cesante',
+      explain:'Tuvo un empleo previo de al menos 1 mes y ahora busca activamente: es desocupada, subtipo cesante.' },
+    { text:'Terminó el colegio hace 1 mes, nunca ha trabajado formalmente, y está postulando activamente a su primer empleo.',
+      options:['Cesante','Busca trabajo por primera vez','Iniciador/a'], correct:'Busca trabajo por primera vez',
+      explain:'Cumple los criterios de desocupación pero nunca ha tenido un empleo de 1 mes o más: no es cesante.' },
+    { text:'Firmó un contrato la semana pasada; comienza a trabajar en 5 semanas más y por eso dejó de buscar empleo.',
+      options:['Ocupado/a','Iniciador/a','Activo/a potencial'], correct:'Iniciador/a',
+      explain:'No busca porque ya tiene un trabajo formalizado que comenzará pronto: es FFT, subtipo iniciador/a.' },
+    { text:'Le gustaría trabajar y está disponible de inmediato, pero no ha hecho ninguna gestión de búsqueda en el último mes.',
+      options:['Desocupado/a','Activo/a potencial','Inactivo/a habitual'], correct:'Activo/a potencial',
+      explain:'Cumple solo uno de los dos requisitos de desocupación (disponibilidad, sin búsqueda activa): es FFT, subtipo activo potencial.' }
+  ];
+
+  const quizContainer = document.getElementById('quizContainer');
+  const scoreEl = document.getElementById('quizScore');
+  const totalEl = document.getElementById('quizTotal');
+  totalEl.textContent = questions.length;
+  let score = 0;
+
+  function buildQuiz(){
+    score = 0;
+    scoreEl.textContent = score;
+    quizContainer.innerHTML = '';
+    questions.forEach(function(q, idx){
+      const card = document.createElement('div');
+      card.className = 'quiz-card';
+      const optsHtml = q.options.map(function(opt){
+        return '<button class="quiz-opt" data-opt="'+opt+'">'+opt+'</button>';
+      }).join('');
+      card.innerHTML =
+        '<div class="quiz-vignette"><strong>Caso '+(idx+1)+':</strong> '+q.text+'</div>' +
+        '<div class="quiz-options">'+optsHtml+'</div>' +
+        '<div class="quiz-feedback"></div>';
+      quizContainer.appendChild(card);
+
+      const buttons = card.querySelectorAll('.quiz-opt');
+      const feedback = card.querySelector('.quiz-feedback');
+      buttons.forEach(function(btn){
+        btn.addEventListener('click', function(){
+          buttons.forEach(function(b){ b.classList.add('disabled'); });
+          const chosen = btn.getAttribute('data-opt');
+          if(chosen === q.correct){
+            btn.classList.add('correct');
+            score++;
+            scoreEl.textContent = score;
+            feedback.innerHTML = '<b>Correcto.</b> ' + q.explain;
+          } else {
+            btn.classList.add('incorrect');
+            buttons.forEach(function(b){
+              if(b.getAttribute('data-opt') === q.correct) b.classList.add('correct');
+            });
+            feedback.innerHTML = '<b>La respuesta correcta es "'+q.correct+'".</b> ' + q.explain;
+          }
+          feedback.classList.add('show');
+        });
+      });
+    });
+  }
+
+  document.getElementById('quizReset').addEventListener('click', buildQuiz);
+  buildQuiz();
+
+})();
+</script>
+
+</body>
+</html>
