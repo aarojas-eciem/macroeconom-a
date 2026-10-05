@@ -83,6 +83,14 @@ input.num.ok{border-color:var(--teal);background:#DDF1EA}input.num.no{border-col
 .gl .eq{font-size:30px}
 .gl p{font-size:20px;line-height:1.3}
 .arw{width:44px;height:22px;background:var(--coral);clip-path:polygon(0 25%,60% 25%,60% 0,100% 50%,60% 100%,60% 75%,0 75%)}
+.sr{display:grid;grid-template-columns:760px 1fr;gap:6px 24px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line)}
+.sr p{font-size:22px;line-height:1.3}.sr .eq{font-size:32px}
+sup{font-size:.6em}
+.box{border:3px solid var(--coral);border-radius:16px;padding:14px 24px;background:#fff}
+.chn{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.chn b{background:var(--navy);color:#fff;border-radius:12px;padding:10px 18px;font-size:24px;font-family:'Fraunces',Georgia,serif;font-style:italic}
+.chn span{font-size:28px;color:var(--coral)}
+.pb{height:26px;border-radius:13px;background:#E7E1D2;overflow:hidden}.pb div{height:100%;background:var(--teal);transition:width .3s}
 </style>
 </head>
 <body>
@@ -316,21 +324,52 @@ input.num.ok{border-color:var(--teal);background:#DDF1EA}input.num.no{border-col
 
 <!-- 19 -->
 <section class="slide" id="s-rondas">
- <div class="hd"><p class="ey">III · Multiplicador · Cómo se genera cada ronda</p><h2>El efecto multiplicador ronda a ronda</h2></div>
+ <div class="hd"><p class="ey">III · Multiplicador · Las rondas y su expresión matemática</p><h2>El efecto multiplicador ronda a ronda</h2></div>
  <div class="row" style="gap:26px">
   <div class="col" style="width:560px;gap:8px">
    <div class="card" style="padding:12px 18px;display:flex;gap:14px;align-items:flex-start"><p class="big" style="font-size:36px;width:28px">1</p><div><p style="font-size:20px;font-weight:700;color:var(--navy);line-height:1.2">Todo gasto es ingreso de alguien</p><p style="font-size:18px;line-height:1.3">Los 100 que gasta el gobierno son ingreso de sus proveedores en la ronda 1.</p></div></div>
-   <div class="card" style="padding:12px 18px;display:flex;gap:14px;align-items:flex-start"><p class="big" style="font-size:36px;width:28px">2</p><div><p style="font-size:20px;font-weight:700;color:var(--navy);line-height:1.2">Del ingreso se fugan dos partes</p><p style="font-size:18px;line-height:1.3">Impuestos (t) y ahorro (1 − c del ingreso disponible). Ese dinero no vuelve al circuito.</p></div></div>
-   <div class="card" style="padding:12px 18px;display:flex;gap:14px;align-items:flex-start"><p class="big" style="font-size:36px;width:28px">3</p><div><p style="font-size:20px;font-weight:700;color:var(--navy);line-height:1.2">Lo que queda se consume</p><p style="font-size:18px;line-height:1.3">Consumo = c(1 − t) × ingreso. Es el ingreso de la ronda siguiente.</p></div></div>
-   <div class="card" style="padding:12px 18px;display:flex;gap:14px;align-items:flex-start"><p class="big" style="font-size:36px;width:28px">4</p><div><p style="font-size:20px;font-weight:700;color:var(--navy);line-height:1.2">El ciclo se repite y se apaga</p><p style="font-size:18px;line-height:1.3">Cada ronda es c(1 − t) de la anterior. La suma converge a 100 / (1 − c(1 − t)).</p></div></div>
-   <div class="card nv" style="padding:12px 18px"><p class="eq" style="font-size:26px" id="rd-eq"></p></div>
+   <div class="card" style="padding:12px 18px;display:flex;gap:14px;align-items:flex-start"><p class="big" style="font-size:36px;width:28px">2</p><div><p style="font-size:20px;font-weight:700;color:var(--navy);line-height:1.2">Del ingreso se fugan dos partes</p><p style="font-size:18px;line-height:1.3">Impuestos, t·Y, y ahorro, (1 − c)(1 − t)·Y. Ese dinero no vuelve al circuito.</p></div></div>
+   <div class="card" style="padding:12px 18px;display:flex;gap:14px;align-items:flex-start"><p class="big" style="font-size:36px;width:28px">3</p><div><p style="font-size:20px;font-weight:700;color:var(--navy);line-height:1.2">Lo que queda se consume</p><p style="font-size:18px;line-height:1.3">c(1 − t)·Y es el gasto de esta ronda y el ingreso de la siguiente.</p></div></div>
+   <div class="card" style="padding:12px 18px;display:flex;gap:14px;align-items:flex-start"><p class="big" style="font-size:36px;width:28px">4</p><div><p style="font-size:20px;font-weight:700;color:var(--navy);line-height:1.2">Cada ronda es una potencia de c(1 − t)</p><p style="font-size:18px;line-height:1.3">Ingreso de la ronda n = 100·[c(1 − t)]<sup>n−1</sup>. Como c(1 − t) &lt; 1, el ciclo se apaga.</p></div></div>
+   <div class="card nv" style="padding:12px 18px"><p class="eq" style="font-size:24px" id="rd-eq"></p></div>
    <div class="sl" id="rd-sl"></div>
   </div>
   <div class="col f1" style="gap:10px">
    <canvas id="rd" width="920" height="400"></canvas>
-   <div class="card" id="rd-card" style="padding:14px 20px"></div>
+   <div class="card" id="rd-card" style="padding:12px 20px"></div>
    <div class="ctl"><button class="btn alt" id="rd-pv">‹ Ronda anterior</button><button class="btn alt" id="rd-nx">Ronda siguiente ›</button><button class="btn" id="rd-pl">Pausar</button></div>
   </div>
+ </div>
+</section>
+
+<!-- serie 1 -->
+<section class="slide" id="s-serie1">
+ <div class="hd"><p class="ey">III · Multiplicador · La serie geométrica (avanza con →)</p><h2>¿Por qué aparece matemáticamente ese denominador?</h2></div>
+ <div class="row" style="gap:28px">
+  <div class="col" style="width:760px;gap:0">
+   <p style="font-size:22px;color:var(--navy);margin-bottom:6px">El gobierno aumenta G en 100. Cada fórmula es una barra del gráfico.</p>
+   <div class="sr" style="grid-template-columns:400px 1fr" data-step="1"><p><b>Ronda 1.</b> El ingreso aumenta directamente.</p><p class="eq">100</p></div>
+   <div class="sr" style="grid-template-columns:400px 1fr" data-step="2"><p>De esos 100, después de impuestos queda 100(1 − t) y se consume la fracción c:</p><p class="eq">100·c(1 − t)</p></div>
+   <div class="sr" style="grid-template-columns:400px 1fr" data-step="3"><p>Ese gasto es ingreso de otra persona, que vuelve a gastar:</p><p class="eq">100[c(1 − t)]<sup>2</sup></p></div>
+   <div class="sr" style="grid-template-columns:400px 1fr" data-step="4"><p>Luego:</p><p class="eq">100[c(1 − t)]<sup>3</sup></p></div>
+   <div class="sr" style="grid-template-columns:400px 1fr" data-step="5"><p>Y así sucesivamente:</p><p class="eq">100[c(1 − t)]<sup>n−1</sup> …</p></div>
+   <div class="card nv" data-step="6" style="padding:14px 22px;margin-top:12px"><p style="font-size:19px;color:#F2C14E;font-weight:700">ΔY es la suma de todas las barras</p><p class="eq" style="font-size:26px">ΔY = 100 + 100c(1 − t) + 100[c(1 − t)]<sup>2</sup> + ⋯</p><p class="eq" style="font-size:26px">ΔY = 100 { 1 + c(1 − t) + [c(1 − t)]<sup>2</sup> + [c(1 − t)]<sup>3</sup> + ⋯ }</p></div>
+  </div>
+  <div class="col f1" style="gap:10px"><canvas id="rd2" width="700" height="440" style="width:100%;height:auto"></canvas><p style="font-size:18px;color:var(--mut)" id="rd2-n"></p></div>
+ </div>
+</section>
+
+<!-- serie 2 -->
+<section class="slide" id="s-serie2">
+ <div class="hd"><p class="ey">III · Multiplicador · La suma infinita (avanza con →)</p><h2>De la suma de las barras al multiplicador</h2></div>
+ <div class="row" style="gap:28px">
+  <div class="col" style="width:700px;gap:12px">
+   <div class="card" data-step="1" style="padding:14px 22px"><p style="font-size:19px;color:var(--mut)">La suma de una serie geométrica</p><p class="eq" style="font-size:26px">1 + c(1 − t) + [c(1 − t)]<sup>2</sup> + ⋯ = <span class="frac"><span>1</span><span>1 − c(1 − t)</span></span></p><p style="font-size:18px">Converge porque 0 &lt; c(1 − t) &lt; 1. Las sumas parciales S<sub>n</sub> están en el gráfico.</p></div>
+   <div class="card" data-step="2" style="padding:14px 22px"><p style="font-size:19px;color:var(--mut)">Cada término se multiplica por</p><p class="eq" style="font-size:32px">c(1 − t)</p><p style="font-size:18px">Parte de cada ronda de ingreso que vuelve como gasto en la siguiente.</p></div>
+   <div class="box" data-step="3"><p class="eq" style="font-size:32px">ΔY = ΔG · <span class="frac"><span>1</span><span>1 − c(1 − t)</span></span> = α<sub>G</sub> · ΔG</p></div>
+   <div class="card nv" data-step="4" style="padding:14px 22px"><p class="ey" style="color:#F2C14E;font-size:17px">Con tus valores</p><p class="eq" style="font-size:24px;line-height:1.5" id="ej"></p></div>
+  </div>
+  <div class="col f1" style="gap:12px"><canvas id="rd3" width="760" height="440" style="width:100%;height:auto"></canvas><div class="sl" id="s2-sl"></div></div>
  </div>
 </section>
 
@@ -574,31 +613,56 @@ function loop(ts){anims.forEach(a=>{if(a.el.classList.contains('on'))a.fn(ts);})
   const ts2=[0,.1,.2,.3,.4,.5];ts2.forEach((tt,i)=>{const v=1/(1-c*(1-tt)),w=v*(580/Math.max(1/(1-c),1)),y=190+i*50,sel=Math.abs(tt-t)<.05;x.fillStyle=sel?'#B83A1F':'#0F7B66';x.globalAlpha=sel?1:.55;x.fillRect(190,y,w,34);x.globalAlpha=1;x.fillStyle='#12264A';x.font='bold 22px DM Sans,Arial';x.fillText('t = '+F(tt*100,2)+'%',30,y+25);x.fillText(F(v,2),200+w,y+25);});
   const w=a*(580/Math.max(1/(1-c),1));x.strokeStyle='#12264A';x.lineWidth=3;x.setLineDash([6,6]);x.beginPath();x.moveTo(190+w,180);x.lineTo(190+w,490);x.stroke();x.setLineDash([]);});})();
 
-// rondas
-(function(){const st={c:.8,t:.2};let n=1,play=true,last=0,acc=0,key='';const sl=$('#rd-sl'),cv=$('#rd'),x=cv.getContext('2d'),card=$('#rd-card');
- ['c','t'].forEach(k=>{const[l,nm,mn,mx,s]=LAB[k],lb=document.createElement('label');lb.innerHTML=`<span class="k">${l}</span><span class="n">${nm}</span><input type="range" min="${mn}" max="${mx}" step="${s}" value="${st[k]}"><b class="v"></b>`;lb.querySelector('input').oninput=e=>{st[k]=Math.round(e.target.value*100)/100;n=1;acc=0;};lb.dataset.k=k;sl.appendChild(lb);});ovify(sl);
- const pl=$('#rd-pl');pl.onclick=()=>{if(play){play=false;pl.textContent='Reproducir';}else{if(n>=12)n=1;play=true;pl.textContent='Pausar';}};
+// estado compartido c, t
+const SH={c:.8,t:.25},REG=[],HOOKS=[];
+function bindSliders(host,keys){keys.forEach(k=>{const[l,nm,mn,mx,sp]=LAB[k],lb=document.createElement('label');lb.innerHTML=`<span class="k">${l}</span><span class="n">${nm}</span><input type="range" min="${mn}" max="${mx}" step="${sp}" value="${SH[k]}"><b class="v"></b>`;const inp=lb.querySelector('input'),v=lb.querySelector('.v');
+  inp.oninput=()=>{SH[k]=Math.round(inp.value*100)/100;syncAll();HOOKS.forEach(h=>h());};REG.push({inp,v,k});host.appendChild(lb);});ovify(host);syncAll();}
+function syncAll(){REG.forEach(q=>{q.inp.value=SH[q.k];q.v.textContent=fv(q.k,SH[q.k]);});}
+const SUP=['0','1','2','3','4','5','6','7','8','9','10','11'];
+function drawRounds(x,W,H,n,hl,o){const c=SH.c,t=SH.t,r=c*(1-t),lim=100/(1-r),B=H-62,sc=(B-130)/100,pitch=(W-50)/12,bw=pitch-12;
+ x.fillStyle='#fff';x.fillRect(0,0,W,H);let cum=0;
+ for(let i=0;i<n;i++){const Y=100*Math.pow(r,i);cum+=Y;const bx=30+i*pitch,cons=r*Y,imp=t*Y,ah=Y-cons-imp;
+  if(o.legend){x.fillStyle='#0F7B66';x.fillRect(bx,B-cons*sc,bw,cons*sc);x.fillStyle='#B83A1F';x.fillRect(bx,B-(cons+ah)*sc,bw,ah*sc);x.fillStyle='#F2C14E';x.fillRect(bx,B-Y*sc,bw,imp*sc);
+   if(i+1<n){x.setLineDash([4,4]);x.strokeStyle='#0F7B66';x.lineWidth=2;x.beginPath();x.moveTo(bx+bw,B-cons*sc);x.lineTo(bx+pitch,B-cons*sc);x.stroke();x.setLineDash([]);}}
+  else{x.fillStyle='#0F7B66';x.fillRect(bx,B-Y*sc,bw,Y*sc);}
+  if(i==hl){x.strokeStyle='#12264A';x.lineWidth=4;x.strokeRect(bx-2,B-Y*sc-2,bw+4,Y*sc+4);}
+  x.textAlign='center';x.fillStyle='#12264A';x.font='bold 18px DM Sans,Arial';x.fillText(F(Y,0),bx+bw/2,B-Y*sc-9);
+  x.fillStyle='#5A6580';x.font='16px DM Sans,Arial';x.fillText(String(i+1),bx+bw/2,B+20);x.fillStyle='#B83A1F';x.font='bold 17px DM Sans,Arial';x.fillText(SUP[i],bx+bw/2,B+42);}
+ x.textAlign='left';x.fillStyle='#5A6580';x.font='15px DM Sans,Arial';x.fillText('Bajo cada barra: n° de ronda y exponente (n−1) de [c(1 − t)]',30,H-6);
+ x.strokeStyle='#C9CFDB';x.lineWidth=3;x.beginPath();x.moveTo(20,B);x.lineTo(W-10,B);x.stroke();
+ x.fillStyle='#12264A';x.font='bold 20px DM Sans,Arial';x.fillText('Aumento acumulado de Y',30,30);x.fillStyle='#0F7B66';x.font='bold 46px Fraunces,Georgia,serif';x.fillText(F(cum,2),30,76);
+ x.fillStyle='#5A6580';x.font='18px DM Sans,Arial';x.fillText('c = '+F(c,2)+' · t = '+F(t*100,2)+'% · c(1 − t) = '+F(r,2)+' · Límite: '+F(lim,2),30,102);
+ if(o.legend)[['#0F7B66','Consumo (pasa a la ronda siguiente)'],['#B83A1F','Ahorro (fuga)'],['#F2C14E','Impuestos (fuga)']].forEach((q,i)=>{x.fillStyle=q[0];x.fillRect(W-340,22+i*26,16,16);x.fillStyle='#12264A';x.font='17px DM Sans,Arial';x.fillText(q[1],W-316,36+i*26);});
+ return cum;}
+// slide 19: rondas animadas
+(function(){let n=1,play=true,last=0,acc=0,key='';const sl=$('#rd-sl'),cv=$('#rd'),x=cv.getContext('2d'),card=$('#rd-card'),pl=$('#rd-pl');
+ bindSliders(sl,['c','t']);HOOKS.push(()=>{n=1;acc=0;});
+ pl.onclick=()=>{if(play){play=false;pl.textContent='Reproducir';}else{if(n>=12)n=1;play=true;pl.textContent='Pausar';}};
  $('#rd-pv').onclick=()=>{play=false;pl.textContent='Reproducir';n=Math.max(1,n-1);};
  $('#rd-nx').onclick=()=>{play=false;pl.textContent='Reproducir';n=Math.min(12,n+1);};
  reg('s-rondas',ts=>{const dt=ts-last;last=ts;if(play&&dt<300){acc+=dt;if(acc>1200){acc=0;if(n<12)n++;else{play=false;pl.textContent='Reproducir';}}}
-  const{c,t}=st,r=c*(1-t),lim=100/(1-r),sc=2.4,B=350;
-  sl.querySelectorAll('label').forEach(lb=>lb.querySelector('.v').textContent=fv(lb.dataset.k,st[lb.dataset.k]));
-  $('#rd-eq').textContent=`ΔY = 100 × ${F(1/(1-r),2)} = ${F(lim,2)}`;
-  x.fillStyle='#fff';x.fillRect(0,0,920,400);let cum=0;
-  for(let i=0;i<n;i++){const Y=100*Math.pow(r,i);cum+=Y;const bx=30+i*72,cons=r*Y,imp=t*Y,ah=Y-cons-imp;
-   x.fillStyle='#0F7B66';x.fillRect(bx,B-cons*sc,58,cons*sc);x.fillStyle='#B83A1F';x.fillRect(bx,B-(cons+ah)*sc,58,ah*sc);x.fillStyle='#F2C14E';x.fillRect(bx,B-Y*sc,58,imp*sc);
-   if(i==n-1){x.strokeStyle='#12264A';x.lineWidth=4;x.strokeRect(bx-2,B-Y*sc-2,62,Y*sc+4);}
-   x.fillStyle='#12264A';x.font='bold 19px DM Sans,Arial';x.textAlign='center';x.fillText(F(Y,0),bx+29,B-Y*sc-10);x.fillStyle='#5A6580';x.font='17px DM Sans,Arial';x.fillText(String(i+1),bx+29,B+24);
-   if(i+1<n){x.setLineDash([4,4]);x.strokeStyle='#0F7B66';x.lineWidth=2;x.beginPath();x.moveTo(bx+58,B-cons*sc);x.lineTo(bx+72,B-cons*sc);x.stroke();x.setLineDash([]);}}
-  x.textAlign='left';x.fillStyle='#5A6580';x.font='17px DM Sans,Arial';x.fillText('Ronda de gasto',30,B+48);
-  x.strokeStyle='#C9CFDB';x.lineWidth=3;x.beginPath();x.moveTo(20,B);x.lineTo(900,B);x.stroke();
-  x.fillStyle='#12264A';x.font='bold 20px DM Sans,Arial';x.fillText('Aumento acumulado de Y',30,30);x.fillStyle='#0F7B66';x.font='bold 50px Fraunces,Georgia,serif';x.fillText(F(cum,2),30,80);
-  x.fillStyle='#5A6580';x.font='19px DM Sans,Arial';x.fillText('Límite: '+F(lim,2),470,126);
-  [['#0F7B66','Consumo (pasa a la ronda siguiente)'],['#B83A1F','Ahorro (fuga)'],['#F2C14E','Impuestos (fuga)']].forEach((q,i)=>{x.fillStyle=q[0];x.fillRect(470,26+i*28,18,18);x.fillStyle='#12264A';x.font='18px DM Sans,Arial';x.fillText(q[1],496,41+i*28);});
+  const{c,t}=SH,r=c*(1-t),lim=100/(1-r);const cum=drawRounds(x,920,400,n,n-1,{legend:true});
+  $('#rd-eq').innerHTML=`ΔY = 100{1 + c(1 − t) + [c(1 − t)]² + …} = 100 / (1 − ${F(r,2)}) = ${F(lim,2)}`;
   const k2=n+'|'+c+'|'+t;if(k2!=key){key=k2;const Y=100*Math.pow(r,n-1),cons=r*Y,imp=t*Y,ah=Y-cons-imp;
-   const tile=(a,b,col)=>`<div style="flex:1;border-left:6px solid ${col};padding:2px 12px"><div style="font-size:16px;color:#5A6580">${a}</div><b style="font-size:24px;color:#12264A;font-family:Fraunces,Georgia,serif">${b}</b></div>`;
-   card.innerHTML=`<p style="font-size:20px;line-height:1.3;color:#12264A"><b>Ronda ${n}.</b> ${n==1?'El gobierno gasta 100 y ese gasto es ingreso de sus proveedores.':'Reciben '+F(Y,2)+' porque la ronda anterior consumió esa parte de su ingreso.'}</p><div style="display:flex;gap:10px;margin:8px 0 6px">${tile('Ingreso recibido',F(Y,2),'#12264A')}${tile('Impuestos: t × ingreso',F(imp,2),'#F2C14E')}${tile('Ahorro: (1 − c)(1 − t) × ingreso',F(ah,2),'#B83A1F')}${tile('Consumo: c(1 − t) × ingreso',F(cons,2),'#0F7B66')}</div><p style="font-size:18px;line-height:1.3;color:#3A4660">${n<12?'El consumo ('+F(cons,2)+') es el ingreso de la ronda '+(n+1)+'. De cada peso que llega, sigue circulando '+F(r,2)+'.':'Con 12 rondas ya se acumula casi todo el efecto: '+F(cum,2)+' de un límite de '+F(lim,2)+'.'}</p>`;}});})();
-
+   const tile=(a,b,col)=>`<div style="flex:1;border-left:6px solid ${col};padding:2px 12px"><div style="font-size:15px;color:#5A6580">${a}</div><b style="font-size:22px;color:#12264A;font-family:Fraunces,Georgia,serif">${b}</b></div>`;
+   card.innerHTML=`<p style="font-size:19px;line-height:1.3;color:#12264A"><b>Ronda ${n}:</b> ingreso = 100·[c(1 − t)]<sup>${n-1}</sup> = 100 × ${F(r,2)}<sup>${n-1}</sup> = <b>${F(Y,2)}</b>. ${n==1?'Es el gasto del gobierno, ingreso de sus proveedores.':'Es el consumo de la ronda anterior.'}</p><div style="display:flex;gap:10px;margin:8px 0 6px">${tile('Ingreso recibido',F(Y,2),'#12264A')}${tile('Impuestos: t × ingreso',F(imp,2),'#F2C14E')}${tile('Ahorro: (1 − c)(1 − t) × ingreso',F(ah,2),'#B83A1F')}${tile('Consumo: c(1 − t) × ingreso',F(cons,2),'#0F7B66')}</div><p style="font-size:18px;line-height:1.35;color:#3A4660">El consumo, ${F(cons,2)}, es el ingreso de la ronda ${n+1}. Acumulado tras ${n}: S<sub>${n}</sub> = 100{1 − [c(1 − t)]<sup>${n}</sup>}/(1 − c(1 − t)) = <b>${F(cum,2)}</b>; límite 100/(1 − c(1 − t)) = <b>${F(lim,2)}</b>.</p>`;}});})();
+// slide 20: barras sincronizadas con las fórmulas
+(function(){const cv=$('#rd2'),x=cv.getContext('2d');
+ reg('s-serie1',ts=>{const sh=[...$$('#s-serie1 [data-step].shown')].map(e=>+e.dataset.step),m=sh.length?Math.max(...sh):0;
+  const n=m>=6?12:Math.max(m,0);drawRounds(x,700,440,n,m>=1&&m<=5?m-1:-1,{});
+  $('#rd2-n').textContent=m==0?'Avanza con → para construir la serie, barra por barra.':m<6?'Barra '+m+': ingreso de la ronda '+m+' = 100·[c(1 − t)]'+(m==1?'⁰':'^'+(m-1))+'.':'ΔY es la suma de todas las barras. Cambia c y t en la lámina siguiente.';});})();
+// slide 21: sumas parciales y límite
+(function(){const cv=$('#rd3'),x=cv.getContext('2d'),sl=$('#s2-sl');bindSliders(sl,['c','t']);
+ reg('s-serie2',ts=>{const{c,t}=SH,r=c*(1-t),al=1/(1-r),lim=100*al,W=760,H=440,B=H-60,sc=(B-110)/lim,pitch=(W-50)/12,bw=pitch-12;
+  x.fillStyle='#fff';x.fillRect(0,0,W,H);
+  x.fillStyle='#12264A';x.font='bold 20px DM Sans,Arial';x.textAlign='left';x.fillText('Suma parcial Sₙ = 100{1 − [c(1 − t)]ⁿ}/(1 − c(1 − t))',30,30);
+  x.fillStyle='#5A6580';x.font='18px DM Sans,Arial';x.fillText('Las barras se acercan al límite 100/(1 − c(1 − t)) sin alcanzarlo',30,56);
+  for(let i=0;i<12;i++){const S=100*(1-Math.pow(r,i+1))/(1-r),bx=30+i*pitch;x.fillStyle='#E7E1D2';x.fillRect(bx,B-lim*sc,bw,(lim-S)*sc);x.fillStyle='#12264A';x.fillRect(bx,B-S*sc,bw,S*sc);
+   x.textAlign='center';x.fillStyle='#12264A';x.font='bold 15px DM Sans,Arial';x.fillText(F(S,0),bx+bw/2,B-S*sc-6);x.fillStyle='#5A6580';x.font='16px DM Sans,Arial';x.fillText(String(i+1),bx+bw/2,B+22);}
+  x.setLineDash([10,7]);x.strokeStyle='#B83A1F';x.lineWidth=3;x.beginPath();x.moveTo(20,B-lim*sc);x.lineTo(W-10,B-lim*sc);x.stroke();x.setLineDash([]);
+  x.textAlign='left';x.fillStyle='#B83A1F';x.font='bold 20px DM Sans,Arial';x.fillText('Límite = 100/(1 − c(1 − t)) = '+F(lim,2),30,B-lim*sc-10+ (lim*sc>60?0:0));
+  x.fillStyle='#5A6580';x.font='16px DM Sans,Arial';x.fillText('Número de rondas sumadas (n)',30,H-8);x.strokeStyle='#C9CFDB';x.lineWidth=3;x.beginPath();x.moveTo(20,B);x.lineTo(W-10,B);x.stroke();
+  $('#ej').innerHTML=`c = ${F(c,2)} · t = ${F(t*100,2)}%<br>c(1 − t) = ${F(c,2)} × ${F(1-t,2)} = ${F(r,2)}<br>α<sub>G</sub> = 1/(1 − ${F(r,2)}) = ${F(al,2)}<br>ΔY = ${F(al,2)} × 100 = <b style="color:#F2C14E">${F(lim,2)}</b>`;});})();
 /* ---------- simuladores en láminas ---------- */
 mountSim($('#e-sim'),{preset:'mx',out:['Ao','a','Y','Yd','DP'],w:700,h:520});
 mountSim($('#d-sim'),{preset:'mx',show:['Gb','TRb','Tb'],out:['Y','dY','DP'],w:760,h:500,
