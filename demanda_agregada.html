@@ -91,11 +91,63 @@ sup{font-size:.6em}
 .chn b{background:var(--navy);color:#fff;border-radius:12px;padding:10px 18px;font-size:24px;font-family:'Fraunces',Georgia,serif;font-style:italic}
 .chn span{font-size:28px;color:var(--coral)}
 .pb{height:26px;border-radius:13px;background:#E7E1D2;overflow:hidden}.pb div{height:100%;background:var(--teal);transition:width .3s}
+
+/* Taller resuelto: primero despeje, luego multiplicador, en una misma lámina. */
+.slide.worked{padding:44px 68px 76px;gap:12px}
+.worked .ey{font-size:15px;letter-spacing:2px}
+.worked h2{font-size:40px}
+.worked .context{font-size:19px;line-height:1.3;color:var(--navy);padding:10px 16px;background:#E9E4D8;border-left:4px solid var(--navy);border-radius:8px}
+.method-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;flex:1;min-height:0}
+.method{position:relative;display:grid;grid-template-rows:68px repeat(5,minmax(0,1fr));background:#fff;border:1px solid var(--line);border-top:5px solid var(--coral);border-radius:14px;padding:14px 22px;min-height:0;transition:border-color .25s,box-shadow .25s}
+.method.direct{border-top-color:var(--teal)}
+.method.active{border-color:var(--coral);box-shadow:0 0 0 2px #B83A1F16}
+.method.direct.active{border-color:var(--teal);box-shadow:0 0 0 2px #0F7B6616}
+.method.waiting{background:#FAF9F5;border-top-color:#C7CCCB}
+.method-head{position:relative;border-bottom:1px solid var(--line);padding-bottom:10px}
+.method h3{font-size:23px;line-height:1.2;padding-top:6px}
+.method .method-label{font-size:13px;font-weight:700;letter-spacing:1.4px;color:var(--coral);text-transform:uppercase;line-height:1.3}
+.method.direct .method-label{color:var(--teal)}
+.method-state{position:absolute;top:-2px;right:0;border-radius:99px;padding:4px 10px;background:#F6E6E0;color:var(--coral);font-size:12px;font-weight:700;letter-spacing:.3px}
+.method.direct .method-state{background:#E4F1EB;color:var(--teal)}
+.method.waiting .method-state{background:#ECEDE8;color:var(--mut)}
+.method .step{display:flex;flex-direction:column;justify-content:center;gap:4px;min-height:0;border-bottom:1px solid #EEEAE1;padding:2px 0}
+.method .step:last-child{border-bottom:0}
+.method .step>p:first-child{font-size:16px;line-height:1.15;color:var(--mut)}
+.method .step>p:first-child>b{color:var(--coral);margin-right:4px}
+.method.direct .step>p:first-child>b{color:var(--teal)}
+.method .step .eq{font-size:24px;line-height:1.15;margin:0}
+.method .step .eq.compact{font-size:22px}
+.method .step .eq.full{font-size:20px}
+.method .step.shown.current-step{background:#FCF6EF;box-shadow:-8px 0 0 #FCF6EF,8px 0 0 #FCF6EF}
+.method.direct .step.shown.current-step{background:#F0F8F4;box-shadow:-8px 0 0 #F0F8F4,8px 0 0 #F0F8F4}
+.method-wait{position:absolute;inset:102px 34px 30px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:12px;color:var(--mut);pointer-events:none}
+.method-wait .wait-number{font:500 58px 'Fraunces',Georgia,serif;color:#B9C5BC}
+.method-wait p{font-size:20px;max-width:400px;line-height:1.4}
+.method:not(.waiting) .method-wait{display:none}
+.worked .result{padding:11px 18px;background:var(--navy);color:var(--cream);border-radius:10px;font-size:20px;line-height:1.3}
+.worked .result b{color:var(--gold)}
+.worked .work-controls{display:flex;align-items:center;gap:10px;margin-top:auto;min-height:38px}
+.worked .work-controls .btn{font-size:15px;padding:8px 12px}
+.worked .work-controls .work-progress{font-size:16px;font-weight:700;color:var(--navy);margin-left:auto;text-align:right}
+.exercise-access{position:absolute;right:40px;top:16px;z-index:10;font-size:15px;padding:7px 14px}
+.exercise-access:focus-visible,.worked button:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+.worked .overview{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.worked .overview p{font-size:21px}
+.worked .overview .eq{font-size:29px;line-height:1.5}
+.exercise-index{display:flex;gap:10px;flex-wrap:wrap}
+.exercise-index .btn{font-size:18px}
+#s-taller .q{display:grid;gap:10px;padding:14px 20px}
+#s-taller .q>p{font-size:21px}
+#s-taller .q .ctl{gap:16px;align-items:end}
+#s-taller .q label{font-size:16px;font-weight:700;color:var(--mut);min-width:140px}
+#s-taller .q .num{margin-top:4px;font-size:21px}
+
 </style>
 </head>
 <body>
 <div id="stage">
 <div id="bar"></div>
+<button class="btn alt exercise-access" data-goto="s-ejercicios" aria-label="Abrir sección de ejercicios resueltos">Ejercicios resueltos</button>
 
 <!-- 1 -->
 <section class="slide dark" id="s-cover" style="justify-content:space-between">
@@ -112,7 +164,7 @@ sup{font-size:.6em}
   <div class="card f1 col"><p class="big" style="font-size:72px">02</p><h3>Oferta agregada</h3><p style="font-size:22px">El modelo keynesiano de corto plazo</p></div>
   <div class="card f1 col"><p class="big" style="font-size:72px">03</p><h3>Demanda agregada</h3><p style="font-size:22px">Gasto público, impuestos y multiplicador</p></div>
   <div class="card f1 col"><p class="big" style="font-size:72px">04</p><h3>Políticas fiscales</h3><p style="font-size:22px">Directas e indirectas, expansivas y contractivas</p></div>
-  <div class="card nv f1 col"><p class="big" style="font-size:72px;color:#F2C14E">05</p><h3>Déficit y taller</h3><p style="font-size:22px">Financiamiento y ejercicio aplicado</p></div>
+  <div class="card nv f1 col"><p class="big" style="font-size:72px;color:#F2C14E">05</p><h3>Déficit y taller</h3><p style="font-size:22px">Financiamiento, taller y soluciones paso a paso</p></div>
  </div>
 </section>
 
@@ -220,7 +272,7 @@ sup{font-size:.6em}
   <div class="col" style="width:380px">
    <p>Las <b style="color:var(--coral)">fugas</b> (ahorro e impuestos) sacan renta del circuito.</p>
    <p>Las <b style="color:var(--teal)">inyecciones</b> (inversión y gasto público) la devuelven.</p>
-   <div class="card nv" style="padding:18px 22px"><p class="eq" style="font-size:30px">S + T = I + G + TR</p><p style="font-size:18px">Si no hay transferencias, TR = 0.</p></div>
+   <div class="card nv" style="padding:18px 22px"><p class="eq" style="font-size:30px">SF + ({T} + tY) = I + G</p><p style="font-size:18px">SF = Y − C − ({T} + tY), según la convención de esta clase.</p></div>
    <div class="opt" id="fl-opt"><button data-f="all" class="ok">Todo</button><button data-f="f">Solo fugas</button><button data-f="i">Solo inyecciones</button></div>
   </div>
   <canvas id="fl" width="1000" height="540"></canvas>
@@ -273,8 +325,8 @@ sup{font-size:.6em}
   <p><b>Componente Autónomo de la Demanda Agregada:</b> incluye la sumatoria de todas aquellas variables autónomas que no dependen del nivel de ingreso/producción en el modelo. Gráficamente, la valorización del coeficiente determina la intersección y/o cambios de posición de la función de Demanda Agregada.</p>
   <div class="eq">α<sub>G</sub> = <span class="frac"><span>1</span><span>1 − c(1 − t)</span></span></div><div class="arw"></div><div class="eq">α<sub>G</sub></div>
   <p><b>Multiplicador del Gasto Público con Gobierno:</b> el valor del multiplicador del gasto nos permite cuantificar cuál es el cambio que sufre la producción/ingreso de una economía, frente a cambios que experimente el componente autónomo de la Demanda Agregada. La única variable que controla el Gobierno en el multiplicador es la tasa impositiva (t).</p>
-  <div class="eq"><span class="frac"><span>DP</span><span>SP</span></span> = {T} + tY − {G} − {TR}</div><div class="arw"></div><div class="eq"><span class="frac"><span>DP</span><span>SP</span></span></div>
-  <p><b>Déficit/Superávit Fiscal:</b> corresponde a la diferencia entre los ingresos y los egresos (corrientes y de capital) del sector público. Si el indicador es positivo, implica un superávit fiscal (o superávit del presupuesto); mientras que si su valor es negativo, implica un déficit fiscal (o déficit del presupuesto).</p>
+  <div class="eq">DP/SP = {T} + tY − {G} − {TR}</div><div class="arw"></div><div class="eq">DP/SP</div>
+  <p><b>Déficit/superávit fiscal (DP/SP):</b> corresponde a la diferencia entre los ingresos y los egresos (corrientes y de capital) del sector público. Si el indicador es positivo, implica un superávit fiscal (o superávit del presupuesto); mientras que si su valor es negativo, implica un déficit fiscal (o déficit del presupuesto).</p>
  </div>
 </section>
 
@@ -416,7 +468,7 @@ sup{font-size:.6em}
 <section class="slide" id="s-def">
  <div class="hd"><p class="ey">V · Déficit público</p><h2>Déficit o superávit del sector público</h2></div>
  <div class="row">
-  <div class="card nv f1 col" style="gap:8px"><p class="ey" style="color:#F2C14E;font-size:18px">Saldo del presupuesto</p><p class="eq" style="font-size:38px"><span class="frac"><span>DP</span><span>SP</span></span> = {T} + tY − {G} − {TR}</p><p style="font-size:21px">Ingresos menos egresos, corrientes y de capital.</p></div>
+  <div class="card nv f1 col" style="gap:8px"><p class="ey" style="color:#F2C14E;font-size:18px">Saldo del presupuesto</p><p class="eq" style="font-size:38px">DP/SP = {T} + tY − {G} − {TR}</p><p style="font-size:21px">Ingresos menos egresos, corrientes y de capital.</p></div>
   <div class="card f1 col" style="gap:8px"><p style="color:var(--navy)"><b style="color:var(--teal)">Positivo:</b> superávit fiscal.</p><p style="color:var(--navy)"><b style="color:var(--coral)">Negativo:</b> déficit fiscal.</p><p style="font-size:20px">El ahorro público mide solo la diferencia entre los componentes corrientes.</p></div>
  </div>
  <p style="font-weight:700;color:var(--navy);font-size:28px">Un déficit hay que financiarlo. ¿Cómo?</p>
@@ -441,10 +493,10 @@ sup{font-size:.6em}
  <div class="row" style="gap:26px">
   <div class="card nv col" style="width:430px;gap:8px"><p class="ey" style="color:#F2C14E;font-size:18px">Funciones</p><p class="eq" style="font-size:28px">C = 400 + c·Yd</p><p class="eq" style="font-size:28px">I = 800</p><p class="eq" style="font-size:28px">G = 700</p><p class="eq" style="font-size:28px">TR = 100</p><p class="eq" style="font-size:28px">T = 200 + 0,25·Y</p><p style="font-size:19px">Lo que no se consume se ahorra: la propensión marginal a ahorrar es 20,00%.</p></div>
   <div class="col f1" style="gap:12px">
-   <div class="q"><p><b>1</b> Renta de equilibrio, multiplicador y ahorro.</p><div class="ctl"><label>Y*<br><input class="num" data-k="y1" placeholder="0,00"></label><label>α<sub>G</sub><br><input class="num" data-k="a1" placeholder="0,00"></label><label>S<br><input class="num" data-k="s1" placeholder="0,00"></label></div></div>
+   <div class="q"><p><b>1</b> Renta de equilibrio, multiplicador y ahorros SF y SE.</p><div class="ctl"><label>Y*<br><input class="num" data-k="y1" placeholder="0,00"></label><label>α<sub>G</sub><br><input class="num" data-k="a1" placeholder="0,00"></label><label>SF = SE<br><input class="num" data-k="s1" placeholder="0,00"></label></div></div>
    <div class="q"><p><b>2</b> El gasto público se recorta 30,00%: nuevo Y*.</p><div class="ctl"><label>Y* nuevo<br><input class="num" data-k="y2" placeholder="0,00"></label></div></div>
-   <div class="q"><p><b>3</b> La tasa impositiva baja a 0,15: α<sub>G</sub>, Y* y saldo fiscal.</p><div class="ctl"><label>α<sub>G</sub><br><input class="num" data-k="a3" placeholder="0,000" style="width:110px"></label><label>Y*<br><input class="num" data-k="y3" placeholder="0,00" style="width:130px"></label><label>DP/SP<br><input class="num" data-k="d3" placeholder="0,00" style="width:130px"></label></div></div>
-   <div class="ctl"><button class="btn" id="tl-ck">Comprobar</button><span id="tl-fb" class="fb"></span></div>
+   <div class="q"><p><b>3</b> Desde la situación inicial (G = 700), t baja a 0,15: α<sub>G</sub>, Y* y saldo fiscal.</p><div class="ctl"><label>α<sub>G</sub><br><input class="num" data-k="a3" placeholder="0,000" style="width:110px"></label><label>Y*<br><input class="num" data-k="y3" placeholder="0,00" style="width:130px"></label><label>DP/SP<br><input class="num" data-k="d3" placeholder="0,00" style="width:130px"></label></div></div>
+   <div class="ctl"><button class="btn" id="tl-ck">Comprobar</button><button class="btn alt" data-goto="s-ejercicios">Ver resolución paso a paso</button><span id="tl-fb" class="fb"></span></div>
    <p style="font-size:18px;color:var(--mut)">Escribe con coma decimal y sin puntos de miles (ej.: 4550 o 3,125). Tolerancia: ±0,50 (±0,01 en el multiplicador).</p>
   </div>
  </div>
@@ -456,13 +508,69 @@ sup{font-size:.6em}
  <div id="t-sim"></div>
 </section>
 
+
+
+<!-- Ejercicios resueltos: ambos métodos, paso a paso -->
+<section class="slide worked" id="s-ejercicios">
+ <div class="hd"><p class="ey">VI · Ejercicios resueltos · Taller de Indonesia</p><h2>Un mismo equilibrio, dos formas de resolver</h2></div>
+ <p class="context"><b>Datos:</b> C = 400 + cYd · I = 800 · G = 700 · TR = 100 · T = 200 + tY.<br>Propensión marginal a ahorrar: s = 0,20 ⇒ c = 1 − 0,20 = <b>0,80</b>. Inicialmente, t = 0,25.</p>
+ <p style="font-size:20px;color:var(--navy)"><b>Orden de trabajo:</b> primero desarrollamos el método 1 completo; después el método 2. El primero queda visible para comparar al terminar.</p>
+ <div class="overview">
+  <div class="card col" style="gap:10px"><p class="ey">Método 1 · Sustituir y despejar</p><h3>Partir del equilibrio</h3><p class="eq">Y = DA = C + I + G</p><p>Reemplazar el consumo y el ingreso disponible con los valores numéricos. Reunir los términos con Y y despejar la producción.</p></div>
+  <div class="card col" style="gap:10px;border-top:5px solid var(--teal)"><p class="ey" style="color:var(--teal)">Método 2 · Aplicación directa</p><h3>Multiplicador × gasto autónomo</h3><p class="eq">Y* = DA(Y*) = α<sub>G</sub> × {Ao}</p><p class="eq">{Ao} = {C} + c{TR} − c{T} + {I} + {G}</p><p class="eq">α<sub>G</sub> = 1 / [1 − c(1 − t)]</p></div>
+ </div>
+ <p style="font-size:20px;color:var(--navy)"><b>Clave:</b> {Ao} es solo el gasto autónomo. La función completa es DA(Y) = {Ao} + c(1 − t)Y; la igualdad Y = DA se cumple en el equilibrio.</p>
+ <p class="context"><b>Escenarios independientes:</b> el ítem 2 cambia solo G a 490; el ítem 3 cambia solo t a 0,15 y mantiene G = 700. Convención de ahorro: SF = Y − C − ({T} + tY); SE = I + G − ({T} + tY).</p>
+ <div class="exercise-index"><button class="btn" data-goto="s-res-1">1 · Equilibrio y multiplicador</button><button class="btn alt" data-goto="s-res-ahorro">1 · Ahorro</button><button class="btn" data-goto="s-res-2">2 · Recorte de G</button><button class="btn" data-goto="s-res-3">3 · Baja de t</button><button class="btn alt" data-goto="s-res-fiscal">3 · Saldo fiscal</button><button class="btn alt" data-goto="s-taller">Volver al enunciado</button></div>
+</section>
+
+<section class="slide worked" id="s-res-1">
+ <div class="hd"><p class="ey">Taller resuelto · Ítem 1 · Producción y multiplicador</p><h2>Situación inicial: obtener Y* y αG</h2></div>
+ <p class="context">c = 0,80 · t = 0,25 · G = 700 · Yd = Y + 100 − (200 + 0,25Y) = 0,75Y − 100.</p>
+ <div class="method-grid"><div class="method active" data-method="1"><div class="method-head"><p class="method-label">Método 1</p><h3>Desde Y = DA = C + I + G</h3><span class="method-state">Primero</span></div><div class="step" data-step="1"><p><b>1.</b> Escribir la condición de equilibrio.</p><p class="eq">Y = DA = C + I + G</p></div><div class="step" data-step="2"><p><b>2.</b> Sustituir todas las funciones con números.</p><p class="eq compact">Y = 400 + 0,80(Y + 100 − 200 − 0,25Y)<br>+ 800 + 700</p></div><div class="step" data-step="3"><p><b>3.</b> Distribuir y agrupar constantes.</p><p class="eq compact">Y = 400 + 0,60Y + 80 − 160 + 800 + 700<br>Y = 1.820 + 0,60Y</p></div><div class="step" data-step="4"><p><b>4.</b> Llevar los términos con Y al mismo lado.</p><p class="eq">Y − 0,60Y = 1.820 ⇒ 0,40Y = 1.820</p></div><div class="step" data-step="5"><p><b>5.</b> Despejar; el factor 1/0,40 es el multiplicador.</p><p class="eq">Y* = 1.820 / 0,40 = <b>4.550</b><br>α<sub>G</sub> = 1 / 0,40 = <b>2,50</b></p></div></div><div class="method direct waiting" data-method="2"><div class="method-head"><p class="method-label">Método 2</p><h3>Multiplicador × gasto autónomo</h3><span class="method-state">Después</span></div><div class="method-wait"><span class="wait-number">02</span><p><b>Después, el segundo método.</b><br>Primero completamos el desarrollo de la izquierda.</p></div><div class="step" data-step="6"><p><b>1.</b> Identificar el componente autónomo.</p><p class="eq">{Ao} = {C} + c{TR} − c{T} + {I} + {G}</p></div><div class="step" data-step="7"><p><b>2.</b> Reemplazar sus valores y sumar.</p><p class="eq compact">{Ao} = 400 + 0,80 × 100 − 0,80 × 200<br>+ 800 + 700 = <b>1.820</b></p></div><div class="step" data-step="8"><p><b>3.</b> Escribir el multiplicador del gasto.</p><p class="eq">α<sub>G</sub> = 1 / [1 − c(1 − t)]</p></div><div class="step" data-step="9"><p><b>4.</b> Reemplazar c y t; calcular el denominador.</p><p class="eq">α<sub>G</sub> = 1 / [1 − 0,80(1 − 0,25)]<br>= 1 / 0,40 = <b>2,50</b></p></div><div class="step" data-step="10"><p><b>5.</b> Multiplicar ambos resultados.</p><p class="eq">Y* = DA(Y*) = α<sub>G</sub> × {Ao}<br>Y* = 2,50 × 1.820 = <b>4.550</b></p></div></div></div>
+ <p class="result" data-step="11"><b>Comprobación:</b> DA(4.550) = 1.820 + 0,60 × 4.550 = 4.550 = Y*. Ambos métodos dan Y* = <b>4.550</b> y α<sub>G</sub> = <b>2,50</b>.</p>
+ <div class="work-controls"><button class="btn alt" data-goto="s-ejercicios">Índice</button><button class="btn" data-work-next="s-res-1">Siguiente paso →</button><button class="btn alt" data-reveal="s-res-1">Ver ambos completos</button><button class="btn alt" data-reset="s-res-1">Reiniciar</button><span class="work-progress" aria-live="polite">Primero: método 1 · → para comenzar</span></div>
+</section>
+
+<section class="slide worked" id="s-res-ahorro">
+ <div class="hd"><p class="ey">Taller resuelto · Ítem 1 · Ahorros SF y SE</p><h2>Ahorro de las familias y de la economía</h2></div>
+ <p class="context">Con Y* = 4.550: SF = Y − C − ({T} + tY) y SE = I + G − ({T} + tY). Se parte de Y, sin sumar TR por separado; TR se mantiene dentro de Yd al calcular C.</p>
+ <div class="method-grid"><div class="method active" data-method="1"><div class="method-head"><p class="method-label">Continuación del método 1</p><h3>SF · Ahorro de las familias</h3><span class="method-state">Primero</span></div><div class="step" data-step="1"><p><b>1.</b> Restar a Y todo el consumo y todos los impuestos.</p><p class="eq">SF = Y − C − ({T} + tY)</p></div><div class="step" data-step="2"><p><b>2.</b> Sustituir las funciones completas de C y de T.</p><p class="eq">SF = 4.550 − [400 + 0,80Yd]<br>− [200 + 0,25 × 4.550]</p></div><div class="step" data-step="3"><p><b>3.</b> Reemplazar Yd dentro de la función de consumo.</p><p class="eq full">SF = 4.550 − [400 + 0,80 × (4.550 + 100<br>− 200 − 0,25 × 4.550)] − [200 + 0,25 × 4.550]</p></div><div class="step" data-step="4"><p><b>4.</b> Resolver consumo e impuestos por separado.</p><p class="eq">C = 400 + 0,80 × 3.312,50 = 3.050<br>T = 200 + 1.137,50 = 1.337,50</p></div><div class="step" data-step="5"><p><b>5.</b> Restar ambas funciones a la producción.</p><p class="eq">SF = 4.550 − 3.050 − 1.337,50<br>SF = <b>162,50</b></p></div></div><div class="method direct waiting" data-method="2"><div class="method-head"><p class="method-label">Continuación del método 2</p><h3>SE · Ahorro de la economía</h3><span class="method-state">Después</span></div><div class="method-wait"><span class="wait-number">02</span><p><b>Después, comprobamos con SE.</b><br>Primero calculamos SF con las funciones completas.</p></div><div class="step" data-step="6"><p><b>1.</b> Partir del equilibrio Y = C + I + G.</p><p class="eq">Y − C = I + G</p></div><div class="step" data-step="7"><p><b>2.</b> Restar la función completa de impuestos.</p><p class="eq">SE = I + G − ({T} + tY)</p></div><div class="step" data-step="8"><p><b>3.</b> Sustituir los valores de la situación inicial.</p><p class="eq">SE = 800 + 700 − [200 + 0,25 × 4.550]</p></div><div class="step" data-step="9"><p><b>4.</b> Resolver la recaudación total y el gasto.</p><p class="eq">SE = 1.500 − [200 + 1.137,50]<br>SE = 1.500 − 1.337,50</p></div><div class="step" data-step="10"><p><b>5.</b> Calcular y comparar con el ahorro familiar.</p><p class="eq">SE = <b>162,50</b><br><b>SF = SE = 162,50</b></p></div></div></div>
+ <p class="result" data-step="11"><b>Ambos cuadran:</b> SF = Y − C − T = 162,50; SE = I + G − T = 162,50, porque Y − C = I + G. <b>DP/SP</b> identifica exclusivamente el saldo fiscal.</p>
+ <div class="work-controls"><button class="btn alt" data-goto="s-ejercicios">Índice</button><button class="btn" data-work-next="s-res-ahorro">Siguiente paso →</button><button class="btn alt" data-reveal="s-res-ahorro">Ver ambos completos</button><button class="btn alt" data-reset="s-res-ahorro">Reiniciar</button><span class="work-progress" aria-live="polite">Primero: método 1 · → para comenzar</span></div>
+</section>
+
+<section class="slide worked" id="s-res-2">
+ <div class="hd"><p class="ey">Taller resuelto · Ítem 2 · Política fiscal directa</p><h2>Recorte de G en 30%: nuevo equilibrio</h2></div>
+ <p class="context">Desde la situación inicial: ΔG = −0,30 × 700 = −210 ⇒ G₂ = 700 − 210 = 490. Se mantienen c = 0,80 y t = 0,25.</p>
+ <div class="method-grid"><div class="method active" data-method="1"><div class="method-head"><p class="method-label">Método 1</p><h3>Sustituir el nuevo gasto y despejar</h3><span class="method-state">Primero</span></div><div class="step" data-step="1"><p><b>1.</b> Partir nuevamente de la condición de equilibrio.</p><p class="eq">Y = DA = C + I + G</p></div><div class="step" data-step="2"><p><b>2.</b> Reemplazar G por 490; conservar los demás datos.</p><p class="eq compact">Y = 400 + 0,80(Y + 100 − 200 − 0,25Y)<br>+ 800 + 490</p></div><div class="step" data-step="3"><p><b>3.</b> Distribuir y sumar los términos autónomos.</p><p class="eq compact">Y = 400 + 0,60Y + 80 − 160 + 800 + 490<br>Y = 1.610 + 0,60Y</p></div><div class="step" data-step="4"><p><b>4.</b> Agrupar los términos con producción.</p><p class="eq">Y − 0,60Y = 1.610<br>0,40Y = 1.610</p></div><div class="step" data-step="5"><p><b>5.</b> Dividir por 0,40.</p><p class="eq">Y*₂ = 1.610 / 0,40 = <b>4.025</b></p></div></div><div class="method direct waiting" data-method="2"><div class="method-head"><p class="method-label">Método 2</p><h3>Actualizar el gasto autónomo</h3><span class="method-state">Después</span></div><div class="method-wait"><span class="wait-number">02</span><p><b>Después, el segundo método.</b><br>Primero completamos el desarrollo de la izquierda.</p></div><div class="step" data-step="6"><p><b>1.</b> Recalcular el componente autónomo con G = 490.</p><p class="eq compact">{Ao}₂ = 400 + 0,80 × 100 − 0,80 × 200<br>+ 800 + 490 = <b>1.610</b></p></div><div class="step" data-step="7"><p><b>2.</b> Calcular el multiplicador: c y t no cambian.</p><p class="eq">α<sub>G</sub> = 1 / [1 − 0,80(1 − 0,25)] = <b>2,50</b></p></div><div class="step" data-step="8"><p><b>3.</b> Aplicar multiplicador por componente autónomo.</p><p class="eq">Y*₂ = DA(Y*₂) = α<sub>G</sub> × {Ao}₂<br>Y*₂ = 2,50 × 1.610 = <b>4.025</b></p></div><div class="step" data-step="9"><p><b>4.</b> También se puede calcular directamente el cambio.</p><p class="eq">ΔY = α<sub>G</sub> × ΔG = 2,50 × (−210) = −525</p></div><div class="step" data-step="10"><p><b>5.</b> Sumar el cambio al equilibrio inicial.</p><p class="eq">Y*₂ = 4.550 − 525 = <b>4.025</b></p></div></div></div>
+ <p class="result" data-step="11"><b>Resultado:</b> Y* baja de 4.550 a <b>4.025</b> (−525; −11,54%). DA(4.025) = 1.610 + 0,60 × 4.025 = 4.025. Política fiscal <b>contractiva directa</b>.</p>
+ <div class="work-controls"><button class="btn alt" data-goto="s-ejercicios">Índice</button><button class="btn" data-work-next="s-res-2">Siguiente paso →</button><button class="btn alt" data-reveal="s-res-2">Ver ambos completos</button><button class="btn alt" data-reset="s-res-2">Reiniciar</button><span class="work-progress" aria-live="polite">Primero: método 1 · → para comenzar</span></div>
+</section>
+
+<section class="slide worked" id="s-res-3">
+ <div class="hd"><p class="ey">Taller resuelto · Ítem 3 · Política fiscal indirecta</p><h2>Baja de t a 0,15: nuevo αG y nuevo Y*</h2></div>
+ <p class="context">Desde la situación inicial: t = 0,15 y G = 700. Yd = Y + 100 − 200 − 0,15Y = 0,85Y − 100.</p>
+ <div class="method-grid"><div class="method active" data-method="1"><div class="method-head"><p class="method-label">Método 1</p><h3>Sustituir la tasa y despejar</h3><span class="method-state">Primero</span></div><div class="step" data-step="1"><p><b>1.</b> Partir de la condición de equilibrio.</p><p class="eq">Y = DA = C + I + G</p></div><div class="step" data-step="2"><p><b>2.</b> Reemplazar t por 0,15 y mantener G = 700.</p><p class="eq compact">Y = 400 + 0,80(Y + 100 − 200 − 0,15Y)<br>+ 800 + 700</p></div><div class="step" data-step="3"><p><b>3.</b> Distribuir: ahora 0,80 × 0,85 = 0,68.</p><p class="eq compact">Y = 400 + 0,68Y + 80 − 160 + 800 + 700<br>Y = 1.820 + 0,68Y</p></div><div class="step" data-step="4"><p><b>4.</b> Llevar los términos con Y al mismo lado.</p><p class="eq">Y − 0,68Y = 1.820 ⇒ 0,32Y = 1.820</p></div><div class="step" data-step="5"><p><b>5.</b> Despejar e identificar el nuevo multiplicador.</p><p class="eq">Y*₃ = 1.820 / 0,32 = <b>5.687,50</b><br>α<sub>G,3</sub> = 1 / 0,32 = <b>3,125</b></p></div></div><div class="method direct waiting" data-method="2"><div class="method-head"><p class="method-label">Método 2</p><h3>Recalcular el multiplicador</h3><span class="method-state">Después</span></div><div class="method-wait"><span class="wait-number">02</span><p><b>Después, el segundo método.</b><br>Primero completamos el desarrollo de la izquierda.</p></div><div class="step" data-step="6"><p><b>1.</b> El componente autónomo no depende de t.</p><p class="eq compact">{Ao}₃ = 400 + 0,80 × 100 − 0,80 × 200<br>+ 800 + 700 = <b>1.820</b></p></div><div class="step" data-step="7"><p><b>2.</b> Reemplazar la nueva tasa en el multiplicador.</p><p class="eq">α<sub>G,3</sub> = 1 / [1 − 0,80(1 − 0,15)]</p></div><div class="step" data-step="8"><p><b>3.</b> Calcular el nuevo denominador.</p><p class="eq">α<sub>G,3</sub> = 1 / (1 − 0,68)<br>= 1 / 0,32 = <b>3,125</b></p></div><div class="step" data-step="9"><p><b>4.</b> Aplicar la regla directa de equilibrio.</p><p class="eq">Y*₃ = DA(Y*₃) = α<sub>G,3</sub> × {Ao}₃</p></div><div class="step" data-step="10"><p><b>5.</b> Multiplicar sin redondear el multiplicador.</p><p class="eq">Y*₃ = 3,125 × 1.820 = <b>5.687,50</b></p></div></div></div>
+ <p class="result" data-step="11"><b>Resultado:</b> α<sub>G</sub> sube de 2,50 a <b>3,125</b>; Y* aumenta en 1.137,50. DA(5.687,50) = 1.820 + 0,68 × 5.687,50 = 5.687,50. {Ao} no cambia; <b>cambia la pendiente</b>.</p>
+ <div class="work-controls"><button class="btn alt" data-goto="s-ejercicios">Índice</button><button class="btn" data-work-next="s-res-3">Siguiente paso →</button><button class="btn alt" data-reveal="s-res-3">Ver ambos completos</button><button class="btn alt" data-reset="s-res-3">Reiniciar</button><span class="work-progress" aria-live="polite">Primero: método 1 · → para comenzar</span></div>
+</section>
+
+<section class="slide worked" id="s-res-fiscal">
+ <div class="hd"><p class="ey">Taller resuelto · Ítem 3 · Saldo fiscal</p><h2>Con el nuevo Y*, obtener déficit o superávit</h2></div>
+ <p class="context">Usamos Y*₃ = 5.687,50, t = 0,15, G = 700 y TR = 100. Saldo fiscal = ingresos − egresos: positivo indica superávit; negativo, déficit.</p>
+ <div class="method-grid"><div class="method active" data-method="1"><div class="method-head"><p class="method-label">Continuación del método 1</p><h3>Calcular ingresos y egresos</h3><span class="method-state">Primero</span></div><div class="step" data-step="1"><p><b>1.</b> Tomar Y* obtenido por despeje.</p><p class="eq">Y*₃ = 1.820 / 0,32 = 5.687,50</p></div><div class="step" data-step="2"><p><b>2.</b> Reemplazar Y* en la función de impuestos.</p><p class="eq">T₃ = 200 + 0,15 × 5.687,50<br>T₃ = 200 + 853,125 = 1.053,125</p></div><div class="step" data-step="3"><p><b>3.</b> Calcular los egresos del gobierno.</p><p class="eq">G + TR = 700 + 100 = 800</p></div><div class="step" data-step="4"><p><b>4.</b> Restar los egresos a la recaudación.</p><p class="eq">DP/SP₃ = T₃ − G − TR<br>DP/SP₃ = 1.053,125 − 700 − 100 = 253,125</p></div><div class="step" data-step="5"><p><b>5.</b> Redondear al final e interpretar el signo.</p><p class="eq compact">DP/SP₃ ≈ <b>+253,13 ⇒ superávit fiscal</b></p></div></div><div class="method direct waiting" data-method="2"><div class="method-head"><p class="method-label">Continuación del método 2</p><h3>Sustituir Y* = αG × Ao en el saldo</h3><span class="method-state">Después</span></div><div class="method-wait"><span class="wait-number">02</span><p><b>Después, el segundo método.</b><br>Primero completamos el desarrollo de la izquierda.</p></div><div class="step" data-step="6"><p><b>1.</b> Escribir el saldo en función del equilibrio.</p><p class="eq">DP/SP = {T} + t(α<sub>G</sub> × {Ao}) − G − TR</p></div><div class="step" data-step="7"><p><b>2.</b> Reemplazar todos los datos del ítem 3.</p><p class="eq compact">DP/SP₃ = 200 + 0,15 × (3,125 × 1.820)<br>− 700 − 100</p></div><div class="step" data-step="8"><p><b>3.</b> Resolver el producto que determina Y*.</p><p class="eq">DP/SP₃ = 200 + 0,15 × 5.687,50 − 800</p></div><div class="step" data-step="9"><p><b>4.</b> Calcular el saldo sin redondeos intermedios.</p><p class="eq">DP/SP₃ = 200 + 853,125 − 800 = 253,125</p></div><div class="step" data-step="10"><p><b>5.</b> Redondear e interpretar: el mismo resultado.</p><p class="eq compact">DP/SP₃ ≈ <b>+253,13 ⇒ superávit fiscal</b></p></div></div></div>
+ <p class="result" data-step="11"><b>Comparación:</b> DP/SP inicial = 200 + 0,25 × 4.550 − 700 − 100 = +537,50. La baja de t reduce el superávit en <b>284,375</b> (≈ 284,38), pero sigue siendo positivo.</p>
+ <div class="work-controls"><button class="btn alt" data-goto="s-ejercicios">Índice</button><button class="btn" data-work-next="s-res-fiscal">Siguiente paso →</button><button class="btn alt" data-reveal="s-res-fiscal">Ver ambos completos</button><button class="btn alt" data-reset="s-res-fiscal">Reiniciar</button><span class="work-progress" aria-live="polite">Primero: método 1 · → para comenzar</span></div>
+</section>
+
 <!-- 29 -->
 <section class="slide" id="s-pauta">
  <div class="hd"><p class="ey">Taller aplicado · Pauta (avanza con →)</p><h2>Compara tu resultado</h2></div>
  <div class="col" style="gap:14px">
-  <div class="card col" data-step="1" style="gap:6px"><p class="ey" style="font-size:17px">1 · Situación inicial</p><p style="color:var(--navy)">{Ao} = 400 + 0,80·100 − 0,80·200 + 800 + 700 = 1.820 · α<sub>G</sub> = 1 / (1 − 0,80·0,75) = <b>2,50</b></p><p style="color:var(--navy)">Y* = <b>4.550</b> · Yd = 3.312,50 · C = 3.050 · Ahorro S = <b>262,50</b></p></div>
+  <div class="card col" data-step="1" style="gap:6px"><p class="ey" style="font-size:17px">1 · Situación inicial</p><p style="color:var(--navy)">{Ao} = 400 + 0,80·100 − 0,80·200 + 800 + 700 = 1.820 · α<sub>G</sub> = 1 / (1 − 0,80·0,75) = <b>2,50</b></p><p style="color:var(--navy)">Y* = <b>4.550</b> · Yd = 3.312,50 · C = 3.050 · SF = SE = <b>162,50</b></p></div>
   <div class="card col" data-step="2" style="gap:6px"><p class="ey" style="font-size:17px">2 · Recorte de G en 30,00%</p><p style="color:var(--navy)">ΔG = −0,30 × 700 = −210 · ΔY = 2,50 × (−210) = <b>−525</b></p><p style="color:var(--navy)">Y* pasa de 4.550 a <b>4.025</b> (−11,54%)</p></div>
-  <div class="card nv col" data-step="3" style="gap:6px"><p class="ey" style="font-size:17px;color:#F2C14E">3 · Tasa impositiva t = 0,15</p><p style="color:#F6F2E9">α<sub>G</sub> = 1 / (1 − 0,80·0,85) = <b>3,125</b> · Y* = 1.820 × 3,125 = <b>5.687,50</b></p><p style="color:#F6F2E9">T = 200 + 0,15 × 5.687,50 = 1.053,13 · Saldo = 1.053,13 − 700 − 100 = <b>+253,13 (superávit)</b></p></div>
+  <div class="card nv col" data-step="3" style="gap:6px"><p class="ey" style="font-size:17px;color:#F2C14E">3 · Tasa impositiva t = 0,15 · Desde la situación inicial, G = 700</p><p style="color:#F6F2E9">α<sub>G</sub> = 1 / (1 − 0,80·0,85) = <b>3,125</b> · Y* = 1.820 × 3,125 = <b>5.687,50</b></p><p style="color:#F6F2E9">T = 200 + 0,15 × 5.687,50 = 1.053,125 · DP/SP = 1.053,125 − 700 − 100 ≈ <b>+253,13 (superávit)</b></p></div>
   <p data-step="4" style="font-size:20px;color:var(--mut)">Con t = 0,25 el superávit inicial era 537,50: bajar t lo reduce, pero no lo elimina.</p>
  </div>
 </section>
@@ -486,7 +594,7 @@ sup{font-size:.6em}
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 function F(n,d=2){if(!isFinite(n))return '—';const s=n.toFixed(d).split('.');s[0]=s[0].replace(/\B(?=(\d{3})+(?!\d))/g,'.');return s.join(',');}
 function ovify(root){const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT),ns=[];while(w.nextNode())ns.push(w.currentNode);
- ns.forEach(n=>{if(n.nodeValue.includes('{')){const sp=document.createElement('span');sp.innerHTML=n.nodeValue.replace(/\{([^}]+)\}/g,'<span class="ov">$1</span>');n.replaceWith(...sp.childNodes);}});}
+ ns.forEach(n=>{if(n.nodeValue.includes('{')){const sp=document.createElement('span');sp.innerHTML=n.nodeValue.replace(/\{(C|I|G|TR|T|Ao|K|A)\}/g,'<span class="ov">$1</span>');n.replaceWith(...sp.childNodes);}});}
 function ovT(x,s,px,py,font){x.font=font;x.fillText(s,px,py);const w=x.measureText(s).width;x.beginPath();x.moveTo(px,py-parseInt(font.match(/(\d+)px/)[1])*0.85);x.lineTo(px+w,py-parseInt(font.match(/(\d+)px/)[1])*0.85);x.lineWidth=2;x.strokeStyle=x.fillStyle;x.stroke();}
 
 /* ---------- motor de láminas ---------- */
@@ -497,16 +605,46 @@ function go(i,back){cur=Math.max(0,Math.min(S.length-1,i));S.forEach((s,j)=>s.cl
  $('#ct').textContent=(cur+1)+' / '+S.length;$('#bar').style.width=((cur+1)/S.length*100)+'%';
  const st=$('#stage');st.classList.toggle('dark-on',sl.classList.contains('dark'));st.classList.toggle('coral-on',sl.classList.contains('coral'));
  $('#ft').style.display=sl.classList.contains('dark')?'none':'block';
- history.replaceState(null,'','#'+(cur+1));}
+ history.replaceState(null,'','#'+(cur+1));syncWorked(sl);}
 function next(){const sl=S[cur],h=[...sl.querySelectorAll('[data-step]:not(.shown)')];
- if(h.length){const m=Math.min(...h.map(e=>+e.dataset.step));h.filter(e=>+e.dataset.step==m).forEach(e=>e.classList.add('shown'));}else go(cur+1);}
+ if(h.length){const m=Math.min(...h.map(e=>+e.dataset.step));h.filter(e=>+e.dataset.step==m).forEach(e=>e.classList.add('shown'));syncWorked(sl);}else go(cur+1);}
 function prev(){const sl=S[cur],h=[...sl.querySelectorAll('[data-step].shown')];
- if(h.length){const m=Math.max(...h.map(e=>+e.dataset.step));h.filter(e=>+e.dataset.step==m).forEach(e=>e.classList.remove('shown'));}else go(cur-1,true);}
+ if(h.length){const m=Math.max(...h.map(e=>+e.dataset.step));h.filter(e=>+e.dataset.step==m).forEach(e=>e.classList.remove('shown'));syncWorked(sl);}else go(cur-1,true);}
 addEventListener('keydown',e=>{if(/INPUT|TEXTAREA/.test(e.target.tagName)&&e.target.type!='range')return;
  if(['ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();next();}
  else if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();prev();}
  else if(e.key=='Home')go(0);else if(e.key=='End')go(S.length-1);else if(e.key=='f')$('#fs').click();});
 $('#nx').onclick=next;$('#pv').onclick=prev;
+
+// La secuencia recorre el método 1 (1–5), el método 2 (6–10) y la comprobación (11).
+function syncWorked(sl){
+ const cards=[...sl.querySelectorAll('[data-method]')];if(!cards.length)return;
+ const shown=[...sl.querySelectorAll('[data-step].shown')];
+ const phase=shown.length?Math.max(...shown.map(e=>+e.dataset.step)):0;
+ sl.querySelectorAll('.current-step').forEach(e=>e.classList.remove('current-step'));
+ sl.querySelectorAll('.step.shown').forEach(e=>e.classList.toggle('current-step',+e.dataset.step===phase));
+ cards.forEach(card=>{
+  const n=+card.dataset.method,active=n===1?phase<5:phase>=6&&phase<10;
+  card.classList.toggle('active',active);
+  card.classList.toggle('waiting',n===2&&phase<6);
+  const label=n===1?(phase<1?'Primero':phase<5?'En desarrollo':'Completo'):(phase<6?'Después':phase<10?'En desarrollo':'Completo');
+  card.querySelector('.method-state').textContent=label;
+ });
+ const text=phase===0?'Primero: método 1 · → para comenzar':phase<5?'Método 1 · paso '+phase+' de 5':phase===5?'Método 1 completo · → inicia el método 2':phase<10?'Método 2 · paso '+(phase-5)+' de 5':phase===10?'Ambos completos · → comprueba el resultado':'Comparación final · ambos métodos completos';
+ sl.querySelector('.work-progress').textContent=text;
+ sl.querySelector('[data-work-next]').textContent=phase===5?'Iniciar método 2 →':phase===10?'Comprobar resultado →':phase===11?'Siguiente lámina →':'Siguiente paso →';
+}
+$$('[data-goto]').forEach(b=>b.onclick=()=>go(S.findIndex(s=>s.id===b.dataset.goto)));
+$$('[data-work-next]').forEach(b=>b.onclick=next);
+$$('[data-reveal]').forEach(b=>b.onclick=()=>{
+ const sl=document.getElementById(b.dataset.reveal);
+ sl.querySelectorAll('[data-step]').forEach(e=>e.classList.add('shown'));syncWorked(sl);
+});
+$$('[data-reset]').forEach(b=>b.onclick=()=>{
+ const sl=document.getElementById(b.dataset.reset);
+ sl.querySelectorAll('[data-step]').forEach(e=>e.classList.remove('shown'));syncWorked(sl);
+});
+
 $('#fs').onclick=()=>{document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();};
 let tx=null;addEventListener('touchstart',e=>{tx=e.touches[0].clientX;},{passive:true});
 addEventListener('touchend',e=>{if(tx==null)return;const d=e.changedTouches[0].clientX-tx;if(Math.abs(d)>70){d<0?next():prev();}tx=null;});
@@ -515,7 +653,7 @@ addEventListener('resize',fit);
 /* ---------- modelo ---------- */
 const PRE={mx:{Cb:1350,c:.8,Ib:800,Gb:550,Tb:400,TRb:250,t:.2},id:{Cb:400,c:.8,Ib:800,Gb:700,Tb:200,TRb:100,t:.25}};
 const LAB={Cb:['{C}','Consumo autónomo',0,3000,10],c:['c','Propensión marginal a consumir',.5,.95,.01],Ib:['{I}','Inversión autónoma',0,2000,10],Gb:['{G}','Gasto público autónomo',0,2000,10],Tb:['{T}','Impuesto autónomo',0,1000,10],TRb:['{TR}','Transferencias autónomas',0,1000,10],t:['t','Tasa impositiva',0,.5,.01]};
-function calc(p){const Ao=p.Cb+p.c*p.TRb-p.c*p.Tb+p.Ib+p.Gb,a=1/(1-p.c*(1-p.t)),Y=a*Ao,T=p.Tb+p.t*Y,Yd=Y+p.TRb-T,C=p.Cb+p.c*Yd;return{Ao,a,Y,T,Yd,C,S:Yd-C,DP:T-p.Gb-p.TRb};}
+function calc(p){const Ao=p.Cb+p.c*p.TRb-p.c*p.Tb+p.Ib+p.Gb,a=1/(1-p.c*(1-p.t)),Y=a*Ao,T=p.Tb+p.t*Y,Yd=Y+p.TRb-T,C=p.Cb+p.c*Yd;const SF=Y-C-T,SE=p.Ib+p.Gb-T;return{Ao,a,Y,T,Yd,C,SF,SE,S:SF,DP:T-p.Gb-p.TRb};}
 function fv(k,v){return k=='t'?F(v*100,2)+'%':k=='c'?F(v,2):F(v,0);}
 
 function chart(cv,p,base,ghost){const x=cv.getContext('2d'),W=cv.width,H=cv.height,L=116,B=H-56,R=W-30,Tp=34;
@@ -542,7 +680,7 @@ function mountSim(host,cfg){cfg=Object.assign({preset:'mx',show:Object.keys(LAB)
  const cv=host.querySelector('canvas'),sl=host.querySelector('.sl'),outs=host.querySelector('.outs'),msg=host.querySelector('.msg'),sc=host.querySelector('.scen');
  cfg.show.forEach(k=>{const[l,n,mn,mx,st]=LAB[k];const lb=document.createElement('label');lb.innerHTML=`<span class="k">${l}</span><span class="n">${n}</span><input type="range" min="${mn}" max="${mx}" step="${st}"><b class="v"></b>`;
   const inp=lb.querySelector('input');inp.value=p[k];inp.oninput=()=>{p[k]=Math.round(parseFloat(inp.value)*100)/100;upd();};lb.dataset.k=k;sl.appendChild(lb);});
- const OUT={Ao:['{Ao}','Componente autónomo',r=>r.Ao,2],a:['α<sub>G</sub>','Multiplicador',r=>r.a,3],Y:['Y*','Producción de equilibrio',r=>r.Y,2],Yd:['Yd','Ingreso disponible',r=>r.Yd,2],C:['C','Consumo',r=>r.C,2],S:['S','Ahorro privado',r=>r.S,2],DP:['DP/SP','Saldo fiscal',r=>r.DP,2,1],dY:['ΔY','Cambio de Y* vs. situación inicial',(r,rb)=>r.Y-rb.Y,2,2]};
+ const OUT={Ao:['{Ao}','Componente autónomo',r=>r.Ao,2],a:['α<sub>G</sub>','Multiplicador',r=>r.a,3],Y:['Y*','Producción de equilibrio',r=>r.Y,2],Yd:['Yd','Ingreso disponible',r=>r.Yd,2],C:['C','Consumo',r=>r.C,2],S:['SF = SE','Familias / economía',r=>r.SF,2],SE:['SE','Ahorro de la economía',r=>r.SE,2],DP:['DP/SP','Saldo fiscal',r=>r.DP,2,1],dY:['ΔY','Cambio de Y* vs. situación inicial',(r,rb)=>r.Y-rb.Y,2,2]};
  outs.innerHTML=cfg.out.map(k=>`<div class="o" data-o="${k}"><small>${OUT[k][0]}</small><b></b><i>${OUT[k][1]}</i></div>`).join('');
  function setBtn(l,f){const b=document.createElement('button');b.className='btn alt';b.textContent=l;b.onclick=()=>{p=f();sl.querySelectorAll('label').forEach(lb=>lb.querySelector('input').value=p[lb.dataset.k]);upd();};sc.appendChild(b);}
  setBtn('Situación inicial',()=>({...base}));cfg.scen.forEach(s=>setBtn(s.l,()=>({...base,...s.set})));
@@ -592,7 +730,7 @@ function loop(ts){anims.forEach(a=>{if(a.el.classList.contains('on'))a.fn(ts);})
  $$('#fl-opt button').forEach(b=>b.onclick=()=>{f=b.dataset.f;$$('#fl-opt button').forEach(o=>o.classList.toggle('ok',o==b));});
  const N='#12264A',R='#E4572E',T='#0F9B7F';
  const E=[{p:[[290,62],[900,62]],k:N,l:'Consumo (C)',lx:480,ly:46},{p:[[900,100],[290,100]],k:N,l:'Ingreso (Y)',lx:480,ly:136},
- {p:[[170,114],[170,330],[466,330]],k:R,t:'f',l:'Ahorro (S)',lx:190,ly:312},{p:[[70,114],[70,560],[466,560]],k:R,t:'f',l:'Impuestos (T)',lx:90,ly:545},
+ {p:[[170,114],[170,330],[466,330]],k:R,t:'f',l:'Ahorro (SF)',lx:190,ly:312},{p:[[70,114],[70,560],[466,560]],k:R,t:'f',l:'Impuestos (T)',lx:90,ly:545},
  {p:[[766,330],[1030,330],[1030,114]],k:T,t:'i',l:'Inversión (I)',lx:790,ly:312},{p:[[766,560],[1110,560],[1110,114]],k:T,t:'i',l:'Gasto público (G)',lx:790,ly:545}];
  const len=p=>{let s=0;for(let i=1;i<p.length;i++)s+=Math.hypot(p[i][0]-p[i-1][0],p[i][1]-p[i-1][1]);return s;};
  const at=(p,d)=>{for(let i=1;i<p.length;i++){const a=p[i-1],b=p[i],L=Math.hypot(b[0]-a[0],b[1]-a[1]);if(d>L)d-=L;else return[a[0]+(b[0]-a[0])*d/L,a[1]+(b[1]-a[1])*d/L];}return p[p.length-1];};
@@ -601,7 +739,7 @@ function loop(ts){anims.forEach(a=>{if(a.el.classList.contains('on'))a.fn(ts);})
   E.forEach(e=>{const on=!e.t||f=='all'||(f=='f'&&e.t=='f')||(f=='i'&&e.t=='i');x.globalAlpha=on?1:.12;const L=len(e.p);x.strokeStyle=e.k;x.lineWidth=4;x.globalAlpha*=.35;x.beginPath();x.moveTo(...e.p[0]);e.p.slice(1).forEach(q=>x.lineTo(...q));x.stroke();x.globalAlpha=on?1:.12;
    x.fillStyle=e.k;for(let k=0;k<6;k++){const q=at(e.p,(ts/18+k*L/6)%L);x.beginPath();x.arc(q[0],q[1],9,0,7);x.fill();}x.font='bold 26px DM Sans,Arial';x.fillText(e.l,e.lx,e.ly);x.globalAlpha=1;});
   box(30,30,260,84,'#8C5A52','Familias');box(900,30,260,84,'#B83A1F','Empresas');box(466,290,300,84,'#12264A','Mercados financieros');box(466,520,300,84,'#6B5B3E','Sector público');
-  x.font='bold 26px DM Sans,Arial';x.fillStyle=R;x.fillText('● Fugas: S, T',480,430);x.fillStyle=T;x.fillText('● Inyecciones: I, G',480,470);});})();
+  x.font='bold 26px DM Sans,Arial';x.fillStyle=R;x.fillText('● Fugas: SF, T',480,430);x.fillStyle=T;x.fillText('● Inyecciones: I, G',480,470);});})();
 
 // multiplicador (gráfico de barras vs t)
 (function(){const sim={p:{c:.8,t:.2}},host=$('#m-sim');host.innerHTML='<div class="sl"></div>';const sl=host.firstChild;
@@ -631,7 +769,7 @@ function drawRounds(x,W,H,n,hl,o){const c=SH.c,t=SH.t,r=c*(1-t),lim=100/(1-r),B=
  x.textAlign='left';x.fillStyle='#5A6580';x.font='15px DM Sans,Arial';x.fillText('Bajo cada barra: n° de ronda y exponente (n−1) de [c(1 − t)]',30,H-6);
  x.strokeStyle='#C9CFDB';x.lineWidth=3;x.beginPath();x.moveTo(20,B);x.lineTo(W-10,B);x.stroke();
  x.fillStyle='#12264A';x.font='bold 20px DM Sans,Arial';x.fillText('Aumento acumulado de Y',30,30);x.fillStyle='#0F7B66';x.font='bold 46px Fraunces,Georgia,serif';x.fillText(F(cum,2),30,76);
- x.fillStyle='#5A6580';x.font='18px DM Sans,Arial';x.fillText('c = '+F(c,2)+' · t = '+F(t*100,2)+'% · c(1 − t) = '+F(r,2)+' · Límite: '+F(lim,2),30,102);
+ x.fillStyle='#5A6580';x.font='18px DM Sans,Arial';x.fillText('c = '+F(c,2)+' · t = '+F(t*100,2)+'% · c(1 − t) = '+F(r,4)+' · Límite: '+F(lim,2),30,102);
  if(o.legend)[['#0F7B66','Consumo (pasa a la ronda siguiente)'],['#B83A1F','Ahorro (fuga)'],['#F2C14E','Impuestos (fuga)']].forEach((q,i)=>{x.fillStyle=q[0];x.fillRect(W-340,22+i*26,16,16);x.fillStyle='#12264A';x.font='17px DM Sans,Arial';x.fillText(q[1],W-316,36+i*26);});
  return cum;}
 // slide 19: rondas animadas
@@ -642,10 +780,10 @@ function drawRounds(x,W,H,n,hl,o){const c=SH.c,t=SH.t,r=c*(1-t),lim=100/(1-r),B=
  $('#rd-nx').onclick=()=>{play=false;pl.textContent='Reproducir';n=Math.min(12,n+1);};
  reg('s-rondas',ts=>{const dt=ts-last;last=ts;if(play&&dt<300){acc+=dt;if(acc>1200){acc=0;if(n<12)n++;else{play=false;pl.textContent='Reproducir';}}}
   const{c,t}=SH,r=c*(1-t),lim=100/(1-r);const cum=drawRounds(x,920,400,n,n-1,{legend:true});
-  $('#rd-eq').innerHTML=`ΔY = 100{1 + c(1 − t) + [c(1 − t)]² + …} = 100 / (1 − ${F(r,2)}) = ${F(lim,2)}`;
+  $('#rd-eq').innerHTML=`ΔY = 100{1 + c(1 − t) + [c(1 − t)]² + …} = 100 / (1 − ${F(r,4)}) ≈ ${F(lim,2)}`;
   const k2=n+'|'+c+'|'+t;if(k2!=key){key=k2;const Y=100*Math.pow(r,n-1),cons=r*Y,imp=t*Y,ah=Y-cons-imp;
    const tile=(a,b,col)=>`<div style="flex:1;border-left:6px solid ${col};padding:2px 12px"><div style="font-size:15px;color:#5A6580">${a}</div><b style="font-size:22px;color:#12264A;font-family:Fraunces,Georgia,serif">${b}</b></div>`;
-   card.innerHTML=`<p style="font-size:19px;line-height:1.3;color:#12264A"><b>Ronda ${n}:</b> ingreso = 100·[c(1 − t)]<sup>${n-1}</sup> = 100 × ${F(r,2)}<sup>${n-1}</sup> = <b>${F(Y,2)}</b>. ${n==1?'Es el gasto del gobierno, ingreso de sus proveedores.':'Es el consumo de la ronda anterior.'}</p><div style="display:flex;gap:10px;margin:8px 0 6px">${tile('Ingreso recibido',F(Y,2),'#12264A')}${tile('Impuestos: t × ingreso',F(imp,2),'#F2C14E')}${tile('Ahorro: (1 − c)(1 − t) × ingreso',F(ah,2),'#B83A1F')}${tile('Consumo: c(1 − t) × ingreso',F(cons,2),'#0F7B66')}</div><p style="font-size:18px;line-height:1.35;color:#3A4660">El consumo, ${F(cons,2)}, es el ingreso de la ronda ${n+1}. Acumulado tras ${n}: S<sub>${n}</sub> = 100{1 − [c(1 − t)]<sup>${n}</sup>}/(1 − c(1 − t)) = <b>${F(cum,2)}</b>; límite 100/(1 − c(1 − t)) = <b>${F(lim,2)}</b>.</p>`;}});})();
+   card.innerHTML=`<p style="font-size:19px;line-height:1.3;color:#12264A"><b>Ronda ${n}:</b> ingreso = 100·[c(1 − t)]<sup>${n-1}</sup> = 100 × ${F(r,4)}<sup>${n-1}</sup> ≈ <b>${F(Y,2)}</b>. ${n==1?'Es el gasto del gobierno, ingreso de sus proveedores.':'Es el consumo de la ronda anterior.'}</p><div style="display:flex;gap:10px;margin:8px 0 6px">${tile('Ingreso recibido',F(Y,2),'#12264A')}${tile('Impuestos: t × ingreso',F(imp,2),'#F2C14E')}${tile('Ahorro: (1 − c)(1 − t) × ingreso',F(ah,2),'#B83A1F')}${tile('Consumo: c(1 − t) × ingreso',F(cons,2),'#0F7B66')}</div><p style="font-size:18px;line-height:1.35;color:#3A4660">El consumo, ${F(cons,2)}, es el ingreso de la ronda ${n+1}. Acumulado tras ${n}: S<sub>${n}</sub> = 100{1 − [c(1 − t)]<sup>${n}</sup>}/(1 − c(1 − t)) ≈ <b>${F(cum,2)}</b>; límite 100/(1 − c(1 − t)) ≈ <b>${F(lim,2)}</b>.</p>`;}});})();
 // slide 20: barras sincronizadas con las fórmulas
 (function(){const cv=$('#rd2'),x=cv.getContext('2d');
  reg('s-serie1',ts=>{const sh=[...$$('#s-serie1 [data-step].shown')].map(e=>+e.dataset.step),m=sh.length?Math.max(...sh):0;
@@ -662,7 +800,7 @@ function drawRounds(x,W,H,n,hl,o){const c=SH.c,t=SH.t,r=c*(1-t),lim=100/(1-r),B=
   x.setLineDash([10,7]);x.strokeStyle='#B83A1F';x.lineWidth=3;x.beginPath();x.moveTo(20,B-lim*sc);x.lineTo(W-10,B-lim*sc);x.stroke();x.setLineDash([]);
   x.textAlign='left';x.fillStyle='#B83A1F';x.font='bold 20px DM Sans,Arial';x.fillText('Límite = 100/(1 − c(1 − t)) = '+F(lim,2),30,B-lim*sc-10+ (lim*sc>60?0:0));
   x.fillStyle='#5A6580';x.font='16px DM Sans,Arial';x.fillText('Número de rondas sumadas (n)',30,H-8);x.strokeStyle='#C9CFDB';x.lineWidth=3;x.beginPath();x.moveTo(20,B);x.lineTo(W-10,B);x.stroke();
-  $('#ej').innerHTML=`c = ${F(c,2)} · t = ${F(t*100,2)}%<br>c(1 − t) = ${F(c,2)} × ${F(1-t,2)} = ${F(r,2)}<br>α<sub>G</sub> = 1/(1 − ${F(r,2)}) = ${F(al,2)}<br>ΔY = ${F(al,2)} × 100 = <b style="color:#F2C14E">${F(lim,2)}</b>`;});})();
+  $('#ej').innerHTML=`c = ${F(c,2)} · t = ${F(t*100,2)}%<br>c(1 − t) = ${F(c,2)} × ${F(1-t,2)} = ${F(r,4)}<br>α<sub>G</sub> = 1/(1 − ${F(r,4)}) ≈ ${F(al,4)}<br>ΔY = 100/(1 − ${F(r,4)}) ≈ <b style="color:#F2C14E">${F(lim,2)}</b>`;});})();
 /* ---------- simuladores en láminas ---------- */
 mountSim($('#e-sim'),{preset:'mx',out:['Ao','a','Y','Yd','DP'],w:700,h:520});
 mountSim($('#d-sim'),{preset:'mx',show:['Gb','TRb','Tb'],out:['Y','dY','DP'],w:760,h:500,
@@ -681,16 +819,29 @@ mountSim($('#t-sim'),{preset:'id',out:['Ao','a','Y','S','DP','dY'],w:700,h:520,s
    $('#jg-sc').textContent=`Aciertos: ${ok} de ${done}`+(done==D.length?' · ¡Completado!':'');});h.appendChild(r);});ovify(h);})();
 
 /* ---------- verdadero o falso ---------- */
-(function(){const D=[['Si sube la tasa impositiva t, el multiplicador aumenta.',false,'Lo reduce: la pendiente c(1 − t) baja.'],['Subir el gasto público G es una política fiscal directa.',true,'Desplaza la posición de la DA.'],['Bajar t desplaza la DA en paralelo hacia arriba.',false,'Cambia su pendiente, no su posición.'],['Si la recaudación T supera a G + TR, hay superávit fiscal.',true,'DP/SP es positivo.'],['El gobierno controla la propensión marginal a consumir c.',false,'La fijan los hogares; el gobierno controla G, TR, T y t.']];
+(function(){const D=[['Si sube la tasa impositiva t, el multiplicador aumenta.',false,'Lo reduce: la pendiente c(1 − t) baja.'],['Subir el gasto público G es una política fiscal directa.',true,'Desplaza la posición de la DA.'],['Bajar t desplaza la DA en paralelo hacia arriba.',false,'Cambia su pendiente, no su posición.'],['Si la recaudación T supera a G + TR, hay superávit fiscal.',true,'DP/SP es positivo: hay superávit.'],['El gobierno controla la propensión marginal a consumir c.',false,'La fijan los hogares; el gobierno controla G, TR, T y t.']];
  let ok=0,done=0;const h=$('#vf');
  D.forEach(([q,v,e],i)=>{const r=document.createElement('div');r.className='q';r.innerHTML=`<p><b style="color:var(--coral)">${i+1}</b>&nbsp; ${q}<span class="fb" style="display:none"></span></p><div class="opt"><button>Verdadero</button><button>Falso</button></div>`;
   const fb=r.querySelector('.fb');r.querySelectorAll('button').forEach((b,j)=>b.onclick=()=>{if(r.dataset.d)return;r.dataset.d=1;done++;const good=(j==0)==v;if(good)ok++;b.classList.add(good?'ok':'no');fb.style.display='block';fb.style.color=good?'#0B5A4B':'#8A2A14';fb.textContent=(good?'Correcto. ':'Incorrecto. ')+e;$('#vf-sc').textContent=`Aciertos: ${ok} de ${done}`;});h.appendChild(r);});})();
 
 /* ---------- comprobador del taller ---------- */
-(function(){const A={y1:4550,a1:2.5,s1:262.5,y2:4025,a3:3.125,y3:5687.5,d3:253.125};
- const num=s=>{s=s.trim().replace(/\s/g,'');if(!s)return NaN;if(s.includes(','))s=s.replace(/\./g,'').replace(',','.');return parseFloat(s);};
- $('#tl-ck').onclick=()=>{let ok=0,n=0;$$('#s-taller input.num').forEach(i=>{const k=i.dataset.k,v=num(i.value),tol=k[0]=='a'?.011:.51;i.classList.remove('ok','no');if(isNaN(v))return;n++;if(Math.abs(v-A[k])<=tol){ok++;i.classList.add('ok');}else i.classList.add('no');});
-  $('#tl-fb').textContent=n?`${ok} de 7 correctos`:'Completa al menos un campo.';};})();
+function parseWorkshopNumber(s){
+ const raw=s.trim().replace(/\s/g,'');if(!raw)return NaN;
+ if(raw.includes(',')){
+  if(!/^[+-]?(?:\d+|\d{1,3}(?:\.\d{3})+)?(?:,\d+)$/.test(raw))return NaN;
+  return Number(raw.replace(/\./g,'').replace(',','.'));
+ }
+ return /^[+-]?(?:\d+(?:\.\d*)?|\.\d+)$/.test(raw)?Number(raw):NaN;
+}
+(function(){
+ const initial=calc(PRE.id),cut=calc({...PRE.id,Gb:PRE.id.Gb*0.70}),tax=calc({...PRE.id,t:0.15});
+ const A={y1:initial.Y,a1:initial.a,s1:initial.SF,y2:cut.Y,a3:tax.a,y3:tax.Y,d3:tax.DP};
+ $('#tl-ck').onclick=()=>{let ok=0,n=0;$$('#s-taller input.num').forEach(i=>{
+  const k=i.dataset.k,v=parseWorkshopNumber(i.value),tol=k[0]=='a'?0.01:0.50;
+  i.classList.remove('ok','no');if(!i.value.trim())return;n++;
+  if(Number.isFinite(v)&&Math.abs(v-A[k])<=tol+1e-9){ok++;i.classList.add('ok');}else i.classList.add('no');
+ });$('#tl-fb').textContent=n?`${ok} de 7 correctos`:'Completa al menos un campo.';};
+})();
 
 /* ---------- arranque ---------- */
 ovify($('#stage'));fit();requestAnimationFrame(loop);
